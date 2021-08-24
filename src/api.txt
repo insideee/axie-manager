@@ -1,0 +1,7 @@
+https://api.lunaciarover.com/stats/0x59c943601bc4dd20fa050346856d32df079c6279
+
+https://axiesworld.firebaseapp.com/updateSpecific?wallet=0x59c943601bc4dd20fa050346856d32df079c6279
+
+Stats: http://jared.axieapi.xyz/_basicStats/0xc5f700ca10dd77b51669513cdca53a21cbac3bcd
+Earnings: http://jared.axieapi.xyz/_schoEarnings/0xc5f700ca10dd77b51669513cdca53a21cbac3bcd
+Axies: http://jared.axieapi.xyz/_axiesPlease/0xc5f700ca10dd77b51669513cdca53a21cbac3bcd
