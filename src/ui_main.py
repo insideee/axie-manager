@@ -17,8 +17,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1201, 680)
-        MainWindow.setMinimumSize(QSize(1200, 680))
         MainWindow.setStyleSheet(u"border: 0px solid;")
         self.bg = QWidget(MainWindow)
         self.bg.setObjectName(u"bg")
