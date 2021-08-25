@@ -90,7 +90,7 @@ border-bottom-right-radius: 0px;</string>
            <number>0</number>
           </property>
           <property name="leftMargin">
-           <number>5</number>
+           <number>0</number>
           </property>
           <property name="topMargin">
            <number>8</number>
@@ -137,6 +137,12 @@ QPushButton:hover {
              </property>
              <item>
               <widget class="QPushButton" name="btn_toggle">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -159,6 +165,12 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QPushButton" name="btn_home">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -172,6 +184,12 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QPushButton" name="btn_profit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -265,7 +283,7 @@ QPushButton:hover {
              <property name="bottomMargin">
               <number>10</number>
              </property>
-             <item>
+             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
               <widget class="QPushButton" name="btn_settings">
                <property name="minimumSize">
                 <size>
@@ -374,6 +392,12 @@ border-bottom-left-radius: 0px;</string>
                    </property>
                    <item alignment="Qt::AlignVCenter">
                     <widget class="QWidget" name="logo_contant" native="true">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>25</width>
@@ -404,8 +428,35 @@ border-bottom-left-radius: 0px;</string>
                       </property>
                       <item>
                        <widget class="QLabel" name="logo_label">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>25</width>
+                          <height>25</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>25</width>
+                          <height>25</height>
+                         </size>
+                        </property>
                         <property name="text">
-                         <string>logo_label</string>
+                         <string/>
+                        </property>
+                        <property name="pixmap">
+                         <pixmap resource="resources.qrc">:/images/img/mizer_logo.png</pixmap>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                        <property name="margin">
+                         <number>2</number>
                         </property>
                        </widget>
                       </item>
@@ -434,6 +485,9 @@ border-bottom-left-radius: 0px;</string>
                        <widget class="QLabel" name="title1_label">
                         <property name="text">
                          <string>AXIE</string>
+                        </property>
+                        <property name="openExternalLinks">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -574,6 +628,8 @@ border-bottom-left-radius: 0px;</string>
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

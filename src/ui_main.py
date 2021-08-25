@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_mainpiOPWt.ui'
+## Form generated from reading UI file 'ui_mainEEPXUJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -12,11 +12,14 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+import src.resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(1201, 680)
+        MainWindow.setMinimumSize(QSize(1200, 680))
         MainWindow.setStyleSheet(u"border: 0px solid;")
         self.bg = QWidget(MainWindow)
         self.bg.setObjectName(u"bg")
@@ -44,7 +47,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4 = QVBoxLayout(self.menu_container)
         self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setContentsMargins(5, 8, 5, 8)
+        self.verticalLayout_4.setContentsMargins(0, 8, 5, 8)
         self.top_menu = QWidget(self.menu_container)
         self.top_menu.setObjectName(u"top_menu")
         self.top_menu.setMinimumSize(QSize(0, 0))
@@ -62,6 +65,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setContentsMargins(0, 10, 0, 0)
         self.btn_toggle = QPushButton(self.top_menu)
         self.btn_toggle.setObjectName(u"btn_toggle")
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btn_toggle.sizePolicy().hasHeightForWidth())
+        self.btn_toggle.setSizePolicy(sizePolicy)
         self.btn_toggle.setMinimumSize(QSize(0, 30))
         self.btn_toggle.setStyleSheet(u"QPushButton {\n"
 "	background-color: #1E2226;\n"
@@ -75,12 +83,19 @@ class Ui_MainWindow(object):
 
         self.btn_home = QPushButton(self.top_menu)
         self.btn_home.setObjectName(u"btn_home")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.btn_home.sizePolicy().hasHeightForWidth())
+        self.btn_home.setSizePolicy(sizePolicy1)
         self.btn_home.setMinimumSize(QSize(0, 30))
 
         self.verticalLayout_5.addWidget(self.btn_home)
 
         self.btn_profit = QPushButton(self.top_menu)
         self.btn_profit.setObjectName(u"btn_profit")
+        sizePolicy1.setHeightForWidth(self.btn_profit.sizePolicy().hasHeightForWidth())
+        self.btn_profit.setSizePolicy(sizePolicy1)
         self.btn_profit.setMinimumSize(QSize(0, 30))
 
         self.verticalLayout_5.addWidget(self.btn_profit)
@@ -126,7 +141,7 @@ class Ui_MainWindow(object):
         self.btn_settings.setObjectName(u"btn_settings")
         self.btn_settings.setMinimumSize(QSize(0, 30))
 
-        self.verticalLayout_6.addWidget(self.btn_settings)
+        self.verticalLayout_6.addWidget(self.btn_settings, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
 
         self.verticalLayout_4.addWidget(self.bottom_menu, 0, Qt.AlignBottom)
@@ -167,6 +182,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(10, 0, 0, 0)
         self.logo_contant = QWidget(self.title_window_container)
         self.logo_contant.setObjectName(u"logo_contant")
+        sizePolicy1.setHeightForWidth(self.logo_contant.sizePolicy().hasHeightForWidth())
+        self.logo_contant.setSizePolicy(sizePolicy1)
         self.logo_contant.setMinimumSize(QSize(25, 25))
         self.logo_contant.setMaximumSize(QSize(25, 99999))
         self.verticalLayout_8 = QVBoxLayout(self.logo_contant)
@@ -175,6 +192,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.logo_label = QLabel(self.logo_contant)
         self.logo_label.setObjectName(u"logo_label")
+        sizePolicy1.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
+        self.logo_label.setSizePolicy(sizePolicy1)
+        self.logo_label.setMinimumSize(QSize(25, 25))
+        self.logo_label.setMaximumSize(QSize(25, 25))
+        self.logo_label.setPixmap(QPixmap(u":/images/img/mizer_logo.png"))
+        self.logo_label.setScaledContents(True)
+        self.logo_label.setMargin(2)
 
         self.verticalLayout_8.addWidget(self.logo_label)
 
@@ -189,6 +213,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.title1_label = QLabel(self.title_content)
         self.title1_label.setObjectName(u"title1_label")
+        self.title1_label.setOpenExternalLinks(True)
 
         self.horizontalLayout_4.addWidget(self.title1_label)
 
@@ -293,7 +318,7 @@ class Ui_MainWindow(object):
         self.btn_inventory.setText(QCoreApplication.translate("MainWindow", u"INVENTORY", None))
         self.btn_mail.setText(QCoreApplication.translate("MainWindow", u"MAIL", None))
         self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"SETTINGS", None))
-        self.logo_label.setText(QCoreApplication.translate("MainWindow", u"logo_label", None))
+        self.logo_label.setText("")
         self.title1_label.setText(QCoreApplication.translate("MainWindow", u"AXIE", None))
         self.title2_label.setText(QCoreApplication.translate("MainWindow", u"MANAGER", None))
         self.btn_minimize.setText(QCoreApplication.translate("MainWindow", u"MINIMIZE", None))

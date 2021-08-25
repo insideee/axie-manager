@@ -6,47 +6,53 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFo
                            QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 
-from screeninfo import get_monitors
+from functools import partial
 
 
-class UIFunctions:
+class UIFunctions(QWidget):
 
     def __init__(self) -> None:
-        pass
+        super(UIFunctions, self).__init__()
+        self.__press_pos = None
+
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            self.__press_pos = event.pos()  # remember starting position
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            self.__press_pos = None
+
+    def mouseMoveEvent(self, event):
+        if self.__press_pos:  # follow the mouse
+            self.move(self.pos() + (event.pos() - self.__press_pos))
 
     @staticmethod
     def config_window(**kwargs) -> None:
 
-        try:
-            screen_width, screen_height = 0, 0
+        window = kwargs['config_widget'].window()
+        window.setGeometry(
+            QtWidgets.QStyle.alignedRect(
+                QtCore.Qt.LeftToRight,
+                QtCore.Qt.AlignCenter,
+                window.size(),
+                QtGui.QGuiApplication.primaryScreen().availableGeometry(),
+            ),
+        )
 
-            for monitor in get_monitors():
-                if monitor.width > screen_width and monitor.height > screen_height:
-                    screen_width = monitor.width
-                    screen_height = monitor.height
-
-            x_cords = int(screen_width / 2 - kwargs['width'] / 2)
-            y_cords = int(screen_height / 2 - kwargs['height'] / 2)
-
-            kwargs['config_widget'].setWindowTitle(kwargs['title'])
-            kwargs['config_widget'].setGeometry(x_cords, y_cords, kwargs['width'], kwargs['height'])
-            # disabled self.setToolTip(tooltip)
-            app_icon = QIcon('./image/favicon2.ico')
-            kwargs['config_widget'].setWindowIcon(app_icon)
-
-        except Exception as ex:
-            print(f'Error: {ex}')
-            sys.exit(1)
+        window.setWindowTitle(kwargs['title'])
+        app_icon = QIcon('./image/favicon2.ico')
+        window.setWindowIcon(app_icon)
 
         for k, v in kwargs.items():
             if k == 'resizable':
                 if not v:
-                    kwargs['config_widget'].setMinimumSize(QSize(kwargs['width'], kwargs['height']))
-                    kwargs['config_widget'].setMaximumSize(QSize(kwargs['width'], kwargs['height']))
+                    window.setMinimumSize(QSize(kwargs['width'], kwargs['height']))
+                    window.setMaximumSize(QSize(kwargs['width'], kwargs['height']))
 
             if k == 'minimum_size':
                 if v:
-                    kwargs['config_widget'].setMinimumSize(QSize(kwargs['width'], kwargs['height']))
+                    window.setMinimumSize(QSize(kwargs['width'], kwargs['height']))
 
     @staticmethod
     def toggle_menu(ui_widget: QWidget, max_width: int, enable: bool) -> None:
@@ -69,9 +75,30 @@ class UIFunctions:
             ui_widget.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
             ui_widget.animation.start()
 
+    @staticmethod
+    def link_pages(*args, **kwargs) -> None:
+        try:
 
+            for i in range(0, len(kwargs['list_btn'])):
+                partial_func = partial(args[0].setCurrentWidget, kwargs['list_pages'][i])
+                kwargs['list_btn'][i].clicked.connect(partial_func)
 
+        except Exception as ex:
+            print(f'Error: {ex}')
+            sys.exit(1)
 
+    @staticmethod
+    def set_font(qwidget: QWidget, size: int, font_path: str, color: str) -> None:
 
+        # add font to app database
+        id = QtGui.QFontDatabase.addApplicationFont(f'{font_path}')
+        font_name = QtGui.QFontDatabase.applicationFontFamilies(id)
 
+        # get font name
+        font = QFont(font_name[0])
+        font.setPointSize(size)
+
+        # set color and font
+        qwidget.setStyleSheet('color:' + f'{color}')
+        qwidget.setFont(font)
 
