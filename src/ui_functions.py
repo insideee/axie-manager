@@ -11,6 +11,7 @@ from functools import partial
 
 class UIFunctions(QWidget):
 
+    # for draggable reasons
     def __init__(self) -> None:
         super(UIFunctions, self).__init__()
         self.__press_pos = None
@@ -88,7 +89,7 @@ class UIFunctions(QWidget):
             sys.exit(1)
 
     @staticmethod
-    def set_font(qwidget: QWidget, size: int, font_path: str, color: str) -> None:
+    def set_font(qwidget: QWidget, size: int, font_path: str, color: str, bold: bool) -> None:
 
         # add font to app database
         id = QtGui.QFontDatabase.addApplicationFont(f'{font_path}')
@@ -97,8 +98,17 @@ class UIFunctions(QWidget):
         # get font name
         font = QFont(font_name[0])
         font.setPointSize(size)
-
+        font.setBold(bold)
         # set color and font
         qwidget.setStyleSheet('color:' + f'{color}')
         qwidget.setFont(font)
 
+    @staticmethod
+    def min_and_max_window(main_window: QMainWindow):
+
+        state = main_window.isMaximized()
+
+        if state:
+            main_window.showNormal()
+        else:
+            main_window.showMaximized()

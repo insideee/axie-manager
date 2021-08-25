@@ -110,13 +110,14 @@ border-bottom-right-radius: 0px;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QPushButton {
+             <string notr="true">QToolButton {
 	background-color: #1E2226;
-	border-radius: 0px
+	border-radius: 0px;
+	margin-left: 15px;
 	}
 
-QPushButton:hover {
-	background-color: #E64C3C
+QToolButton:hover {
+	
 }</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -136,7 +137,7 @@ QPushButton:hover {
               <number>0</number>
              </property>
              <item>
-              <widget class="QPushButton" name="btn_toggle">
+              <widget class="QToolButton" name="btn_toggle">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -150,21 +151,26 @@ QPushButton:hover {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton {
+                <string notr="true">QToolButton {
 	background-color: #1E2226;
+	margin-left: 3px
 	}
 
-QPushButton:hover {
+QToolButton:hover {
 	background-color: #1E2226
 }</string>
                </property>
                <property name="text">
                 <string>TOGGLE</string>
                </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/menu.png</normaloff>:/images/img/menu.png</iconset>
+               </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_home">
+              <widget class="QToolButton" name="btn_home">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -173,17 +179,36 @@ QPushButton:hover {
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="text">
-                <string>HOME</string>
+                <string>      Home</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/home_menu.png</normaloff>:/images/img/home_menu.png</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+               <property name="autoRaise">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_profit">
+              <widget class="QToolButton" name="btn_profit">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -192,55 +217,107 @@ QPushButton:hover {
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="text">
-                <string>PROFIT</string>
+                <string>      Profit</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/profit_menu.png</normaloff>:/images/img/profit_menu.png</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_students">
+              <widget class="QToolButton" name="btn_students">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="text">
-                <string>STUDENTS</string>
+                <string>      Students</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/user_menu.png</normaloff>:/images/img/user_menu.png</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_inventory">
+              <widget class="QToolButton" name="btn_inventory">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="text">
-                <string>INVENTORY</string>
+                <string>      Inventory</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/inventory_menu.png</normaloff>:/images/img/inventory_menu.png</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_mail">
+              <widget class="QToolButton" name="btn_mail">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="text">
-                <string>MAIL</string>
+                <string>     Mail</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/mail_menu.png</normaloff>:/images/img/mail_menu.png</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
             </layout>
+            <zorder>btn_home</zorder>
+            <zorder>btn_toggle</zorder>
+            <zorder>btn_profit</zorder>
+            <zorder>btn_students</zorder>
+            <zorder>btn_inventory</zorder>
+            <zorder>btn_mail</zorder>
            </widget>
           </item>
           <item alignment="Qt::AlignBottom">
@@ -258,14 +335,11 @@ QPushButton:hover {
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QPushButton {
+             <string notr="true">QToolButton {
 	background-color: #1E2226;
-	border-radius: 0px
-	}
-
-QPushButton:hover {
-	background-color: #1E2226
-}</string>
+	border-radius: 0px;
+	margin-left: 15px;
+	}</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <property name="spacing">
@@ -283,16 +357,23 @@ QPushButton:hover {
              <property name="bottomMargin">
               <number>10</number>
              </property>
-             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-              <widget class="QPushButton" name="btn_settings">
+             <item>
+              <widget class="QToolButton" name="btn_settings">
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="text">
-                <string>SETTINGS</string>
+                <string>     Settings</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/images/img/config_menu.png</normaloff>:/images/img/config_menu.png</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
                </property>
               </widget>
              </item>
@@ -508,7 +589,7 @@ border-bottom-left-radius: 0px;</string>
                  <widget class="QWidget" name="btn_content" native="true">
                   <layout class="QHBoxLayout" name="horizontalLayout_5">
                    <property name="spacing">
-                    <number>4</number>
+                    <number>0</number>
                    </property>
                    <property name="leftMargin">
                     <number>0</number>
@@ -523,7 +604,7 @@ border-bottom-left-radius: 0px;</string>
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="btn_minimize">
+                    <widget class="QToolButton" name="btn_minimize">
                      <property name="minimumSize">
                       <size>
                        <width>25</width>
@@ -539,10 +620,20 @@ border-bottom-left-radius: 0px;</string>
                      <property name="text">
                       <string>MINIMIZE</string>
                      </property>
+                     <property name="icon">
+                      <iconset resource="resources.qrc">
+                       <normaloff>:/images/img/minimize_icon.png</normaloff>:/images/img/minimize_icon.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>10</width>
+                       <height>10</height>
+                      </size>
+                     </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="btn_expand">
+                    <widget class="QToolButton" name="btn_expand">
                      <property name="minimumSize">
                       <size>
                        <width>25</width>
@@ -558,10 +649,20 @@ border-bottom-left-radius: 0px;</string>
                      <property name="text">
                       <string>EXPAND</string>
                      </property>
+                     <property name="icon">
+                      <iconset resource="resources.qrc">
+                       <normaloff>:/images/img/maximize.png</normaloff>:/images/img/maximize.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>10</width>
+                       <height>10</height>
+                      </size>
+                     </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="btn_exit">
+                    <widget class="QToolButton" name="btn_exit">
                      <property name="minimumSize">
                       <size>
                        <width>25</width>
@@ -576,6 +677,16 @@ border-bottom-left-radius: 0px;</string>
                      </property>
                      <property name="text">
                       <string>EXIT</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="resources.qrc">
+                       <normaloff>:/images/img/close_icon.png</normaloff>:/images/img/close_icon.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>10</width>
+                       <height>10</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -608,12 +719,96 @@ border-bottom-left-radius: 0px;</string>
              </property>
              <item>
               <widget class="QStackedWidget" name="pages_container">
-               <widget class="QWidget" name="home_page"/>
-               <widget class="QWidget" name="profit_page"/>
-               <widget class="QWidget" name="students_page"/>
-               <widget class="QWidget" name="inventory_page"/>
-               <widget class="QWidget" name="mail_page"/>
-               <widget class="QWidget" name="settings_page"/>
+               <widget class="QWidget" name="home_page">
+                <widget class="QLabel" name="label">
+                 <property name="geometry">
+                  <rect>
+                   <x>260</x>
+                   <y>190</y>
+                   <width>58</width>
+                   <height>18</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Home</string>
+                 </property>
+                </widget>
+               </widget>
+               <widget class="QWidget" name="profit_page">
+                <widget class="QLabel" name="label_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>290</x>
+                   <y>240</y>
+                   <width>58</width>
+                   <height>18</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>profit</string>
+                 </property>
+                </widget>
+               </widget>
+               <widget class="QWidget" name="students_page">
+                <widget class="QLabel" name="label_3">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>270</y>
+                   <width>58</width>
+                   <height>18</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>students</string>
+                 </property>
+                </widget>
+               </widget>
+               <widget class="QWidget" name="inventory_page">
+                <widget class="QLabel" name="label_4">
+                 <property name="geometry">
+                  <rect>
+                   <x>290</x>
+                   <y>250</y>
+                   <width>58</width>
+                   <height>18</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>inventory</string>
+                 </property>
+                </widget>
+               </widget>
+               <widget class="QWidget" name="mail_page">
+                <widget class="QLabel" name="label_5">
+                 <property name="geometry">
+                  <rect>
+                   <x>130</x>
+                   <y>170</y>
+                   <width>58</width>
+                   <height>18</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>mail</string>
+                 </property>
+                </widget>
+               </widget>
+               <widget class="QWidget" name="settings_page">
+                <widget class="QLabel" name="label_6">
+                 <property name="geometry">
+                  <rect>
+                   <x>140</x>
+                   <y>160</y>
+                   <width>58</width>
+                   <height>18</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>settings</string>
+                 </property>
+                </widget>
+               </widget>
               </widget>
              </item>
             </layout>

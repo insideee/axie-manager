@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="images">
     <file>img/close_icon.png</file>
+    <file>img/maximize.png</file>
     <file>img/config_menu.png</file>
     <file>img/home_menu.png</file>
     <file>img/inventory_menu.png</file>

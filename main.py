@@ -8,11 +8,13 @@ from PySide2.QtWidgets import *
 
 # gui file
 from src.ui_main import Ui_MainWindow
+
 # resource file
 import src.resources_rc
 
 # gui functions
 from src.ui_functions import UIFunctions
+
 
 class MainWindow(QMainWindow, UIFunctions):
     def __init__(self) -> None:
@@ -22,28 +24,34 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # center and config window
         self.config_window(config_widget=self, title='', width=1200, height=680, resizeble=True,
-                                      minimum_size=True)
+                           minimum_size=True)
         # remove title bar
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # toggle button
-        self.ui.btn_toggle.clicked.connect(lambda: self.toggle_menu(self.ui.menu_container, 120, True))
+        self.ui.btn_toggle.clicked.connect(lambda: self.toggle_menu(self.ui.menu_container, 140, True))
 
-        # exit
+        # title bar buttons
         self.ui.btn_exit.clicked.connect(lambda: sys.exit(1))
+        self.ui.btn_minimize.clicked.connect(self.showMinimized)
+        self.ui.btn_expand.clicked.connect(lambda: self.min_and_max_window(self))
 
         # link button -> pages
         self.link_pages(self.ui.pages_container,
-                                   list_btn=[self.ui.btn_home, self.ui.btn_profit, self.ui.btn_students,
-                                             self.ui.btn_inventory,
-                                             self.ui.btn_mail, self.ui.btn_settings],
-                                   list_pages=[self.ui.home_page, self.ui.profit_page, self.ui.students_page,
-                                               self.ui.inventory_page,
-                                               self.ui.mail_page, self.ui.settings_page])
+                        list_btn=[self.ui.btn_home, self.ui.btn_profit, self.ui.btn_students,
+                                  self.ui.btn_inventory,
+                                  self.ui.btn_mail, self.ui.btn_settings],
+                        list_pages=[self.ui.home_page, self.ui.profit_page, self.ui.students_page,
+                                    self.ui.inventory_page,
+                                    self.ui.mail_page, self.ui.settings_page])
 
         # set fonts family and colors
-        self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', 'white')
+        self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False)
+        self.set_font(self.ui.title2_label, 12, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True)
+        menu_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+                       [self.ui.btn_home, self.ui.btn_profit, self.ui.btn_students, self.ui.btn_inventory,
+                        self.ui.btn_mail, self.ui.btn_settings]]
 
         # show gui
         self.show()
