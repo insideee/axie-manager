@@ -11,7 +11,7 @@ from functools import partial
 
 class UIFunctions(QWidget):
 
-    # for draggable reasons
+    # for draggable window reasons
     def __init__(self) -> None:
         super(UIFunctions, self).__init__()
         self.__press_pos = None
@@ -92,8 +92,8 @@ class UIFunctions(QWidget):
     def set_font(qwidget: QWidget, size: int, font_path: str, color: str, bold: bool) -> None:
 
         # add font to app database
-        id = QtGui.QFontDatabase.addApplicationFont(f'{font_path}')
-        font_name = QtGui.QFontDatabase.applicationFontFamilies(id)
+        font_id = QtGui.QFontDatabase.addApplicationFont(f'{font_path}')
+        font_name = QtGui.QFontDatabase.applicationFontFamilies(font_id)
 
         # get font name
         font = QFont(font_name[0])
@@ -104,7 +104,7 @@ class UIFunctions(QWidget):
         qwidget.setFont(font)
 
     @staticmethod
-    def min_and_max_window(main_window: QMainWindow):
+    def min_and_max_window(main_window: QMainWindow) -> None:
 
         state = main_window.isMaximized()
 
@@ -112,3 +112,13 @@ class UIFunctions(QWidget):
             main_window.showNormal()
         else:
             main_window.showMaximized()
+
+    @staticmethod
+    def set_drop_shadow(*args: QWidget) -> None:
+
+        for element in args:
+            drop_shadow = QtWidgets.QGraphicsDropShadowEffect(element)
+            drop_shadow.setBlurRadius(6)
+            drop_shadow.setOffset(0)
+            drop_shadow.setColor(QtGui.QColor(0, 0, 0, 90))
+            element.setGraphicsEffect(drop_shadow)

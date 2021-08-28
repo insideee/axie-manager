@@ -6,14 +6,12 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFo
                            QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 
-# gui file
+# gui file and gui functions
 from src.ui_main import Ui_MainWindow
+from src.ui_functions import UIFunctions
 
 # resource file
 import src.resources_rc
-
-# gui functions
-from src.ui_functions import UIFunctions
 
 
 class MainWindow(QMainWindow, UIFunctions):
@@ -22,6 +20,22 @@ class MainWindow(QMainWindow, UIFunctions):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # window configs
+        self.window_gui_configuration()
+
+        # button configs
+        self.btn_gui_configuration()
+
+        # fonts configs
+        self.fonts_gui_configuration()
+
+        # drop shadow configs
+        self.drop_shadow_gui_configuration()
+
+        # show gui
+        self.show()
+
+    def window_gui_configuration(self):
         # center and config window
         self.config_window(config_widget=self, title='', width=1200, height=680, resizeble=True,
                            minimum_size=True)
@@ -29,6 +43,7 @@ class MainWindow(QMainWindow, UIFunctions):
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
+    def btn_gui_configuration(self):
         # toggle button
         self.ui.btn_toggle.clicked.connect(lambda: self.toggle_menu(self.ui.menu_container, 140, True))
 
@@ -46,27 +61,32 @@ class MainWindow(QMainWindow, UIFunctions):
                                     self.ui.inventory_page,
                                     self.ui.mail_page, self.ui.settings_page])
 
-        # set fonts family and colors
+    def fonts_gui_configuration(self):
+        # title bar
         self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False)
         self.set_font(self.ui.title2_label, 12, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True)
+
+        # menu
         menu_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
                        [self.ui.btn_home, self.ui.btn_profit, self.ui.btn_students, self.ui.btn_inventory,
                         self.ui.btn_mail, self.ui.btn_settings]]
 
-        # show gui
-        self.show()
+        # home widgets
+        # title
+        home_widgets_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+                               [self.ui.data_label_students, self.ui.title_students, self.ui.data_label_profit,
+                                self.ui.title_profit, self.ui.data_label_axies, self.ui.title_axies]]
 
-        def mousePressEvent(self, event):
-            if event.button() == Qt.LeftButton:
-                self.__press_pos = event.pos()  # remember starting position
+        # data
+        home_widgets_labels = [self.set_font(label, 57, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+                               [self.ui.data_label_students, self.ui.data_label_profit, self.ui.data_label_axies]]
 
-        def mouseReleaseEvent(self, event):
-            if event.button() == Qt.LeftButton:
-                self.__press_pos = None
+    def drop_shadow_gui_configuration(self):
+        # shadow top bar
+        self.set_drop_shadow(self.ui.top_bar)
 
-        def mouseMoveEvent(self, event):
-            if self.__press_pos:  # follow the mouse
-                self.move(self.pos() + (event.pos() - self.__press_pos))
+        # shadow home widgets
+        self.set_drop_shadow(self.ui.axies_widget, self.ui.profit_widget, self.ui.students_widget)
 
 
 def main():
