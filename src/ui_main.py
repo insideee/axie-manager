@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_maingjPdmk.ui'
+## Form generated from reading UI file 'ui_maineUomaV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -12,7 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-import src.resources_rc
+import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -428,14 +428,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_16 = QVBoxLayout(self.btn_stundents)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
-        self.goto_icon_students = QLabel(self.btn_stundents)
-        self.goto_icon_students.setObjectName(u"goto_icon_students")
-        sizePolicy2.setHeightForWidth(self.goto_icon_students.sizePolicy().hasHeightForWidth())
-        self.goto_icon_students.setSizePolicy(sizePolicy2)
-        self.goto_icon_students.setMinimumSize(QSize(15, 15))
-        self.goto_icon_students.setMaximumSize(QSize(20, 20))
+        self.goto_students_btn = QToolButton(self.btn_stundents)
+        self.goto_students_btn.setObjectName(u"goto_students_btn")
+        self.goto_students_btn.setMinimumSize(QSize(15, 15))
+        self.goto_students_btn.setMaximumSize(QSize(20, 20))
 
-        self.verticalLayout_16.addWidget(self.goto_icon_students)
+        self.verticalLayout_16.addWidget(self.goto_students_btn)
 
 
         self.verticalLayout_12.addWidget(self.btn_stundents, 0, Qt.AlignRight)
@@ -519,14 +517,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_25 = QVBoxLayout(self.btn_profit_container)
         self.verticalLayout_25.setObjectName(u"verticalLayout_25")
         self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
-        self.goto_icon_profit = QLabel(self.btn_profit_container)
-        self.goto_icon_profit.setObjectName(u"goto_icon_profit")
-        sizePolicy2.setHeightForWidth(self.goto_icon_profit.sizePolicy().hasHeightForWidth())
-        self.goto_icon_profit.setSizePolicy(sizePolicy2)
-        self.goto_icon_profit.setMinimumSize(QSize(15, 15))
-        self.goto_icon_profit.setMaximumSize(QSize(20, 20))
+        self.goto_profit_btn = QToolButton(self.btn_profit_container)
+        self.goto_profit_btn.setObjectName(u"goto_profit_btn")
+        self.goto_profit_btn.setMinimumSize(QSize(15, 15))
+        self.goto_profit_btn.setMaximumSize(QSize(20, 20))
 
-        self.verticalLayout_25.addWidget(self.goto_icon_profit)
+        self.verticalLayout_25.addWidget(self.goto_profit_btn)
 
 
         self.verticalLayout_26.addWidget(self.btn_profit_container, 0, Qt.AlignRight)
@@ -610,14 +606,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_20 = QVBoxLayout(self.btn_axies)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
         self.verticalLayout_20.setContentsMargins(0, 0, 0, 0)
-        self.goto_icon_axies = QLabel(self.btn_axies)
-        self.goto_icon_axies.setObjectName(u"goto_icon_axies")
-        sizePolicy2.setHeightForWidth(self.goto_icon_axies.sizePolicy().hasHeightForWidth())
-        self.goto_icon_axies.setSizePolicy(sizePolicy2)
-        self.goto_icon_axies.setMinimumSize(QSize(15, 15))
-        self.goto_icon_axies.setMaximumSize(QSize(20, 20))
+        self.goto_axies_btn = QToolButton(self.btn_axies)
+        self.goto_axies_btn.setObjectName(u"goto_axies_btn")
+        self.goto_axies_btn.setMinimumSize(QSize(15, 15))
+        self.goto_axies_btn.setMaximumSize(QSize(20, 20))
 
-        self.verticalLayout_20.addWidget(self.goto_icon_axies)
+        self.verticalLayout_20.addWidget(self.goto_axies_btn)
 
 
         self.verticalLayout_21.addWidget(self.btn_axies, 0, Qt.AlignRight)
@@ -630,14 +624,18 @@ class Ui_MainWindow(object):
 
         self.graphics_home = QWidget(self.home_container)
         self.graphics_home.setObjectName(u"graphics_home")
-        self.graphics_home.setMinimumSize(QSize(0, 191))
+        self.graphics_home.setMinimumSize(QSize(0, 200))
         self.graphics_home.setStyleSheet(u"")
+        self.graphics_layout = QHBoxLayout(self.graphics_home)
+        self.graphics_layout.setSpacing(180)
+        self.graphics_layout.setObjectName(u"graphics_layout")
+        self.graphics_layout.setContentsMargins(95, 25, 95, 25)
 
         self.verticalLayout_11.addWidget(self.graphics_home)
 
         self.information_home = QWidget(self.home_container)
         self.information_home.setObjectName(u"information_home")
-        self.information_home.setMinimumSize(QSize(0, 191))
+        self.information_home.setMinimumSize(QSize(0, 150))
         self.information_home.setStyleSheet(u"")
 
         self.verticalLayout_11.addWidget(self.information_home)
@@ -717,15 +715,15 @@ class Ui_MainWindow(object):
         self.icon_students.setText(QCoreApplication.translate("MainWindow", u"icon", None))
         self.title_students.setText(QCoreApplication.translate("MainWindow", u"STUDENTS", None))
         self.data_label_students.setText(QCoreApplication.translate("MainWindow", u"999", None))
-        self.goto_icon_students.setText(QCoreApplication.translate("MainWindow", u"icon", None))
+        self.goto_students_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.icon_profit.setText(QCoreApplication.translate("MainWindow", u"icon", None))
-        self.title_profit.setText(QCoreApplication.translate("MainWindow", u"PROFIT", None))
+        self.title_profit.setText(QCoreApplication.translate("MainWindow", u"MONTHLY PROFIT", None))
         self.data_label_profit.setText(QCoreApplication.translate("MainWindow", u"999", None))
-        self.goto_icon_profit.setText(QCoreApplication.translate("MainWindow", u"icon", None))
+        self.goto_profit_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.icon_axies.setText(QCoreApplication.translate("MainWindow", u"icon", None))
         self.title_axies.setText(QCoreApplication.translate("MainWindow", u"AXIES", None))
         self.data_label_axies.setText(QCoreApplication.translate("MainWindow", u"999", None))
-        self.goto_icon_axies.setText(QCoreApplication.translate("MainWindow", u"icon", None))
+        self.goto_axies_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"profit", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"students", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"inventory", None))

@@ -1,17 +1,13 @@
 import sys
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt, QEvent)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence,
-                           QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
+from PySide2 import QtCore
 from PySide2.QtWidgets import *
 
 # gui file and gui functions
 from src.ui_main import Ui_MainWindow
-from src.ui_functions import UIFunctions
+from src.functions import UIFunctions
 
-# resource file
-import src.resources_rc
+# custom widgets
+from src.custom_widgets import CircularProgress
 
 
 class MainWindow(QMainWindow, UIFunctions):
@@ -31,6 +27,9 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # drop shadow configs
         self.drop_shadow_gui_configuration()
+
+        # home page graphics configuration
+        self.graphics_configurations()
 
         # show gui
         self.show()
@@ -61,6 +60,11 @@ class MainWindow(QMainWindow, UIFunctions):
                                     self.ui.inventory_page,
                                     self.ui.mail_page, self.ui.settings_page])
 
+        # link home_page buttons -> pages
+        self.link_pages(self.ui.pages_container,
+                        list_btn=[self.ui.goto_students_btn, self.ui.goto_profit_btn, self.ui.goto_axies_btn],
+                        list_pages=[self.ui.students_page, self.ui.profit_page, self.ui.inventory_page])
+
     def fonts_gui_configuration(self):
         # title bar
         self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False)
@@ -87,6 +91,19 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # shadow home widgets
         self.set_drop_shadow(self.ui.axies_widget, self.ui.profit_widget, self.ui.students_widget)
+
+    def graphics_configurations(self):
+        self.students_goal_graphic = CircularProgress(200, 200, font_family='Saira')
+        self.students_goal_graphic.set_value(90)
+
+        self.axies_goal_graphic = CircularProgress(200, 200, font_family='Saira')
+        self.axies_goal_graphic.set_value(20)
+
+        self.profit_goal_graphic = CircularProgress(200, 200, font_family='Saira')
+        self.profit_goal_graphic.set_value(20)
+
+        add_widget = [self.ui.graphics_layout.addWidget(widget) for widget in
+                      [self.students_goal_graphic, self.axies_goal_graphic, self.profit_goal_graphic]]
 
 
 def main():
