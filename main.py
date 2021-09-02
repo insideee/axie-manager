@@ -7,7 +7,7 @@ from src.ui_main import Ui_MainWindow
 from src.functions import UIFunctions
 
 # custom widgets
-from src.custom_widgets import CircularProgress
+from src.custom_widgets import *
 
 
 class MainWindow(QMainWindow, UIFunctions):
@@ -82,7 +82,7 @@ class MainWindow(QMainWindow, UIFunctions):
                                 self.ui.title_profit, self.ui.data_label_axies, self.ui.title_axies]]
 
         # data
-        home_widgets_labels = [self.set_font(label, 57, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+        home_widgets_labels = [self.set_font(label, 40, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
                                [self.ui.data_label_students, self.ui.data_label_profit, self.ui.data_label_axies]]
 
     def drop_shadow_gui_configuration(self):
@@ -96,14 +96,18 @@ class MainWindow(QMainWindow, UIFunctions):
         self.students_goal_graphic = CircularProgress(200, 200, font_family='Saira')
         self.students_goal_graphic.set_value(90)
 
+        self.profit_graphic = BarGraph(200, 200, font_family='Saira')
+        self.profit_graphic.set_shadow(True)
+
+        # temporary
+        self.ui.data_label_profit.setText('2100')
+
+
         self.axies_goal_graphic = CircularProgress(200, 200, font_family='Saira')
         self.axies_goal_graphic.set_value(20)
 
-        self.profit_goal_graphic = CircularProgress(200, 200, font_family='Saira')
-        self.profit_goal_graphic.set_value(20)
-
         add_widget = [self.ui.graphics_layout.addWidget(widget) for widget in
-                      [self.students_goal_graphic, self.axies_goal_graphic, self.profit_goal_graphic]]
+                      [self.students_goal_graphic, self.profit_graphic, self.axies_goal_graphic]]
 
 
 def main():
