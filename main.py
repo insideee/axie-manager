@@ -31,6 +31,9 @@ class MainWindow(QMainWindow, UIFunctions):
         # home page graphics configuration
         self.graphics_configurations()
 
+        # work in progress
+        self.set_work_in_progress_pages()
+
         # show gui
         self.show()
 
@@ -65,24 +68,33 @@ class MainWindow(QMainWindow, UIFunctions):
                         list_btn=[self.ui.goto_students_btn, self.ui.goto_profit_btn, self.ui.goto_axies_btn],
                         list_pages=[self.ui.students_page, self.ui.profit_page, self.ui.inventory_page])
 
+        # home_btn style
+
+        # clicked gui
+        self.btn_style_handle(list_btn=[self.ui.btn_home, self.ui.btn_profit, self.ui.btn_students,
+                                  self.ui.btn_inventory,
+                                  self.ui.btn_mail, self.ui.btn_settings])
+
+        #self.ui.btn_home.clicked.connect(self.print_sender)
+
     def fonts_gui_configuration(self):
         # title bar
-        self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False)
-        self.set_font(self.ui.title2_label, 12, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True)
+        self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, True)
+        self.set_font(self.ui.title2_label, 12, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
 
         # menu
-        menu_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+        menu_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, False) for label in
                        [self.ui.btn_home, self.ui.btn_profit, self.ui.btn_students, self.ui.btn_inventory,
                         self.ui.btn_mail, self.ui.btn_settings]]
 
         # home widgets
         # title
-        home_widgets_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+        home_widgets_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, True) for label in
                                [self.ui.data_label_students, self.ui.title_students, self.ui.data_label_profit,
                                 self.ui.title_profit, self.ui.data_label_axies, self.ui.title_axies]]
 
         # data
-        home_widgets_labels = [self.set_font(label, 40, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False) for label in
+        home_widgets_labels = [self.set_font(label, 40, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, True) for label in
                                [self.ui.data_label_students, self.ui.data_label_profit, self.ui.data_label_axies]]
 
     def drop_shadow_gui_configuration(self):
@@ -96,7 +108,7 @@ class MainWindow(QMainWindow, UIFunctions):
         self.students_goal_graphic = CircularProgress(200, 200, font_family='Saira')
         self.students_goal_graphic.set_value(90)
 
-        self.profit_graphic = BarGraph(200, 200, font_family='Saira')
+        self.profit_graphic = BarGraph(250, 250, font_family='Saira')
         self.profit_graphic.set_shadow(True)
 
         # temporary
@@ -109,6 +121,13 @@ class MainWindow(QMainWindow, UIFunctions):
         add_widget = [self.ui.graphics_layout.addWidget(widget) for widget in
                       [self.students_goal_graphic, self.profit_graphic, self.axies_goal_graphic]]
 
+    def set_work_in_progress_pages(self):
+
+        work_pages = [self.ui.label_2, self.ui.label_3, self.ui.label_4, self.ui.label_5, self.ui.label_6]
+
+        for v in work_pages:
+            self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
+            v.setText('Work in progress...')
 
 def main():
     app = QApplication(sys.argv)

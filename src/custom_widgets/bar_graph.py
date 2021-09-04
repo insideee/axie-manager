@@ -9,10 +9,10 @@ class BarGraph(QWidget):
     def __init__(self, width, height, font_family='Segoi'):
         super(BarGraph, self).__init__()
 
-        self.width = 200
-        self.height = 200
+        self.width = width
+        self.height = height
         self.bar_color = 0xE64C3C
-        self.bar_size = 25
+        self.bar_size = 35
         self.graph_data = {
             'graph1': 0,
             'graph2': 500,
@@ -21,14 +21,20 @@ class BarGraph(QWidget):
         self.shadow = None
         self.shadow_blur_radius = 6
 
-        self.text_color = 0xFFFFFF
+        self.data_text_color = 0xE64C3C
+
+        self.text_color = 0x737373
         self.font = font_family
-        self.font_size = 8
+        self.font_size = 10
 
         self.border = False
         self.border_width = 5
         self.border_color = 0x737373
         self.border_round_size = 5
+
+        self.graph_line = True
+        self.graph_line_color = 0x737373
+        self.graph_line_size = 1
 
         self.setMinimumSize(QSize(self.width, self.height))
         self.setMaximumSize(QSize(self.width, self.height))
@@ -55,13 +61,24 @@ class BarGraph(QWidget):
             rect = QRectF(0, 0, self.width, self.height)
             painter.drawRoundRect(rect, self.border_round_size, self.border_round_size)
 
+        # graph lines
+        if self.graph_line:
+            pen.setColor(self.graph_line_color)
+            pen.setWidth(self.graph_line_size)
+
+            painter.setPen(pen)
+
+            painter.drawLine(10, y_pos + 18, 10, max_extend - self.width)
+
+            painter.drawLine(0, y_pos + 8, 185, y_pos + 8)
+
+        # graph data bar
         pen.setColor(self.bar_color)
         pen.setWidth(self.bar_size)
         pen.setCapStyle(Qt.FlatCap)
 
         painter.setPen(pen)
 
-        # graph data bar
         for k, v in extend_values.items():
             if int(v) == y_pos:
                 extend_values[k] = int(v) - 1
@@ -70,21 +87,23 @@ class BarGraph(QWidget):
         painter.drawLine(100, (max_extend + 20), 100, extend_values['graph2'])
         painter.drawLine(150, (max_extend + 20), 150, extend_values['graph3'])
 
+        # text data values
+        pen.setColor(self.data_text_color)
+        painter.setPen(pen)
+        text_x_pos = self.get_data_text_pos()
+
+        painter.drawText(text_x_pos['graph1'], (extend_values['graph1'] - 5), str(self.graph_data['graph1']))
+        painter.drawText(text_x_pos['graph2'], (extend_values['graph2'] - 5), str(self.graph_data['graph2']))
+        painter.drawText(text_x_pos['graph3'], (extend_values['graph3'] - 5), str(self.graph_data['graph3']))
+
+        # text months names
         pen.setColor(self.text_color)
         painter.setPen(pen)
 
-        # text data values
-        text_x_pos = self.get_data_text_pos()
-
-        painter.drawText(text_x_pos['graph1'], (extend_values['graph1'] - 2), str(self.graph_data['graph1']))
-        painter.drawText(text_x_pos['graph2'], (extend_values['graph2'] - 2), str(self.graph_data['graph2']))
-        painter.drawText(text_x_pos['graph3'], (extend_values['graph3'] - 2), str(self.graph_data['graph3']))
-
-        # text months names
         month_name = self.get_month_name()
-        painter.drawText(50 - 8, (y_pos + 11), month_name['graph1'])
-        painter.drawText(99 - 8, (y_pos + 11), month_name['graph2'])
-        painter.drawText(150 - 8, (y_pos + 11), month_name['graph3'])
+        painter.drawText(50 - 8, (y_pos + 23), month_name['graph1'])
+        painter.drawText(99 - 11, (y_pos + 23), month_name['graph2'])
+        painter.drawText(150 - 9, (y_pos + 23), month_name['graph3'])
 
     def get_graph_base_value(self) -> int:
 
@@ -120,15 +139,15 @@ class BarGraph(QWidget):
             elif 9 < v < 99:
                 text_x_pos[k] -= 6
             elif 99 < v < 999:
-                text_x_pos[k] -= 10
+                text_x_pos[k] -= 12
             elif 999 < v < 9999:
-                text_x_pos[k] -= 13
+                text_x_pos[k] -= 15
             elif 9999 < v < 99999:
-                text_x_pos[k] -= 16
-            elif 99999 < v < 999999:
                 text_x_pos[k] -= 19
+            elif 99999 < v < 999999:
+                text_x_pos[k] -= 23
             else:
-                text_x_pos[k] -= 22
+                text_x_pos[k] -= 26
 
         return text_x_pos
 

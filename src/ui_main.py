@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_maineUomaV.ui'
+## Form generated from reading UI file 'ui_mainLRfNft.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -21,6 +21,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(1201, 680)
         MainWindow.setMinimumSize(QSize(1200, 680))
         MainWindow.setStyleSheet(u"border: 0px solid;")
+        MainWindow.setToolButtonStyle(Qt.ToolButtonIconOnly)
         self.bg = QWidget(MainWindow)
         self.bg.setObjectName(u"bg")
         self.bg.setMinimumSize(QSize(0, 0))
@@ -39,32 +40,27 @@ class Ui_MainWindow(object):
         self.menu_container.setObjectName(u"menu_container")
         self.menu_container.setMinimumSize(QSize(52, 0))
         self.menu_container.setMaximumSize(QSize(52, 16777215))
-        self.menu_container.setStyleSheet(u"background-color: #1E2226;\n"
+        self.menu_container.setStyleSheet(u"QWidget{\n"
+"background-color: #1E2226;\n"
 "border-top-left-radius: 10px;\n"
 "border-top-right-radius: 0px;\n"
 "border-bottom-left-radius: 10px;\n"
-"border-bottom-right-radius: 0px;")
-        self.verticalLayout_4 = QVBoxLayout(self.menu_container)
-        self.verticalLayout_4.setSpacing(0)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setContentsMargins(0, 8, 5, 8)
-        self.top_menu = QWidget(self.menu_container)
-        self.top_menu.setObjectName(u"top_menu")
-        self.top_menu.setMinimumSize(QSize(0, 0))
-        self.top_menu.setStyleSheet(u"QToolButton {\n"
+"border-bottom-right-radius: 0px;\n"
+"}\n"
+"\n"
+"QToolButton {\n"
 "	background-color: #1E2226;\n"
 "	border-radius: 0px;\n"
-"	margin-left: 15px;\n"
+"	padding-left: 15px;\n"
+"	margin-right: 0px;\n"
+"	color: #ffffff\n"
 "	}\n"
-"\n"
-"QToolButton:hover {\n"
-"	\n"
-"}")
-        self.verticalLayout_5 = QVBoxLayout(self.top_menu)
-        self.verticalLayout_5.setSpacing(20)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(0, 10, 0, 0)
-        self.btn_toggle = QToolButton(self.top_menu)
+"")
+        self.verticalLayout_4 = QVBoxLayout(self.menu_container)
+        self.verticalLayout_4.setSpacing(20)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(0, 8, 0, 0)
+        self.btn_toggle = QToolButton(self.menu_container)
         self.btn_toggle.setObjectName(u"btn_toggle")
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -74,7 +70,7 @@ class Ui_MainWindow(object):
         self.btn_toggle.setMinimumSize(QSize(0, 30))
         self.btn_toggle.setStyleSheet(u"QToolButton {\n"
 "	background-color: #1E2226;\n"
-"	margin-left: 3px\n"
+"	padding-left: 3px\n"
 "	}\n"
 "\n"
 "QToolButton:hover {\n"
@@ -84,9 +80,9 @@ class Ui_MainWindow(object):
         icon.addFile(u":/images/img/menu.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_toggle.setIcon(icon)
 
-        self.verticalLayout_5.addWidget(self.btn_toggle)
+        self.verticalLayout_4.addWidget(self.btn_toggle)
 
-        self.btn_home = QToolButton(self.top_menu)
+        self.btn_home = QToolButton(self.menu_container)
         self.btn_home.setObjectName(u"btn_home")
         sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
@@ -96,16 +92,20 @@ class Ui_MainWindow(object):
         self.btn_home.setMinimumSize(QSize(140, 30))
         self.btn_home.setFocusPolicy(Qt.NoFocus)
         self.btn_home.setLayoutDirection(Qt.LeftToRight)
-        self.btn_home.setStyleSheet(u"")
+        self.btn_home.setStyleSheet(u"QToolButton{\n"
+"background-color: #303840;\n"
+"border-left: 2px solid  #E64C3C;\n"
+"}\n"
+"")
         icon1 = QIcon()
         icon1.addFile(u":/images/img/home_menu.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_home.setIcon(icon1)
         self.btn_home.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self.btn_home.setAutoRaise(False)
 
-        self.verticalLayout_5.addWidget(self.btn_home)
+        self.verticalLayout_4.addWidget(self.btn_home)
 
-        self.btn_profit = QToolButton(self.top_menu)
+        self.btn_profit = QToolButton(self.menu_container)
         self.btn_profit.setObjectName(u"btn_profit")
         sizePolicy1.setHeightForWidth(self.btn_profit.sizePolicy().hasHeightForWidth())
         self.btn_profit.setSizePolicy(sizePolicy1)
@@ -115,9 +115,9 @@ class Ui_MainWindow(object):
         self.btn_profit.setIcon(icon2)
         self.btn_profit.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
 
-        self.verticalLayout_5.addWidget(self.btn_profit)
+        self.verticalLayout_4.addWidget(self.btn_profit)
 
-        self.btn_students = QToolButton(self.top_menu)
+        self.btn_students = QToolButton(self.menu_container)
         self.btn_students.setObjectName(u"btn_students")
         sizePolicy1.setHeightForWidth(self.btn_students.sizePolicy().hasHeightForWidth())
         self.btn_students.setSizePolicy(sizePolicy1)
@@ -127,9 +127,9 @@ class Ui_MainWindow(object):
         self.btn_students.setIcon(icon3)
         self.btn_students.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
 
-        self.verticalLayout_5.addWidget(self.btn_students)
+        self.verticalLayout_4.addWidget(self.btn_students)
 
-        self.btn_inventory = QToolButton(self.top_menu)
+        self.btn_inventory = QToolButton(self.menu_container)
         self.btn_inventory.setObjectName(u"btn_inventory")
         sizePolicy1.setHeightForWidth(self.btn_inventory.sizePolicy().hasHeightForWidth())
         self.btn_inventory.setSizePolicy(sizePolicy1)
@@ -139,28 +139,20 @@ class Ui_MainWindow(object):
         self.btn_inventory.setIcon(icon4)
         self.btn_inventory.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
 
-        self.verticalLayout_5.addWidget(self.btn_inventory)
+        self.verticalLayout_4.addWidget(self.btn_inventory)
 
-        self.btn_mail = QToolButton(self.top_menu)
+        self.btn_mail = QToolButton(self.menu_container)
         self.btn_mail.setObjectName(u"btn_mail")
         sizePolicy1.setHeightForWidth(self.btn_mail.sizePolicy().hasHeightForWidth())
         self.btn_mail.setSizePolicy(sizePolicy1)
         self.btn_mail.setMinimumSize(QSize(140, 30))
+        self.btn_mail.setStyleSheet(u"")
         icon5 = QIcon()
         icon5.addFile(u":/images/img/mail_menu.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_mail.setIcon(icon5)
         self.btn_mail.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
 
-        self.verticalLayout_5.addWidget(self.btn_mail)
-
-        self.btn_home.raise_()
-        self.btn_toggle.raise_()
-        self.btn_profit.raise_()
-        self.btn_students.raise_()
-        self.btn_inventory.raise_()
-        self.btn_mail.raise_()
-
-        self.verticalLayout_4.addWidget(self.top_menu, 0, Qt.AlignTop)
+        self.verticalLayout_4.addWidget(self.btn_mail)
 
         self.bottom_menu = QWidget(self.menu_container)
         self.bottom_menu.setObjectName(u"bottom_menu")
@@ -169,7 +161,7 @@ class Ui_MainWindow(object):
         self.bottom_menu.setStyleSheet(u"QToolButton {\n"
 "	background-color: #1E2226;\n"
 "	border-radius: 0px;\n"
-"	margin-left: 15px;\n"
+"	padding-left: 15px;\n"
 "	}")
         self.verticalLayout_6 = QVBoxLayout(self.bottom_menu)
         self.verticalLayout_6.setSpacing(0)
@@ -378,6 +370,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.icon_students = QLabel(self.icon_students_container)
         self.icon_students.setObjectName(u"icon_students")
+        self.icon_students.setPixmap(QPixmap(u":/images/img/user_icon.png"))
+        self.icon_students.setScaledContents(True)
 
         self.verticalLayout_13.addWidget(self.icon_students, 0, Qt.AlignVCenter)
 
@@ -432,6 +426,10 @@ class Ui_MainWindow(object):
         self.goto_students_btn.setObjectName(u"goto_students_btn")
         self.goto_students_btn.setMinimumSize(QSize(15, 15))
         self.goto_students_btn.setMaximumSize(QSize(20, 20))
+        icon10 = QIcon()
+        icon10.addFile(u":/images/img/goto-icon.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.goto_students_btn.setIcon(icon10)
+        self.goto_students_btn.setIconSize(QSize(15, 15))
 
         self.verticalLayout_16.addWidget(self.goto_students_btn)
 
@@ -470,6 +468,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_23.setContentsMargins(0, 0, 0, 0)
         self.icon_profit = QLabel(self.icon_profit_container)
         self.icon_profit.setObjectName(u"icon_profit")
+        self.icon_profit.setPixmap(QPixmap(u":/images/img/profit_icon2.png"))
+        self.icon_profit.setScaledContents(True)
 
         self.verticalLayout_23.addWidget(self.icon_profit, 0, Qt.AlignVCenter)
 
@@ -521,6 +521,8 @@ class Ui_MainWindow(object):
         self.goto_profit_btn.setObjectName(u"goto_profit_btn")
         self.goto_profit_btn.setMinimumSize(QSize(15, 15))
         self.goto_profit_btn.setMaximumSize(QSize(20, 20))
+        self.goto_profit_btn.setIcon(icon10)
+        self.goto_profit_btn.setIconSize(QSize(15, 15))
 
         self.verticalLayout_25.addWidget(self.goto_profit_btn)
 
@@ -547,7 +549,7 @@ class Ui_MainWindow(object):
         self.top_bar_axies = QWidget(self.axies_widget)
         self.top_bar_axies.setObjectName(u"top_bar_axies")
         self.horizontalLayout_8 = QHBoxLayout(self.top_bar_axies)
-        self.horizontalLayout_8.setSpacing(2)
+        self.horizontalLayout_8.setSpacing(3)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(0, 0, -1, 0)
         self.icon_axies_container = QWidget(self.top_bar_axies)
@@ -559,6 +561,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
         self.icon_axies = QLabel(self.icon_axies_container)
         self.icon_axies.setObjectName(u"icon_axies")
+        self.icon_axies.setPixmap(QPixmap(u":/images/img/inventory_icon.png"))
+        self.icon_axies.setScaledContents(True)
 
         self.verticalLayout_18.addWidget(self.icon_axies, 0, Qt.AlignVCenter)
 
@@ -610,6 +614,8 @@ class Ui_MainWindow(object):
         self.goto_axies_btn.setObjectName(u"goto_axies_btn")
         self.goto_axies_btn.setMinimumSize(QSize(15, 15))
         self.goto_axies_btn.setMaximumSize(QSize(20, 20))
+        self.goto_axies_btn.setIcon(icon10)
+        self.goto_axies_btn.setIconSize(QSize(15, 15))
 
         self.verticalLayout_20.addWidget(self.goto_axies_btn)
 
@@ -651,32 +657,48 @@ class Ui_MainWindow(object):
         self.label_2 = QLabel(self.profit_page)
         self.label_2.setObjectName(u"label_2")
 
-        self.verticalLayout_10.addWidget(self.label_2)
+        self.verticalLayout_10.addWidget(self.label_2, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.pages_container.addWidget(self.profit_page)
         self.students_page = QWidget()
         self.students_page.setObjectName(u"students_page")
+        self.verticalLayout_27 = QVBoxLayout(self.students_page)
+        self.verticalLayout_27.setObjectName(u"verticalLayout_27")
         self.label_3 = QLabel(self.students_page)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(270, 270, 58, 18))
+
+        self.verticalLayout_27.addWidget(self.label_3, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
         self.pages_container.addWidget(self.students_page)
         self.inventory_page = QWidget()
         self.inventory_page.setObjectName(u"inventory_page")
+        self.verticalLayout_28 = QVBoxLayout(self.inventory_page)
+        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
         self.label_4 = QLabel(self.inventory_page)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(290, 250, 58, 18))
+
+        self.verticalLayout_28.addWidget(self.label_4, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
         self.pages_container.addWidget(self.inventory_page)
         self.mail_page = QWidget()
         self.mail_page.setObjectName(u"mail_page")
+        self.verticalLayout_29 = QVBoxLayout(self.mail_page)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
         self.label_5 = QLabel(self.mail_page)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(130, 170, 58, 18))
+
+        self.verticalLayout_29.addWidget(self.label_5, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
         self.pages_container.addWidget(self.mail_page)
         self.settings_page = QWidget()
         self.settings_page.setObjectName(u"settings_page")
+        self.verticalLayout_30 = QVBoxLayout(self.settings_page)
+        self.verticalLayout_30.setObjectName(u"verticalLayout_30")
         self.label_6 = QLabel(self.settings_page)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(140, 160, 58, 18))
+
+        self.verticalLayout_30.addWidget(self.label_6, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
         self.pages_container.addWidget(self.settings_page)
 
         self.verticalLayout_3.addWidget(self.pages_container)
@@ -712,15 +734,15 @@ class Ui_MainWindow(object):
         self.btn_minimize.setText(QCoreApplication.translate("MainWindow", u"MINIMIZE", None))
         self.btn_expand.setText(QCoreApplication.translate("MainWindow", u"EXPAND", None))
         self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"EXIT", None))
-        self.icon_students.setText(QCoreApplication.translate("MainWindow", u"icon", None))
+        self.icon_students.setText("")
         self.title_students.setText(QCoreApplication.translate("MainWindow", u"STUDENTS", None))
         self.data_label_students.setText(QCoreApplication.translate("MainWindow", u"999", None))
-        self.goto_students_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.icon_profit.setText(QCoreApplication.translate("MainWindow", u"icon", None))
+        self.goto_students_btn.setText("")
+        self.icon_profit.setText("")
         self.title_profit.setText(QCoreApplication.translate("MainWindow", u"MONTHLY PROFIT", None))
         self.data_label_profit.setText(QCoreApplication.translate("MainWindow", u"999", None))
-        self.goto_profit_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.icon_axies.setText(QCoreApplication.translate("MainWindow", u"icon", None))
+        self.goto_profit_btn.setText("")
+        self.icon_axies.setText("")
         self.title_axies.setText(QCoreApplication.translate("MainWindow", u"AXIES", None))
         self.data_label_axies.setText(QCoreApplication.translate("MainWindow", u"999", None))
         self.goto_axies_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))

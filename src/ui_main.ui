@@ -22,6 +22,9 @@
   <property name="styleSheet">
    <string notr="true">border: 0px solid;</string>
   </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
   <widget class="QWidget" name="bg">
    <property name="minimumSize">
     <size>
@@ -79,15 +82,25 @@ border-radius: 10px;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: #1E2226;
+          <string notr="true">QWidget{
+background-color: #1E2226;
 border-top-left-radius: 10px;
 border-top-right-radius: 0px;
 border-bottom-left-radius: 10px;
-border-bottom-right-radius: 0px;</string>
+border-bottom-right-radius: 0px;
+}
+
+QToolButton {
+	background-color: #1E2226;
+	border-radius: 0px;
+	padding-left: 15px;
+	margin-right: 0px
+	}
+</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <property name="spacing">
-           <number>0</number>
+           <number>20</number>
           </property>
           <property name="leftMargin">
            <number>0</number>
@@ -96,228 +109,191 @@ border-bottom-right-radius: 0px;</string>
            <number>8</number>
           </property>
           <property name="rightMargin">
-           <number>5</number>
+           <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>8</number>
+           <number>0</number>
           </property>
-          <item alignment="Qt::AlignTop">
-           <widget class="QWidget" name="top_menu" native="true">
+          <item>
+           <widget class="QToolButton" name="btn_toggle">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>0</height>
+              <height>30</height>
              </size>
             </property>
             <property name="styleSheet">
              <string notr="true">QToolButton {
 	background-color: #1E2226;
-	border-radius: 0px;
-	margin-left: 15px;
-	}
-
-QToolButton:hover {
-	
-}</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
-             <property name="spacing">
-              <number>20</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>10</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QToolButton" name="btn_toggle">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QToolButton {
-	background-color: #1E2226;
-	margin-left: 3px
+	padding-left: 3px
 	}
 
 QToolButton:hover {
 	background-color: #1E2226
 }</string>
-               </property>
-               <property name="text">
-                <string>TOGGLE</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/img/menu.png</normaloff>:/images/img/menu.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="btn_home">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>140</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="focusPolicy">
-                <enum>Qt::NoFocus</enum>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>      Home</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/img/home_menu.png</normaloff>:/images/img/home_menu.png</iconset>
-               </property>
-               <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonTextBesideIcon</enum>
-               </property>
-               <property name="autoRaise">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="btn_profit">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>140</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>      Profit</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/img/profit_menu.png</normaloff>:/images/img/profit_menu.png</iconset>
-               </property>
-               <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonTextBesideIcon</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="btn_students">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>140</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>      Students</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/img/user_menu.png</normaloff>:/images/img/user_menu.png</iconset>
-               </property>
-               <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonTextBesideIcon</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="btn_inventory">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>140</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>      Inventory</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/img/inventory_menu.png</normaloff>:/images/img/inventory_menu.png</iconset>
-               </property>
-               <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonTextBesideIcon</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="btn_mail">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>140</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>      Mail</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/img/mail_menu.png</normaloff>:/images/img/mail_menu.png</iconset>
-               </property>
-               <property name="toolButtonStyle">
-                <enum>Qt::ToolButtonTextBesideIcon</enum>
-               </property>
-              </widget>
-             </item>
-            </layout>
-            <zorder>btn_home</zorder>
-            <zorder>btn_toggle</zorder>
-            <zorder>btn_profit</zorder>
-            <zorder>btn_students</zorder>
-            <zorder>btn_inventory</zorder>
-            <zorder>btn_mail</zorder>
+            </property>
+            <property name="text">
+             <string>TOGGLE</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/img/menu.png</normaloff>:/images/img/menu.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_home">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QToolButton{
+background-color: #303840;
+border-left: 2px solid  #E64C3C;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>      Home</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/img/home_menu.png</normaloff>:/images/img/home_menu.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+            <property name="autoRaise">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_profit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>      Profit</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/img/profit_menu.png</normaloff>:/images/img/profit_menu.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_students">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>      Students</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/img/user_menu.png</normaloff>:/images/img/user_menu.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_inventory">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>      Inventory</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/img/inventory_menu.png</normaloff>:/images/img/inventory_menu.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_mail">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>      Mail</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/img/mail_menu.png</normaloff>:/images/img/mail_menu.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
            </widget>
           </item>
           <item alignment="Qt::AlignBottom">
@@ -338,7 +314,7 @@ QToolButton:hover {
              <string notr="true">QToolButton {
 	background-color: #1E2226;
 	border-radius: 0px;
-	margin-left: 15px;
+	padding-left: 15px;
 	}</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -854,7 +830,13 @@ border-bottom-left-radius: 0px;</string>
                                 <item alignment="Qt::AlignVCenter">
                                  <widget class="QLabel" name="icon_students">
                                   <property name="text">
-                                   <string>icon</string>
+                                   <string/>
+                                  </property>
+                                  <property name="pixmap">
+                                   <pixmap resource="resources.qrc">:/images/img/user_icon.png</pixmap>
+                                  </property>
+                                  <property name="scaledContents">
+                                   <bool>true</bool>
                                   </property>
                                  </widget>
                                 </item>
@@ -971,7 +953,17 @@ border-bottom-left-radius: 0px;</string>
                                 </size>
                                </property>
                                <property name="text">
-                                <string>...</string>
+                                <string/>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resources.qrc">
+                                 <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
+                               </property>
+                               <property name="iconSize">
+                                <size>
+                                 <width>15</width>
+                                 <height>15</height>
+                                </size>
                                </property>
                               </widget>
                              </item>
@@ -1054,7 +1046,13 @@ border-bottom-left-radius: 0px;</string>
                                 <item alignment="Qt::AlignVCenter">
                                  <widget class="QLabel" name="icon_profit">
                                   <property name="text">
-                                   <string>icon</string>
+                                   <string/>
+                                  </property>
+                                  <property name="pixmap">
+                                   <pixmap resource="resources.qrc">:/images/img/profit_icon2.png</pixmap>
+                                  </property>
+                                  <property name="scaledContents">
+                                   <bool>true</bool>
                                   </property>
                                  </widget>
                                 </item>
@@ -1171,7 +1169,17 @@ border-bottom-left-radius: 0px;</string>
                                 </size>
                                </property>
                                <property name="text">
-                                <string>...</string>
+                                <string/>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resources.qrc">
+                                 <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
+                               </property>
+                               <property name="iconSize">
+                                <size>
+                                 <width>15</width>
+                                 <height>15</height>
+                                </size>
                                </property>
                               </widget>
                              </item>
@@ -1216,7 +1224,7 @@ border-bottom-left-radius: 0px;</string>
                            <widget class="QWidget" name="top_bar_axies" native="true">
                             <layout class="QHBoxLayout" name="horizontalLayout_8">
                              <property name="spacing">
-                              <number>2</number>
+                              <number>3</number>
                              </property>
                              <property name="leftMargin">
                               <number>0</number>
@@ -1254,7 +1262,13 @@ border-bottom-left-radius: 0px;</string>
                                 <item alignment="Qt::AlignVCenter">
                                  <widget class="QLabel" name="icon_axies">
                                   <property name="text">
-                                   <string>icon</string>
+                                   <string/>
+                                  </property>
+                                  <property name="pixmap">
+                                   <pixmap resource="resources.qrc">:/images/img/inventory_icon.png</pixmap>
+                                  </property>
+                                  <property name="scaledContents">
+                                   <bool>true</bool>
                                   </property>
                                  </widget>
                                 </item>
@@ -1373,6 +1387,16 @@ border-bottom-left-radius: 0px;</string>
                                <property name="text">
                                 <string>...</string>
                                </property>
+                               <property name="icon">
+                                <iconset resource="resources.qrc">
+                                 <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
+                               </property>
+                               <property name="iconSize">
+                                <size>
+                                 <width>15</width>
+                                 <height>15</height>
+                                </size>
+                               </property>
                               </widget>
                              </item>
                             </layout>
@@ -1434,7 +1458,7 @@ border-bottom-left-radius: 0px;</string>
                </widget>
                <widget class="QWidget" name="profit_page">
                 <layout class="QVBoxLayout" name="verticalLayout_10">
-                 <item>
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                   <widget class="QLabel" name="label_2">
                    <property name="text">
                     <string>profit</string>
@@ -1444,64 +1468,48 @@ border-bottom-left-radius: 0px;</string>
                 </layout>
                </widget>
                <widget class="QWidget" name="students_page">
-                <widget class="QLabel" name="label_3">
-                 <property name="geometry">
-                  <rect>
-                   <x>270</x>
-                   <y>270</y>
-                   <width>58</width>
-                   <height>18</height>
-                  </rect>
-                 </property>
-                 <property name="text">
-                  <string>students</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_27">
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>students</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
                <widget class="QWidget" name="inventory_page">
-                <widget class="QLabel" name="label_4">
-                 <property name="geometry">
-                  <rect>
-                   <x>290</x>
-                   <y>250</y>
-                   <width>58</width>
-                   <height>18</height>
-                  </rect>
-                 </property>
-                 <property name="text">
-                  <string>inventory</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_28">
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>inventory</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
                <widget class="QWidget" name="mail_page">
-                <widget class="QLabel" name="label_5">
-                 <property name="geometry">
-                  <rect>
-                   <x>130</x>
-                   <y>170</y>
-                   <width>58</width>
-                   <height>18</height>
-                  </rect>
-                 </property>
-                 <property name="text">
-                  <string>mail</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_29">
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>mail</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
                <widget class="QWidget" name="settings_page">
-                <widget class="QLabel" name="label_6">
-                 <property name="geometry">
-                  <rect>
-                   <x>140</x>
-                   <y>160</y>
-                   <width>58</width>
-                   <height>18</height>
-                  </rect>
-                 </property>
-                 <property name="text">
-                  <string>settings</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_30">
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>settings</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>

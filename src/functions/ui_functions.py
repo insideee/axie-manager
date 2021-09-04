@@ -88,8 +88,35 @@ class UIFunctions(QWidget):
             print(f'Error: {ex}')
             sys.exit(1)
 
+    def btn_style_handle(self, *args, **kwargs) -> None:
+
+        if type(kwargs['list_btn']) == list:
+            try:
+                for i in range(0, len(kwargs['list_btn'])):
+                    kwargs['list_btn'][i].clicked.connect(self.btn_style_applyer)
+
+            except IndexError as ex:
+                print(ex)
+
+    def btn_style_applyer(self):
+        default_style = 'background-color: #1E2226; border-radius: 0px; padding-left: 15px; color: #FFFFFF;'
+        clicked_style = 'background-color: #303840; border-left: 2px solid  #E64C3C; border-radius: 0px; padding-left: 15px; color: #FFFFFF;'
+
+        sender = self.sender()
+
+        if sender.objectName() == 'btn_settings':
+            parent = self.sender().parent().parent()
+        else:
+            parent = self.sender().parent()
+
+        for btn in parent.findChildren(QToolButton):
+            if btn.objectName() != sender.objectName() and btn.objectName() != 'btn_toggle':
+                btn.setStyleSheet(default_style)
+            elif btn.objectName() != 'btn_toggle':
+                btn.setStyleSheet(clicked_style)
+
     @staticmethod
-    def set_font(qwidget: QWidget, size: int, font_path: str, color: str, bold: bool) -> None:
+    def set_font(qwidget: QWidget, size: int, font_path: str, color: str, bold: bool, change_color: bool) -> None:
 
         # add font to app database
         font_id = QtGui.QFontDatabase.addApplicationFont(f'{font_path}')
@@ -100,7 +127,8 @@ class UIFunctions(QWidget):
         font.setPointSize(size)
         font.setBold(bold)
         # set color and font
-        qwidget.setStyleSheet('color:' + f'{color}')
+        if change_color:
+            qwidget.setStyleSheet('color:' + f'{color}')
         qwidget.setFont(font)
 
     @staticmethod
