@@ -106,7 +106,7 @@ class MainWindow(QMainWindow, UIFunctions):
 
     def graphics_configurations(self):
         self.students_goal_graphic = CircularProgress(200, 200, font_family='Saira')
-        self.students_goal_graphic.set_value(90)
+        self.students_goal_graphic.set_value(79)
 
         self.profit_graphic = BarGraph(250, 250, font_family='Saira')
         self.profit_graphic.set_shadow(True)
@@ -115,11 +115,10 @@ class MainWindow(QMainWindow, UIFunctions):
         self.ui.data_label_profit.setText('2100')
 
 
-        self.axies_goal_graphic = CircularProgress(200, 200, font_family='Saira')
-        self.axies_goal_graphic.set_value(20)
+        self.axies_graphic = HomeMarketFeature(200, 200)
 
         add_widget = [self.ui.graphics_layout.addWidget(widget) for widget in
-                      [self.students_goal_graphic, self.profit_graphic, self.axies_goal_graphic]]
+                      [self.students_goal_graphic, self.profit_graphic, self.axies_graphic]]
 
     def set_work_in_progress_pages(self):
 

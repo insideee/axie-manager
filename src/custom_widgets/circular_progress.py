@@ -46,8 +46,8 @@ class CircularProgress(QWidget):
     def paintEvent(self, event: QPaintEvent) -> None:
 
         # set progress parameters
-        width = self.width - self.progress_width
-        height = self.height - self.progress_width
+        width = self.width - 30
+        height = self.height - 30
         margin = self.progress_width / 2
         value = (360 / self.max_value) * self.value
 
@@ -56,30 +56,39 @@ class CircularProgress(QWidget):
         paint.setRenderHint(QPainter.Antialiasing)  # remove pixelated edges
         paint.setFont(QFont(self.font_family, self.font_size))
 
-        rect = QRect(0, 0, self.width, self.height)
+        rect = QRect(0, 5, self.width, height)
         paint.setPen(Qt.NoPen)
+
         paint.drawRect(rect)
 
         # pen
         pen = QPen()
         pen.setColor(QColor(self.reference_color))
         pen.setWidth(self.reference_width)
+
         # set round cap
         if self.progress_rounded_cap:
             pen.setCapStyle(Qt.RoundCap)
 
         # create arc reference
         paint.setPen(pen)
-        paint.drawArc(int(margin), int(margin), width, height, -90 * 16, -360 * 16)
+        paint.drawArc(15, int(margin), width, height, -90 * 16, -360 * 16)
 
         # progress arc
         pen.setColor(QColor(self.progress_color))
         pen.setWidth(self.progress_width)
 
         paint.setPen(pen)
-        paint.drawArc(int(margin), int(margin), width, height, -90 * 16, int(-value * 16))
+        paint.drawArc(15, int(margin), width, height, -90 * 16, int(-value * 16))
 
-        # create text
+        # create data text
         paint.drawText(rect, Qt.AlignCenter, f'{self.value}{self.suffix}')
+
+        # create label text
+        pen.setColor(self.reference_color)
+        paint.setFont(QFont(self.font_family, 10))
+        paint.setPen(pen)
+        
+        paint.drawText(60, 195, 'SLP Daily Goal')
 
         paint.end()

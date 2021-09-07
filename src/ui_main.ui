@@ -94,7 +94,8 @@ QToolButton {
 	background-color: #1E2226;
 	border-radius: 0px;
 	padding-left: 15px;
-	margin-right: 0px
+	margin-right: 0px;
+	color: #ffffff
 	}
 </string>
          </property>
