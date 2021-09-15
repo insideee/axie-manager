@@ -6,6 +6,7 @@ from PySide2.QtWidgets import *
 from src.ui_loading import Ui_MainWindow
 from src.functions import UIFunctions
 from main import MainWindow
+from updater import *
 
 
 class LoadingScreen(QMainWindow):
@@ -18,6 +19,7 @@ class LoadingScreen(QMainWindow):
 
         self.timer = None
         self.counter = 3
+        self.update_handle = None
 
         # window configs
         self.window_gui_configuration()
@@ -54,15 +56,43 @@ class LoadingScreen(QMainWindow):
     def progress_configuration(self):
         self.timer = QtCore.QTimer()
         self.timer.start(5)
+        self.timer.setInterval(80)
 
         self.timer.timeout.connect(self.progress_handle)
 
     def progress_handle(self):
 
-        if self.counter < 100:
-            self.timer.setInterval(50)
-        elif self.counter == 100:
-            self.ui.info_label.setText('initializing...')
+        # default
+        if self.counter == 5:
+            self.ui.info_label.setText('Loading...')
+
+        # check update
+        if self.counter == 25:
+            self.update_handle = Updater(
+                url_version='https://raw.githubusercontent.com/axie-manager/axie-manager-updater/main/version.txt',
+                url_update='https://github.com/axie-manager/axie-manager-updater/raw/main/src.zip')
+
+            self.ui.info_label.setText('Checking updates...')
+            self.timer.setInterval(300)
+
+        # update or not
+        if self.counter == 39:
+            if self.update_handle.need_update:
+                self.update_handle.update_src()
+                self.ui.info_label.setText(f'Updating to version {self.update_handle.remote_version}')
+            else:
+                self.ui.info_label.setText(f'App up to date...')
+
+        # end update
+        if self.counter == 46 and self.update_handle.need_update:
+            self.ui.info_label.setText(f'Finishing...')
+
+        if self.counter == 55:
+            self.ui.info_label.setText('Loading...')
+            self.timer.setInterval(80)
+
+        if self.counter == 100:
+            self.ui.info_label.setText('Initializing...')
             self.timer.setInterval(2000)
 
         self.ui.progress.setValue(self.counter)
