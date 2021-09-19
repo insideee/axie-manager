@@ -12,7 +12,10 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-import src.resources_rc
+try:
+        import resources.resources_rc
+except ModuleNotFoundError:
+        import src.resources.resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):

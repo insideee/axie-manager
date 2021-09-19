@@ -3,11 +3,15 @@ from PySide2 import QtCore
 from PySide2.QtWidgets import *
 
 # gui file and gui functions
-from src.ui_main import Ui_MainWindow
-from src.functions import UIFunctions
+try:
+    from ui.ui_main import Ui_MainWindow
+    from functions import UIFunctions
+    from custom_widgets import *
 
-# custom widgets
-from src.custom_widgets import *
+except ModuleNotFoundError:
+    from src.ui.ui_main import Ui_MainWindow
+    from src.functions import UIFunctions
+    from src.custom_widgets import *
 
 
 class MainWindow(QMainWindow, UIFunctions):
