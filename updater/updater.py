@@ -14,7 +14,7 @@ from updater.config import UPDATE_DIRNAME, URL_CHECK_VERSION, URL_UPDATED_FILES
 
 class Updater:
 
-    def __init__(self, url_version=URL_CHECK_VERSION, url_update=URL_UPDATED_FILES):
+    def __init__(self, url_version=URL_CHECK_VERSION, url_update=URL_UPDATED_FILES) -> None:
 
         self.log_counter = 0
         self.log_header = None
@@ -33,8 +33,7 @@ class Updater:
 
         self.log_var = self.get_log()
 
-
-    def local_source_validator(self) -> str:
+    def local_source_validator(self) -> bool:
         """Check if source directory exist and return it
 
         """
@@ -54,7 +53,7 @@ class Updater:
         self.import_module()
         return True
 
-    def local_version_validator(self, valid_src) -> bool:
+    def local_version_validator(self, valid_src: bool) -> bool:
         """If not valid source return false, 
            if valid check if version is valid too
         """
@@ -67,7 +66,7 @@ class Updater:
 
         return False
 
-    def get_local_version(self, valid_version) -> str:
+    def get_local_version(self, valid_version: bool) -> str:
         """Get the local version if valid version, 
            if not return string empty
         """
@@ -83,7 +82,7 @@ class Updater:
 
         return vers
 
-    def check_version_update(self, remote_v, local_v) -> bool:
+    def check_version_update(self, remote_v: str, local_v: str) -> bool:
         """Check if need update source
         """
 
@@ -91,7 +90,7 @@ class Updater:
 
         if local_v < remote_v:
             self.log(f'App outdated')
-            local_v_status = 'inexistent' if local_v == '' else f'{local_v}'
+            local_v_status = 'nonexistent' if local_v == '' else f'{local_v}'
             self.log(f'App version is {local_v_status} and repo version is {remote_v}')
             status = True
 
@@ -149,14 +148,14 @@ class Updater:
             
             self.log('Src replaced')
 
-    def log(self, text):
+    def log(self, text: str):
         """Log creation handle
         """
 
         time_now = datetime.now()
-        formated_datetime = time_now.strftime('%Y-%m-%d %H:%M')
-        formated_time = time_now.strftime('%H:%M:%S')
-        self.log_header = f'Starting log at {formated_datetime}'
+        formatted_datetime = time_now.strftime('%Y-%m-%d %H:%M')
+        formatted_time = time_now.strftime('%H:%M:%S')
+        self.log_header = f'Starting log at {formatted_datetime}'
 
         # check if log exist:
         log_path = os.path.dirname(__file__) + '/update.log'
@@ -176,7 +175,7 @@ class Updater:
                         log.write(self.log_header)            
 
         with open(log_path, 'a') as log:
-            log.write(f'\n{formated_time}: {text}')
+            log.write(f'\n{formatted_time}: {text}')
 
         self.log_counter += 1
 
@@ -198,7 +197,7 @@ class Updater:
 
         return lines
 
-    def import_module(self):
+    def import_module(self) -> None:
         """Import module handle
         """
         self.update_dir = importlib.import_module(UPDATE_DIRNAME)

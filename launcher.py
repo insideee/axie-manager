@@ -11,7 +11,7 @@ from updater import *
 
 class LoadingScreen(QMainWindow):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super(LoadingScreen, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -36,7 +36,7 @@ class LoadingScreen(QMainWindow):
 
         self.show()
 
-    def window_gui_configuration(self):
+    def window_gui_configuration(self) -> None:
         # center and config window
         self.ui_functions.config_window(config_widget=self, title='', width=600, height=250, resizeble=False,
                                         minimum_size=True)
@@ -44,7 +44,7 @@ class LoadingScreen(QMainWindow):
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-    def fonts_gui_configuration(self):
+    def fonts_gui_configuration(self) -> None:
         # title bar
         self.ui_functions.set_font(self.ui.title_1, 25, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, True)
         self.ui_functions.set_font(self.ui.title_2, 26, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
@@ -62,7 +62,7 @@ class LoadingScreen(QMainWindow):
 
         self.timer.timeout.connect(self.progress_handle)
 
-    def progress_handle(self):
+    def progress_handle(self) -> None:
 
         # default
         if self.counter == 5:
@@ -71,40 +71,40 @@ class LoadingScreen(QMainWindow):
         # check update
         if self.counter == 25:
             self.ui.info_label.setText('Checking updates...')
-            self.timer.setInterval(300) 
+            self.timer.setInterval(300)
 
             self.update_handle = Updater()
-            self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle, 
-                                                                    self.old_log)
+            self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle,
+                                                                               self.old_log)
 
-        if self.counter > 25 and self.counter <= 50:                      
+        if self.counter > 25 and self.counter <= 50:
 
             for counter in range(self.log_loop_init, 50, self.log_step):
                 if self.counter == counter:
                     if len(self.log_list) > 0:
                         self.ui.info_label.setText(self.log_list[0])
                         self.log_list.pop(0)
-                        self.log_loop_init+=self.log_step
+                        self.log_loop_init += self.log_step
 
         if self.counter == 46:
             if not self.update_handle.valid_src:
                 self.update_handle.create_src()
                 self.need_show_log = True
-                self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle, 
-                                                                        self.old_log)
+                self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle,
+                                                                                   self.old_log)
 
             elif self.update_handle.valid_src and not self.update_handle.valid_version:
                 self.update_handle.update_src()
                 self.need_show_log = True
-                self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle, 
-                                                                        self.old_log)
+                self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle,
+                                                                                   self.old_log)
 
             elif self.update_handle.valid_version and self.update_handle.valid_version:
                 if self.update_handle.update_needed:
                     self.update_handle.update_src()
                     self.need_show_log = True
-                    self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle, 
-                                                                        self.old_log)
+                    self.log_list, self.log_step, self.old_log = self.get_log_and_step(self.update_handle,
+                                                                                       self.old_log)
                 if not self.update_handle.update_needed:
                     self.timer.setInterval(80)
 
@@ -115,8 +115,8 @@ class LoadingScreen(QMainWindow):
                         if len(self.log_list) > 0:
                             self.ui.info_label.setText(self.log_list[0])
                             self.log_list.pop(0)
-                            self.log_loop_init+=self.log_step
-     
+                            self.log_loop_init += self.log_step
+
         if self.counter == 76:
             self.ui.info_label.setText('Loading...')
             self.timer.setInterval(80)
@@ -129,23 +129,22 @@ class LoadingScreen(QMainWindow):
 
         if self.counter == 101:
             self.timer.stop()
-            newwindow = getattr(importlib.import_module('src'), 'MainWindow')
-            show = newwindow()
+            new_window = getattr(importlib.import_module('src'), 'MainWindow')
+            show = new_window()
             self.close()
 
         self.counter += 1
 
-    def get_log_and_step(self, updater_handle, oldlog):
+    def get_log_and_step(self, updater_handle, old_log):
         list_log = updater_handle.get_log()
 
-        if oldlog != 0:
-            list_log = list_log[oldlog:]
+        if old_log != 0:
+            list_log = list_log[old_log:]
 
-        step = int(23 / len(list_log))   
-        oldlog = len(list_log)   
+        step = int(23 / len(list_log))
+        old_log = len(list_log)
 
-        return list_log, step, oldlog
-
+        return list_log, step, old_log
 
 
 def main():
