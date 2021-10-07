@@ -7,7 +7,6 @@ try:
     from ui.ui_main import Ui_MainWindow
     from functions import UIFunctions
     from custom_widgets import *
-
 except ModuleNotFoundError:
     from src.ui.ui_main import Ui_MainWindow
     from src.functions import UIFunctions
@@ -19,6 +18,8 @@ class MainWindow(QMainWindow, UIFunctions):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.pop_up = None
 
         # window configs
         self.window_gui_configuration()
@@ -55,7 +56,8 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # title bar buttons
         self.ui.btn_exit.clicked.connect(lambda: sys.exit(1))
-        self.ui.btn_minimize.clicked.connect(self.showMinimized)
+        #self.ui.btn_minimize.clicked.connect(self.showMinimized)
+        self.ui.btn_minimize.clicked.connect(self.add_pop_up)
         self.ui.btn_expand.clicked.connect(lambda: self.min_and_max_window(self))
 
         # link button -> pages
@@ -131,6 +133,30 @@ class MainWindow(QMainWindow, UIFunctions):
         for v in work_pages:
             self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
             v.setText('Work in progress...')
+    
+    def add_pop_up(self):
+        self.pop_up = AddPopUp()
+
+        # config
+        self.config_window(config_widget=self.pop_up, title='', width=400, height=300, resizeble=False, 
+                            minimum_size=True)
+        self.pop_up.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.pop_up.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+        # font config
+        label_list = [self.pop_up.ui.label, self.pop_up.ui.label_2, self.pop_up.ui.label_3, self.pop_up.ui.label_4]
+        entry_list = [self.pop_up.ui.entry_line, self.pop_up.ui.entry_line_2, self.pop_up.ui.entry_line_3, self.pop_up.ui.entry_line_4]
+        
+        for label in label_list:
+            self.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
+
+        for label in entry_list:
+            self.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
+
+        self.set_font(self.pop_up.ui.add, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
+        
+        # show
+        self.pop_up.show()
 
 def main():
     app = QApplication(sys.argv)
