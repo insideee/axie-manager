@@ -3,7 +3,6 @@ from PySide2 import QtCore
 from PySide2.QtGui import QMovie, QPaintEvent, QPainter, QColor, QPen, QFont
 from PySide2.QtWidgets import QLabel, QMessageBox, QWidget, QGraphicsDropShadowEffect
 from PySide2.QtCore import QAbstractAnimation, QPoint, QRect, QThread, QTimer, Qt, QSize, QPropertyAnimation, Signal
-from sqlalchemy.sql.visitors import VisitableType
 from custom_widgets.ui import Ui_main
 from functions import UIFunctions
 from api import FullData, AccAxie
@@ -52,7 +51,7 @@ class AddPopUp(QWidget):
         self.setWindowFlag(QtCore.Qt.Popup)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        # fonts config
+        # fonts variables
         self.label_list = [self.ui.label, self.ui.label_2, self.ui.label_3, self.ui.label_4]
         self.entry_list = [self.ui.name_value, self.ui.ronin_value, self.ui.email_value, self.ui.daily_value]
         
@@ -107,10 +106,10 @@ class AddPopUp(QWidget):
             else:
                 color = '#E64C3C'
             
-            
             self.func.set_font(self.ui.log_label, 10, ':/font/fonts/Saira-Bold.ttf', color, True, True)
             self.ui.log_label.setText(f'{self.log}')
-            QTimer.singleShot(1500, lambda: self.close())
+            if self.commit_complete:
+                QTimer.singleShot(1500, lambda: self.close())
             
     def btn_animation(self):
         s_rect = QPoint(158, 12)
@@ -186,8 +185,6 @@ class ValidatorThread(QThread):
         else:
             self.log = 'Please, fill all required fields.'
             
-        time.sleep(1)
-            
         if entries_filled and account_valid and not api_is_down and not account_in_use and not scholar_exist:
             self.valid_entries = True
         else:
@@ -195,8 +192,7 @@ class ValidatorThread(QThread):
             
         self.validator_result_handle()
             
-        self.log_signal.emit(self.log)
-        
+        self.log_signal.emit(self.log)        
         
     def validator_result_handle(self):
         
@@ -214,7 +210,7 @@ class ValidatorThread(QThread):
             try:
                 daily_goal = int(self.daily_value)
             except ValueError:
-                self.log('Daily goal need to be a number.')
+                self.log = 'Daily goal need to be a number.'
                 self.commit_signal.emit(False)
                 return
             
