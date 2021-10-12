@@ -1,10 +1,14 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
 
 class DefaultTools:
-    engine = create_engine('sqlite:///database.db', echo=True)
+    
+    path = os.path.dirname(os.path.abspath(__file__))   
+    db_path = os.path.join(path, 'database.db')
+    engine = create_engine(f'sqlite:///{db_path}', echo=True)
     engine_session = sessionmaker(engine)
     session_handle = engine_session()
     base = declarative_base(bind=engine)
@@ -23,7 +27,7 @@ class Account(DefaultTools.base):
 
     @classmethod
     def find_by_address(cls, session, ronin_address: str):
-        return session.query(cls).filter(cls.ronnin_address == ronin_address).first()
+        return session.query(cls).filter(cls.ronin_address == ronin_address).first()
 
     @classmethod
     def find_by_id(cls, session, id_input: str):
@@ -36,8 +40,13 @@ class Scholar(DefaultTools.base):
     name = Column(String(32), primary_key=True)
     email = Column(String(32))
     daily_goal = Column(Integer)
-    daily_profit = Column(Integer)
     account_id = Column(Integer, ForeignKey('accounts.id'), primary_key=True)
+    last_time_checked = Column(String(16))
+    daily_profit = Column(Integer)
+    daily_profit_cached = Column(Integer)
+    actual_month_profit = Column(Integer)
+    last_month_profit = Column(Integer)
+    next_to_last_month_profit = Column(Integer)
 
     def __repr__(self):
         return f'Name: {self.name}, email: {self.email}, daily_goal: {self.daily_goal}, ' \
@@ -46,7 +55,14 @@ class Scholar(DefaultTools.base):
     @classmethod
     def find_by_name(cls, session, name_input: str):
         return session.query(cls).filter(cls.name.like(f'%{name_input}%')).first()
+    
+    @classmethod
+    def set_account_id(cls, session, name_input: str, account_id: int):
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.account_id: account_id})
 
+if __name__ == '__main__':
+    DefaultTools.base.metadata.create_all(DefaultTools.engine)
+    
 # TODO:
 # criar um metodo para atualizar daily profit
 # importante também deixar salvo quando foi a ultima consulta, ou usar o localtime \

@@ -1,6 +1,7 @@
 import sys
 from PySide2 import QtCore
 from PySide2.QtWidgets import *
+from PySide2.QtCore import QThread, QTimer
 
 # gui file and gui functions
 try:
@@ -19,7 +20,14 @@ class MainWindow(QMainWindow, UIFunctions):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.pop_up = None
+        # worker variables
+        self.load_info_worker = None
+        
+        self.load_home_info_thread_handle()
+        
+        # pop up variables
+        self.pop_up = AddPopUp()
+        self.pop_up.close_signal.connect(self.load_home_info_thread_handle)
 
         # window configs
         self.window_gui_configuration()
@@ -44,7 +52,7 @@ class MainWindow(QMainWindow, UIFunctions):
 
     def window_gui_configuration(self):
         # center and config window
-        self.config_window(config_widget=self, title='', width=1200, height=680, resizeble=True,
+        self.config_window(config_widget=self, title='', width=1200, height=680, resizable=True,
                            minimum_size=True)
         # remove title bar
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -57,7 +65,7 @@ class MainWindow(QMainWindow, UIFunctions):
         # title bar buttons
         self.ui.btn_exit.clicked.connect(lambda: sys.exit(1))
         #self.ui.btn_minimize.clicked.connect(self.showMinimized)
-        self.ui.btn_minimize.clicked.connect(self.add_pop_up)
+        self.ui.btn_minimize.clicked.connect(self.show_add_pop_up)
         self.ui.btn_expand.clicked.connect(lambda: self.min_and_max_window(self))
 
         # link button -> pages
@@ -134,29 +142,22 @@ class MainWindow(QMainWindow, UIFunctions):
             self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
             v.setText('Work in progress...')
     
-    def add_pop_up(self):
-        self.pop_up = AddPopUp()
-
-        # config
-        self.config_window(config_widget=self.pop_up, title='', width=400, height=300, resizeble=False, 
-                            minimum_size=True)
-        self.pop_up.setWindowFlag(QtCore.Qt.FramelessWindowHint)
-        self.pop_up.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-
-        # font config
-        label_list = [self.pop_up.ui.label, self.pop_up.ui.label_2, self.pop_up.ui.label_3, self.pop_up.ui.label_4]
-        entry_list = [self.pop_up.ui.entry_line, self.pop_up.ui.entry_line_2, self.pop_up.ui.entry_line_3, self.pop_up.ui.entry_line_4]
-        
-        for label in label_list:
-            self.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
-
-        for label in entry_list:
-            self.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
-
-        self.set_font(self.pop_up.ui.add, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
-        
+    def show_add_pop_up(self):           
         # show
         self.pop_up.show()
+        
+    def load_home_info_thread_handle(self) -> None:
+        self.load_info_worker = LoadHomeInfoWorker()
+        self.load_info_worker.start()
+        
+        self.load_info_worker.finished.connect(self.home_info_setter)
+        
+    def home_info_setter(self):
+        print('setting')
+
+class LoadHomeInfoWorker(QThread):
+    def run(self) -> None:
+        print('working')
 
 def main():
     app = QApplication(sys.argv)

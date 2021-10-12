@@ -1,2 +1,2 @@
 from ._version import __version__
-from .api import FullData, AccAxie, DailySlp
+from .api import FullData, AccAxie
