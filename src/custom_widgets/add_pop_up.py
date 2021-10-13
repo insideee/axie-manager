@@ -9,7 +9,6 @@ from api import FullData, AccAxie
 from model import DefaultTools, Account, Scholar
 from datetime import datetime
 import os
-import time
 
 class AddPopUp(QWidget):
     
@@ -48,7 +47,7 @@ class AddPopUp(QWidget):
         self.func.config_window(config_widget=self, title='', width=self.width, height=self.height, resizable=self.resizable, 
                                 minimum_size=self.minimum_size)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
-        self.setWindowFlag(QtCore.Qt.Popup)
+        #self.setWindowFlag(QtCore.Qt.Popup)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # fonts variables
@@ -234,7 +233,7 @@ class ValidatorThread(QThread):
                                                    last_month_profit=last_month,
                                                    next_to_last_month_profit=next_to_last_month)]
                                   )
-            
+        
             DefaultTools.session_handle.add(new_account)
             DefaultTools.session_handle.commit()
             self.commit_signal.emit(True)

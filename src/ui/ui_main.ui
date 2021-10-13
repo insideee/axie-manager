@@ -143,7 +143,7 @@ QToolButton:hover {
              <string>TOGGLE</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset>
               <normaloff>:/images/img/menu.png</normaloff>:/images/img/menu.png</iconset>
             </property>
            </widget>
@@ -179,7 +179,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Home</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset>
               <normaloff>:/images/img/home_menu.png</normaloff>:/images/img/home_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -208,7 +208,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Profit</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset>
               <normaloff>:/images/img/profit_menu.png</normaloff>:/images/img/profit_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -234,7 +234,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Students</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset>
               <normaloff>:/images/img/user_menu.png</normaloff>:/images/img/user_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -260,7 +260,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Inventory</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset>
               <normaloff>:/images/img/inventory_menu.png</normaloff>:/images/img/inventory_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -289,7 +289,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Mail</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset>
               <normaloff>:/images/img/mail_menu.png</normaloff>:/images/img/mail_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -346,7 +346,7 @@ border-left: 2px solid  #E64C3C;
                 <string>     Settings</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset>
                  <normaloff>:/images/img/config_menu.png</normaloff>:/images/img/config_menu.png</iconset>
                </property>
                <property name="toolButtonStyle">
@@ -508,7 +508,7 @@ border-bottom-left-radius: 0px;</string>
                          <string/>
                         </property>
                         <property name="pixmap">
-                         <pixmap resource="resources.qrc">:/images/img/mizer_logo.png</pixmap>
+                         <pixmap>:/images/img/mizer_logo.png</pixmap>
                         </property>
                         <property name="scaledContents">
                          <bool>true</bool>
@@ -598,7 +598,7 @@ border-bottom-left-radius: 0px;</string>
                       <string>MINIMIZE</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="resources.qrc">
+                      <iconset>
                        <normaloff>:/images/img/minimize_icon.png</normaloff>:/images/img/minimize_icon.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -627,7 +627,7 @@ border-bottom-left-radius: 0px;</string>
                       <string>EXPAND</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="resources.qrc">
+                      <iconset>
                        <normaloff>:/images/img/maximize.png</normaloff>:/images/img/maximize.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -656,7 +656,7 @@ border-bottom-left-radius: 0px;</string>
                       <string>EXIT</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="resources.qrc">
+                      <iconset>
                        <normaloff>:/images/img/close_icon.png</normaloff>:/images/img/close_icon.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -834,7 +834,7 @@ border-bottom-left-radius: 0px;</string>
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap resource="resources.qrc">:/images/img/user_icon.png</pixmap>
+                                   <pixmap>:/images/img/user_icon.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -908,7 +908,7 @@ border-bottom-left-radius: 0px;</string>
                                 <enum>Qt::LeftToRight</enum>
                                </property>
                                <property name="text">
-                                <string>999</string>
+                                <string>0</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -957,7 +957,7 @@ border-bottom-left-radius: 0px;</string>
                                 <string/>
                                </property>
                                <property name="icon">
-                                <iconset resource="resources.qrc">
+                                <iconset>
                                  <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
                                </property>
                                <property name="iconSize">
@@ -1050,7 +1050,7 @@ border-bottom-left-radius: 0px;</string>
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap resource="resources.qrc">:/images/img/profit_icon2.png</pixmap>
+                                   <pixmap>:/images/img/profit_icon2.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -1124,7 +1124,7 @@ border-bottom-left-radius: 0px;</string>
                                 <enum>Qt::LeftToRight</enum>
                                </property>
                                <property name="text">
-                                <string>999</string>
+                                <string>0</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1173,7 +1173,7 @@ border-bottom-left-radius: 0px;</string>
                                 <string/>
                                </property>
                                <property name="icon">
-                                <iconset resource="resources.qrc">
+                                <iconset>
                                  <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
                                </property>
                                <property name="iconSize">
@@ -1266,7 +1266,7 @@ border-bottom-left-radius: 0px;</string>
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap resource="resources.qrc">:/images/img/inventory_icon.png</pixmap>
+                                   <pixmap>:/images/img/inventory_icon.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -1340,7 +1340,7 @@ border-bottom-left-radius: 0px;</string>
                                 <enum>Qt::LeftToRight</enum>
                                </property>
                                <property name="text">
-                                <string>999</string>
+                                <string>0</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1389,7 +1389,7 @@ border-bottom-left-radius: 0px;</string>
                                 <string>...</string>
                                </property>
                                <property name="icon">
-                                <iconset resource="resources.qrc">
+                                <iconset>
                                  <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
                                </property>
                                <property name="iconSize">
@@ -1527,6 +1527,7 @@ border-bottom-left-radius: 0px;</string>
   </widget>
  </widget>
  <resources>
+  <include location="../resources/resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>

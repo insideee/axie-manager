@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_mainLRfNft.ui'
+## Form generated from reading UI file 'ui_mainLXIkCr.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -739,15 +739,15 @@ class Ui_MainWindow(object):
         self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"EXIT", None))
         self.icon_students.setText("")
         self.title_students.setText(QCoreApplication.translate("MainWindow", u"STUDENTS", None))
-        self.data_label_students.setText(QCoreApplication.translate("MainWindow", u"999", None))
+        self.data_label_students.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.goto_students_btn.setText("")
         self.icon_profit.setText("")
         self.title_profit.setText(QCoreApplication.translate("MainWindow", u"MONTHLY PROFIT", None))
-        self.data_label_profit.setText(QCoreApplication.translate("MainWindow", u"999", None))
+        self.data_label_profit.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.goto_profit_btn.setText("")
         self.icon_axies.setText("")
         self.title_axies.setText(QCoreApplication.translate("MainWindow", u"AXIES", None))
-        self.data_label_axies.setText(QCoreApplication.translate("MainWindow", u"999", None))
+        self.data_label_axies.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.goto_axies_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"profit", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"students", None))

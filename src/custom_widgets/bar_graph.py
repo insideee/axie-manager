@@ -15,8 +15,8 @@ class BarGraph(QWidget):
         self.bar_size = 35
         self.graph_data = {
             'graph1': 0,
-            'graph2': 500,
-            'graph3': 2100
+            'graph2': 0,
+            'graph3': 0
         }
         self.shadow = None
         self.shadow_blur_radius = 6
@@ -35,6 +35,8 @@ class BarGraph(QWidget):
         self.graph_line = True
         self.graph_line_color = 0x737373
         self.graph_line_size = 1
+        
+        self.set_shadow(True)
 
         self.setMinimumSize(QSize(self.width, self.height))
         self.setMaximumSize(QSize(self.width, self.height))
@@ -120,7 +122,10 @@ class BarGraph(QWidget):
         extend_values = {}
 
         for k, v in self.graph_data.items():
-            percent = v / base_value
+            try:
+                percent = v / base_value
+            except ZeroDivisionError:
+                percent = 0
 
             extend_values[k] = y_pos - (percent * max_extends)
 
@@ -170,7 +175,7 @@ class BarGraph(QWidget):
             self.shadow.setColor(QColor(0, 0, 0, 90))
             self.setGraphicsEffect(self.shadow)
 
-    def update_values(self, graph1: int, graph2: int, graph3: int) -> None:
+    def update_value(self, graph1: int, graph2: int, graph3: int) -> None:
         self.graph_data = {
             'graph1': graph1,
             'graph2': graph2,

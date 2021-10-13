@@ -16,6 +16,7 @@ class CircularProgress(QWidget):
         self.progress_rounded_cap = True
         self.progress_color = 0xE64C3C
         self.reference_color = 0x737373
+        self.progress_color_complete = 0x00e600
         self.max_value = 100
         self.font_family = font_family
         self.font_size = 22
@@ -27,7 +28,7 @@ class CircularProgress(QWidget):
         self.setMinimumSize(QSize(self.width, self.height))
         self.setMaximumSize(QSize(self.width, self.height))
 
-    def set_value(self, value):
+    def update_value(self, value):
         self.value = value
         self.repaint()
 
@@ -74,7 +75,7 @@ class CircularProgress(QWidget):
         paint.setPen(pen)
         paint.drawArc(15, int(margin), width, height, -90 * 16, -360 * 16)
 
-        # progress arc
+        # progress arc    
         pen.setColor(QColor(self.progress_color))
         pen.setWidth(self.progress_width)
 
