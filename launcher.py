@@ -8,6 +8,7 @@ from updater.ui.ui_loading import Ui_MainWindow
 from updater.function import UIFunctions
 from updater import *
 
+import src
 
 class LoadingScreen(QMainWindow):
 

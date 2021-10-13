@@ -2,19 +2,18 @@ import sys
 from PySide2 import QtCore
 from PySide2.QtWidgets import *
 from PySide2.QtCore import QThread, QTimer, Signal
-from sqlalchemy.sql.functions import next_value
-from api import FullData, AccAxie
-from model import DefaultTools, Account, Scholar
 
 # gui file and gui functions
 try:
     from ui.ui_main import Ui_MainWindow
     from functions import UIFunctions
     from custom_widgets import *
+    from model import DefaultTools, Account, Scholar
 except ModuleNotFoundError:
     from src.ui.ui_main import Ui_MainWindow
     from src.functions import UIFunctions
     from src.custom_widgets import *
+    from src.model import DefaultTools, Account, Scholar
 
 
 class MainWindow(QMainWindow, UIFunctions):

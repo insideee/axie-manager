@@ -3,12 +3,19 @@ from PySide2 import QtCore
 from PySide2.QtGui import QMovie, QPaintEvent, QPainter, QColor, QPen, QFont
 from PySide2.QtWidgets import QLabel, QMessageBox, QWidget, QGraphicsDropShadowEffect
 from PySide2.QtCore import QAbstractAnimation, QPoint, QRect, QThread, QTimer, Qt, QSize, QPropertyAnimation, Signal
-from custom_widgets.ui import Ui_main
-from functions import UIFunctions
-from api import FullData, AccAxie
-from model import DefaultTools, Account, Scholar
 from datetime import datetime
 import os
+
+try:
+    from custom_widgets.ui import Ui_main
+    from functions import UIFunctions
+    from api import FullData, AccAxie
+    from model import DefaultTools, Account, Scholar
+except ModuleNotFoundError:
+    from src.custom_widgets.ui import Ui_main
+    from src.functions import UIFunctions
+    from src.api import FullData, AccAxie
+    from src.model import DefaultTools, Account, Scholar
 
 class AddPopUp(QWidget):
     
@@ -47,7 +54,7 @@ class AddPopUp(QWidget):
         self.func.config_window(config_widget=self, title='', width=self.width, height=self.height, resizable=self.resizable, 
                                 minimum_size=self.minimum_size)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
-        #self.setWindowFlag(QtCore.Qt.Popup)
+        self.setWindowFlag(QtCore.Qt.Popup)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # fonts variables
