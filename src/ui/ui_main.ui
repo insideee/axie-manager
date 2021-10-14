@@ -903,6 +903,18 @@ border-bottom-left-radius: 0px;</string>
                               <number>3</number>
                              </property>
                              <item>
+                              <widget class="QPushButton" name="add_home_btn">
+                               <property name="styleSheet">
+                                <string notr="true">QPushButton{background-color: #303840;
+border-radius: 5px;
+color:#FFFFFF}</string>
+                               </property>
+                               <property name="text">
+                                <string>Add</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
                               <widget class="QLabel" name="data_label_students">
                                <property name="layoutDirection">
                                 <enum>Qt::LeftToRight</enum>
@@ -1444,7 +1456,7 @@ border-bottom-left-radius: 0px;</string>
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>150</height>
+                        <height>0</height>
                        </size>
                       </property>
                       <property name="styleSheet">
@@ -1514,10 +1526,48 @@ border-bottom-left-radius: 0px;</string>
                </widget>
               </widget>
              </item>
+             <item>
+              <widget class="QWidget" name="info_container" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <widget class="QLabel" name="icon_label">
+                <property name="geometry">
+                 <rect>
+                  <x>1050</x>
+                  <y>10</y>
+                  <width>58</width>
+                  <height>18</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+               <widget class="QLabel" name="info_label">
+                <property name="geometry">
+                 <rect>
+                  <x>1000</x>
+                  <y>10</y>
+                  <width>58</width>
+                  <height>18</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
          </layout>
+         <zorder>content_container</zorder>
+         <zorder>top_bar_container</zorder>
         </widget>
        </item>
       </layout>
@@ -1528,7 +1578,7 @@ border-bottom-left-radius: 0px;</string>
  </widget>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_add_pop_upTiOyJR.ui'
+## Form generated from reading UI file 'ui_add_pop_upmPgTkU.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -137,7 +137,7 @@ class Ui_main(object):
         self.btn_add.setGeometry(QRect(158, 17, 80, 25))
         self.btn_add.setMinimumSize(QSize(80, 25))
         self.btn_add.setMaximumSize(QSize(80, 25))
-        self.btn_add.setStyleSheet(u"QPushButton{background-color: #737373;\n"
+        self.btn_add.setStyleSheet(u"QPushButton{background-color: #47525E;\n"
 "border-radius: 5px;\n"
 "color:#FFFFFF}")
         self.log_label = QLabel(self.button)

@@ -25,11 +25,15 @@ class FullData:
 
         self.data = ast.literal_eval(self.response.text)
         
-    def get_daily_slp(self):
+    def get_daily_slp(self) -> int:
         for k, v in self.data.items():
             if k == 'slp':
                 return self.data['slp']['todaySoFar']
-        
+    
+    def get_yesterday_slp(self) -> int:
+        for k, v in self.data.items():
+            if k == 'slp':
+                return self.data['slp']['yesterdaySLP']
 
 class AccAxie:
 

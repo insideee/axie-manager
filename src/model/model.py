@@ -1,3 +1,4 @@
+from requests.sessions import session
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -9,10 +10,10 @@ class DefaultTools:
     
     path = os.path.dirname(os.path.abspath(__file__))   
     db_path = os.path.join(path, 'database.db')
-    engine = create_engine(f'sqlite:///{db_path}?check_same_thread=False', echo=True)
+    engine = create_engine(f'sqlite:///{db_path}?check_same_thread=False', echo=False)
     engine_session = sessionmaker(engine)
     session_handle = engine_session()
-    base = declarative_base(bind=engine)
+    base = declarative_base(bind=engine)      
 
 
 class Account(DefaultTools.base):
@@ -71,7 +72,55 @@ class Scholar(DefaultTools.base):
     
     @classmethod
     def set_account_id(cls, session, name_input: str, account_id: int):
-        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.account_id: account_id})
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.account_id: account_id}, synchronize_session=False)
+        session.commit()
+               
+    @classmethod
+    def set_daily_profit(cls, session, value, name_input=None, ronin=None):
+        
+        if name_input != None:
+            session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.daily_profit: value}, synchronize_session=False)
+        else:
+            r = session.query(Account).filter(Account.ronin_address.like(f'%{ronin}%')).first()
+            session.query(cls).filter(cls.account_id == r.id).update({cls.daily_profit: value}, synchronize_session=False)
+        session.commit()
+    
+    @classmethod
+    def set_month_changed(cls, session):
+        students_list = cls.get_all_scholars(session)
+         
+        for i in range(0, cls.get_scholar_amount(session)):
+            actual_month_value = students_list[i].actual_month_profit
+            last_month_value = students_list[i].last_month_profit
+            
+            session.query(cls).filter(cls.name.like(f'%{students_list[i].name}%')).update({cls.next_to_last_month_profit: last_month_value}, synchronize_session=False)
+            session.query(cls).filter(cls.name.like(f'%{students_list[i].name}%')).update({cls.last_month_profit: actual_month_value}, synchronize_session=False)
+            session.query(cls).filter(cls.name.like(f'%{students_list[i].name}%')).update({cls.actual_month_profit: 0}, synchronize_session=False)
+            session.commit()
+   
+    @classmethod 
+    def update_month_profit(cls, session, name_input: str, value: int):
+        student = cls.find_by_name(session, name_input)
+        
+        value_update = value + student.actual_month_profit
+        
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.actual_month_profit: value_update},  synchronize_session=False)
+        session.commit()
+                    
+    @classmethod
+    def update_time_checked(cls, session, value: str):
+        
+        q = session.query(cls.last_time_checked).all()
+        
+        session.query(cls).update({cls.last_time_checked: value}, synchronize_session=False)
+        session.commit()
+    
+    @classmethod
+    def get_all_scholars(cls, session) -> list:
+        
+        q = session.query(cls).all()        
+        
+        return q
         
     @classmethod
     def get_scholar_amount(cls, session) -> int:
@@ -103,12 +152,42 @@ class Scholar(DefaultTools.base):
         
         return total_actual, total_last, total_next_last
     
+    @classmethod
+    def get_dict_last_time_checked(cls, session) -> dict:
+        
+        dict_return = {'name': [tpl[0] for tpl in session.query(cls.name).all()],
+                       'last_time': []}
+        
+        for k, v in dict_return.items():
+            if k == 'name':
+                for item in v:
+                    append_list = [dict_return['last_time'].append(tpl[0]) for tpl in session.query(cls.last_time_checked).filter(cls.name == item).all()]
+        
+        return dict_return
     
-if __name__ == '__main__':
-    DefaultTools.base.metadata.create_all(DefaultTools.engine)
+    @classmethod
+    def get_dict_daily_profit(cls, session) -> dict:
+        dict_return = { 'name': [tpl[0] for tpl in session.query(cls.name).all()],
+                       'daily_profit': []}
+        
+        for k, v in dict_return.items():
+            if k == 'name':
+                for item in v:
+                    append_list = [dict_return['daily_profit'].append(tpl[0]) for tpl in session.query(cls.daily_profit).filter(cls.name == item).all()]
+        
+        return dict_return
     
-# TODO:
-# criar um metodo para atualizar daily profit
-# importante também deixar salvo quando foi a ultima consulta, ou usar o localtime \
-# com base nesses dados podemos resetar o daily profit e popular os ganhos mensais do scholar ate o momento,
-# pensar em fazer uma db para registrar os ganhos diarios
+    @classmethod
+    def get_dict_acc_ronin(cls, session) -> dict:
+    
+        dict_return = { 'name': [tpl[0] for tpl in session.query(cls.name).all()],
+                       'acc_ronin': []}
+        
+        for k, v in dict_return.items():
+            if k == 'name':
+                for item in v:
+                    obj = cls.find_by_name(session, item)
+                    r = session.query(Account).filter(Account.id.like(f'%{obj.account_id}%')).first()
+                    dict_return['acc_ronin'].append(r.ronin_address)
+        
+        return dict_return

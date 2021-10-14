@@ -3,7 +3,7 @@ from PySide2 import QtCore
 from PySide2.QtGui import QMovie, QPaintEvent, QPainter, QColor, QPen, QFont
 from PySide2.QtWidgets import QLabel, QMessageBox, QWidget, QGraphicsDropShadowEffect
 from PySide2.QtCore import QAbstractAnimation, QPoint, QRect, QThread, QTimer, Qt, QSize, QPropertyAnimation, Signal
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 
 try:
@@ -20,6 +20,7 @@ except ModuleNotFoundError:
 class AddPopUp(QWidget):
     
     close_signal = Signal(bool)
+    finished_signal = Signal(bool)
     
     def __init__(self, width=400, height=350) -> None:
         super(AddPopUp, self).__init__()
@@ -210,7 +211,7 @@ class ValidatorThread(QThread):
             
             self.valid_entries_signal.emit(True)
             
-            time_now = datetime.now()
+            time_now = datetime.now(timezone.utc)
             formated_datetime = time_now.strftime('%Y-%m-%d %H:%M')
             
             try:

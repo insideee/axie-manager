@@ -236,7 +236,7 @@ color: rgb(0, 0, 0);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton{background-color: #737373;
+          <string notr="true">QPushButton{background-color: #47525E;
 border-radius: 5px;
 color:#FFFFFF}</string>
          </property>

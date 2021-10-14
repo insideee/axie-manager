@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_mainLXIkCr.ui'
+## Form generated from reading UI file 'ui_mainPCaDoF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -16,6 +16,7 @@ try:
         import resources.resources_rc
 except ModuleNotFoundError:
         import src.resources.resources_rc
+       
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -409,6 +410,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_15.setSpacing(0)
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.verticalLayout_15.setContentsMargins(3, 3, 3, 3)
+        self.add_home_btn = QPushButton(self.data_students)
+        self.add_home_btn.setObjectName(u"add_home_btn")
+        self.add_home_btn.setStyleSheet(u"QPushButton{background-color: #303840;\n"
+"border-radius: 5px;\n"
+"color:#FFFFFF}")
+
+        self.verticalLayout_15.addWidget(self.add_home_btn)
+
         self.data_label_students = QLabel(self.data_students)
         self.data_label_students.setObjectName(u"data_label_students")
         self.data_label_students.setLayoutDirection(Qt.LeftToRight)
@@ -644,7 +653,7 @@ class Ui_MainWindow(object):
 
         self.information_home = QWidget(self.home_container)
         self.information_home.setObjectName(u"information_home")
-        self.information_home.setMinimumSize(QSize(0, 150))
+        self.information_home.setMinimumSize(QSize(0, 0))
         self.information_home.setStyleSheet(u"")
 
         self.verticalLayout_11.addWidget(self.information_home)
@@ -706,9 +715,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.pages_container)
 
+        self.info_container = QWidget(self.content_container)
+        self.info_container.setObjectName(u"info_container")
+        self.info_container.setMinimumSize(QSize(0, 30))
+        self.icon_label = QLabel(self.info_container)
+        self.icon_label.setObjectName(u"icon_label")
+        self.icon_label.setGeometry(QRect(1050, 10, 58, 18))
+        self.info_label = QLabel(self.info_container)
+        self.info_label.setObjectName(u"info_label")
+        self.info_label.setGeometry(QRect(1000, 10, 58, 18))
+
+        self.verticalLayout_3.addWidget(self.info_container)
+
 
         self.verticalLayout_2.addWidget(self.content_container)
 
+        self.content_container.raise_()
+        self.top_bar_container.raise_()
 
         self.horizontalLayout.addWidget(self.right_container)
 
@@ -739,6 +762,7 @@ class Ui_MainWindow(object):
         self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"EXIT", None))
         self.icon_students.setText("")
         self.title_students.setText(QCoreApplication.translate("MainWindow", u"STUDENTS", None))
+        self.add_home_btn.setText(QCoreApplication.translate("MainWindow", u"Add", None))
         self.data_label_students.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.goto_students_btn.setText("")
         self.icon_profit.setText("")
@@ -754,5 +778,7 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"inventory", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"mail", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"settings", None))
+        self.icon_label.setText("")
+        self.info_label.setText("")
     # retranslateUi
 
