@@ -7,12 +7,12 @@ from datetime import datetime, timezone
 import os
 
 try:
-    from custom_widgets.ui import Ui_main
+    from custom_widgets.ui import Ui_addWidget
     from functions import UIFunctions
     from api import FullData, AccAxie
     from model import DefaultTools, Account, Scholar
 except ModuleNotFoundError:
-    from src.custom_widgets.ui import Ui_main
+    from src.custom_widgets.ui import Ui_addWidget
     from src.functions import UIFunctions
     from src.api import FullData, AccAxie
     from src.model import DefaultTools, Account, Scholar
@@ -24,7 +24,7 @@ class AddPopUp(QWidget):
     
     def __init__(self, width=400, height=350) -> None:
         super(AddPopUp, self).__init__()
-        self.ui = Ui_main()
+        self.ui = Ui_addWidget()
         self.ui.setupUi(self)
         self.func = UIFunctions()
 

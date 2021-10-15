@@ -69,6 +69,9 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # home page graphics configuration
         self.graph_configurations()
+        
+        # students page configuration
+        self.students_page_configuration()
 
         # work in progress
         self.set_work_in_progress_pages()
@@ -173,6 +176,14 @@ class MainWindow(QMainWindow, UIFunctions):
             self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
             v.setText('Work in progress...')
     
+    def students_page_configuration(self):
+        # info label
+        self.ui.label_3.close()
+        
+        students_widget = StudentsDataView()
+        
+        self.ui.verticalLayout_27.addWidget(students_widget)
+            
     def showMaximized(self) -> None:
         if self.ui.icon_label.isVisible() or self.ui.info_label.isVisible():
             
@@ -240,6 +251,25 @@ class MainWindow(QMainWindow, UIFunctions):
             self.animate(QPoint(abs(widget_width - 140), abs(widget_height - 30)), self.ui.info_label)
             self.animate(QPoint(abs(widget_width - 40), abs(widget_height - 30)), self.ui.icon_label)
     
+    def event(self, event: QtCore.QEvent) -> bool:
+        
+        # wait until the label complete the animation then close
+        state = False
+        
+        try:
+            state = self.ui.info_label.isVisible()
+        except AttributeError:
+            pass
+        
+        if state and event.type() == QtCore.QEvent.Type.UpdateRequest:
+            if self.ui.info_label.y() == 30:
+                self.ui.info_label.animation.stop()
+                self.ui.icon_label.animation.stop()
+                self.ui.info_label.close()    
+                self.ui.icon_label.close()    
+        
+        return super().event(event)
+    
     def home_info_setter(self):
         print('setting')
         if self.initialization_slot:
@@ -249,15 +279,16 @@ class MainWindow(QMainWindow, UIFunctions):
         elif self.updating_slot:
             state_maximized = self.isMaximized()
             
+            
             if state_maximized:  
-                self.animate(QPoint(10, 100), self.ui.info_label)
-                self.animate(QPoint(110, 100), self.ui.icon_label)
+                self.animate(QPoint(10, 100), self.ui.info_label, duration=10000)
+                self.animate(QPoint(10, 100), self.ui.icon_label, duration=10000)
             else:
-                self.animate(QPoint(1009, 100), self.ui.info_label)
-                self.animate(QPoint(1109, 100), self.ui.icon_label)
-                
-            self.ui.icon_label.close()
-            self.ui.info_label.close()
+                self.animate(QPoint(1009, 30), self.ui.info_label, duration=1000)
+                self.animate(QPoint(1109, 30), self.ui.icon_label, duration=1000)
+
+            # self.ui.icon_label.close()
+            # self.ui.info_label.close()
             self.updating_slot = False
         
         # set graph widgets infos
@@ -278,13 +309,14 @@ class MainWindow(QMainWindow, UIFunctions):
             self.ui.data_label_students.show()
             self.ui.add_home_btn.close()
                 
-    def animate(self, end_pos, qwidget):
+    def animate(self, end_pos, qwidget, duration=1000):
         e_rect = end_pos
         
-        qwidget.show()
-
+        if not qwidget.isVisible():
+            qwidget.show()
+            
         qwidget.animation = QPropertyAnimation(qwidget, b'pos')
-        qwidget.animation.setDuration(1000)
+        qwidget.animation.setDuration(duration)
         qwidget.animation.setEndValue(e_rect)
         qwidget.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         qwidget.animation.start()

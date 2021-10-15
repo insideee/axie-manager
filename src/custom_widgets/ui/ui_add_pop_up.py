@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_add_pop_upmPgTkU.ui'
+## Form generated from reading UI file 'ui_add_pop_upAZBura.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,16 +13,16 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_main(object):
-    def setupUi(self, main):
-        if not main.objectName():
-            main.setObjectName(u"main")
-        main.resize(400, 320)
-        self.verticalLayout = QVBoxLayout(main)
+class Ui_addWidget(object):
+    def setupUi(self, addWidget):
+        if not addWidget.objectName():
+            addWidget.setObjectName(u"addWidget")
+        addWidget.resize(400, 320)
+        self.verticalLayout = QVBoxLayout(addWidget)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(2, 2, 2, 2)
-        self.bg = QWidget(main)
+        self.bg = QWidget(addWidget)
         self.bg.setObjectName(u"bg")
         self.bg.setMinimumSize(QSize(0, 0))
         self.bg.setStyleSheet(u"QWidget{background-color:  #303840;\n"
@@ -150,22 +150,22 @@ class Ui_main(object):
         self.verticalLayout.addWidget(self.bg)
 
 
-        self.retranslateUi(main)
+        self.retranslateUi(addWidget)
 
-        QMetaObject.connectSlotsByName(main)
+        QMetaObject.connectSlotsByName(addWidget)
     # setupUi
 
-    def retranslateUi(self, main):
-        main.setWindowTitle(QCoreApplication.translate("main", u"Form", None))
-        self.label.setText(QCoreApplication.translate("main", u"Name:", None))
+    def retranslateUi(self, addWidget):
+        addWidget.setWindowTitle(QCoreApplication.translate("addWidget", u"Form", None))
+        self.label.setText(QCoreApplication.translate("addWidget", u"Name:", None))
         self.name_value.setInputMask("")
-        self.label_2.setText(QCoreApplication.translate("main", u"Ronin Address:", None))
+        self.label_2.setText(QCoreApplication.translate("addWidget", u"Ronin Address:", None))
         self.ronin_value.setInputMask("")
-        self.label_3.setText(QCoreApplication.translate("main", u"Email:", None))
+        self.label_3.setText(QCoreApplication.translate("addWidget", u"Email:", None))
         self.email_value.setInputMask("")
-        self.label_4.setText(QCoreApplication.translate("main", u"Daily SLP goal:", None))
+        self.label_4.setText(QCoreApplication.translate("addWidget", u"Daily SLP goal:", None))
         self.daily_value.setInputMask("")
-        self.btn_add.setText(QCoreApplication.translate("main", u"Confirm", None))
+        self.btn_add.setText(QCoreApplication.translate("addWidget", u"Confirm", None))
         self.log_label.setText("")
     # retranslateUi
 

@@ -18,6 +18,8 @@
     <file>img/proft1_menu.png</file>
     <file>img/trade_currency_icon.png</file>
     <file>img/user_menu.png</file>
+	<file>img/left.png</file>
+	<file>img/right.png</file>
   </qresource>
   <qresource prefix="font">
     <file>fonts/Saira-Bold.ttf</file>
