@@ -281,14 +281,12 @@ class MainWindow(QMainWindow, UIFunctions):
             
             
             if state_maximized:  
-                self.animate(QPoint(10, 100), self.ui.info_label, duration=10000)
-                self.animate(QPoint(10, 100), self.ui.icon_label, duration=10000)
+                self.animate(QPoint(10, 30), self.ui.info_label, duration=1000)
+                self.animate(QPoint(110, 30), self.ui.icon_label, duration=1000)
             else:
                 self.animate(QPoint(1009, 30), self.ui.info_label, duration=1000)
                 self.animate(QPoint(1109, 30), self.ui.icon_label, duration=1000)
 
-            # self.ui.icon_label.close()
-            # self.ui.info_label.close()
             self.updating_slot = False
         
         # set graph widgets infos
