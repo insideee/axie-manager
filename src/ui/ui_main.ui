@@ -1482,11 +1482,28 @@ border-bottom-left-radius: 0px;</string>
                </widget>
                <widget class="QWidget" name="students_page">
                 <layout class="QVBoxLayout" name="verticalLayout_27">
-                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                  <widget class="QLabel" name="label_3">
-                   <property name="text">
-                    <string>students</string>
+                 <item>
+                  <widget class="QWidget" name="data_view_container" native="true">
+                   <property name="styleSheet">
+                    <string notr="true"/>
                    </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_5">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>41</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                   </layout>
                   </widget>
                  </item>
                 </layout>

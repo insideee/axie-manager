@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_mainPCaDoF.ui'
+## Form generated from reading UI file 'ui_mainZtRsUg.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -676,10 +676,15 @@ class Ui_MainWindow(object):
         self.students_page.setObjectName(u"students_page")
         self.verticalLayout_27 = QVBoxLayout(self.students_page)
         self.verticalLayout_27.setObjectName(u"verticalLayout_27")
-        self.label_3 = QLabel(self.students_page)
-        self.label_3.setObjectName(u"label_3")
+        self.data_view_container = QWidget(self.students_page)
+        self.data_view_container.setObjectName(u"data_view_container")
+        self.data_view_container.setStyleSheet(u"")
+        self.verticalLayout_5 = QVBoxLayout(self.data_view_container)
+        self.verticalLayout_5.setSpacing(0)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 41, 0, 0)
 
-        self.verticalLayout_27.addWidget(self.label_3, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+        self.verticalLayout_27.addWidget(self.data_view_container)
 
         self.pages_container.addWidget(self.students_page)
         self.inventory_page = QWidget()
@@ -774,7 +779,6 @@ class Ui_MainWindow(object):
         self.data_label_axies.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.goto_axies_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"profit", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"students", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"inventory", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"mail", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"settings", None))

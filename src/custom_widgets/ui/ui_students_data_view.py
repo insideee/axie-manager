@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_students_data_viewjJuwgE.ui'
+## Form generated from reading UI file 'ui_students_data_viewMeVbgb.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -21,13 +21,15 @@ class Ui_dataViewWidget(object):
     def setupUi(self, dataViewWidget):
         if not dataViewWidget.objectName():
             dataViewWidget.setObjectName(u"dataViewWidget")
-        dataViewWidget.resize(885, 493)
+        dataViewWidget.resize(891, 540)
+        dataViewWidget.setMinimumSize(QSize(0, 540))
         self.verticalLayout = QVBoxLayout(dataViewWidget)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.displayDataFrame = QWidget(dataViewWidget)
         self.displayDataFrame.setObjectName(u"displayDataFrame")
+        self.displayDataFrame.setMinimumSize(QSize(0, 0))
         self.displayDataFrame.setStyleSheet(u"QWidget{background-color: #47525E;\n"
 "border: 1px solid #61676D;\n"
 "border-top-left-radius: 10px;\n"
@@ -41,6 +43,7 @@ class Ui_dataViewWidget(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.header = QWidget(self.displayDataFrame)
         self.header.setObjectName(u"header")
+        self.header.setMinimumSize(QSize(0, 30))
         self.header.setMaximumSize(QSize(16777215, 30))
         self.header.setStyleSheet(u"QLabel{border: 0px}\n"
 "QWidget{\n"
@@ -51,14 +54,16 @@ class Ui_dataViewWidget(object):
         self.horizontalLayout = QHBoxLayout(self.header)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setContentsMargins(3, 3, 3, 3)
         self.dataHeaderContainer = QWidget(self.header)
         self.dataHeaderContainer.setObjectName(u"dataHeaderContainer")
         self.dataHeaderContainer.setMinimumSize(QSize(695, 0))
-        self.dataHeaderContainer.setStyleSheet(u"QWidget{border-right: 0px;}")
+        self.dataHeaderContainer.setStyleSheet(u"QWidget{border: 0px;\n"
+"border-radius:0px}")
         self.horizontalLayout_2 = QHBoxLayout(self.dataHeaderContainer)
+        self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(4, -1, -1, -1)
+        self.horizontalLayout_2.setContentsMargins(4, 0, 1, 0)
         self.nameLabel = QLabel(self.dataHeaderContainer)
         self.nameLabel.setObjectName(u"nameLabel")
         self.nameLabel.setMinimumSize(QSize(223, 0))
@@ -86,7 +91,8 @@ class Ui_dataViewWidget(object):
         self.slpHeaderDataContainer = QWidget(self.header)
         self.slpHeaderDataContainer.setObjectName(u"slpHeaderDataContainer")
         self.slpHeaderDataContainer.setMaximumSize(QSize(190, 16777215))
-        self.slpHeaderDataContainer.setStyleSheet(u"QWidget{border-left: 0px;}")
+        self.slpHeaderDataContainer.setStyleSheet(u"QWidget{border: 0px;\n"
+"border-radius:0px}")
         self.horizontalLayout_3 = QHBoxLayout(self.slpHeaderDataContainer)
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -114,18 +120,10 @@ class Ui_dataViewWidget(object):
 
         self.dataContainer = QWidget(self.displayDataFrame)
         self.dataContainer.setObjectName(u"dataContainer")
-        self.dataContainer.setStyleSheet(u"QWidget{border: 0px;\n"
-"border-bottom: 1px solid #61676D;\n"
-"border-left: 1px solid #61676D;\n"
-"border-right: 1px solid #61676D;\n"
-"border-top-left-radius: 0px;\n"
-"border-bottom-right-radius: 0px;\n"
-"border-top-right-radius: 0px;\n"
-"border-bottom-left-radius: 0px;\n"
-"}\n"
-"QLabel{border: 0px}")
+        self.dataContainer.setMinimumSize(QSize(0, 0))
+        self.dataContainer.setStyleSheet(u"")
         self.verticalLayout_3 = QVBoxLayout(self.dataContainer)
-        self.verticalLayout_3.setSpacing(4)
+        self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
 
@@ -136,6 +134,7 @@ class Ui_dataViewWidget(object):
 
         self.bottomFrame = QWidget(dataViewWidget)
         self.bottomFrame.setObjectName(u"bottomFrame")
+        self.bottomFrame.setMinimumSize(QSize(0, 30))
         self.bottomFrame.setMaximumSize(QSize(16777215, 30))
         self.verticalLayout_4 = QVBoxLayout(self.bottomFrame)
         self.verticalLayout_4.setSpacing(0)

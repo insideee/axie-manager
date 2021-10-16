@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_students_data_entrysnTFdFA.ui'
+## Form generated from reading UI file 'ui_students_data_entrysfGdStX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -20,6 +20,16 @@ class Ui_dataEntryCreator(object):
         dataEntryCreator.resize(885, 30)
         dataEntryCreator.setMinimumSize(QSize(250, 30))
         dataEntryCreator.setMaximumSize(QSize(16777215, 30))
+        dataEntryCreator.setStyleSheet(u"QWidget{border: 0px;\n"
+"border-bottom: 1px solid #61676D;\n"
+"border-left: 1px solid #61676D;\n"
+"border-right: 1px solid #61676D;\n"
+"border-top-left-radius: 0px;\n"
+"border-bottom-right-radius: 0px;\n"
+"border-top-right-radius: 0px;\n"
+"border-bottom-left-radius: 0px;}\n"
+"\n"
+"QLabel{border: 0px}")
         self.verticalLayout = QVBoxLayout(dataEntryCreator)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -32,14 +42,15 @@ class Ui_dataEntryCreator(object):
         self.horizontalLayout = QHBoxLayout(self.data)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setContentsMargins(2, 0, 2, 0)
         self.dataContainer = QWidget(self.data)
         self.dataContainer.setObjectName(u"dataContainer")
         self.dataContainer.setMinimumSize(QSize(695, 0))
-        self.dataContainer.setStyleSheet(u"QWidget{border-right: 0px;}")
+        self.dataContainer.setStyleSheet(u"QWidget{border: 0px;}")
         self.horizontalLayout_2 = QHBoxLayout(self.dataContainer)
+        self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(4, -1, -1, -1)
+        self.horizontalLayout_2.setContentsMargins(4, 0, 0, 0)
         self.nameData = QLabel(self.dataContainer)
         self.nameData.setObjectName(u"nameData")
         self.nameData.setMinimumSize(QSize(223, 0))
@@ -61,13 +72,16 @@ class Ui_dataEntryCreator(object):
 
         self.horizontalLayout_2.addWidget(self.emailData)
 
+        self.roninData.raise_()
+        self.nameData.raise_()
+        self.emailData.raise_()
 
         self.horizontalLayout.addWidget(self.dataContainer, 0, Qt.AlignVCenter)
 
         self.slpDataContainer = QWidget(self.data)
         self.slpDataContainer.setObjectName(u"slpDataContainer")
         self.slpDataContainer.setMaximumSize(QSize(190, 16777215))
-        self.slpDataContainer.setStyleSheet(u"")
+        self.slpDataContainer.setStyleSheet(u"QWidget{border:0px}")
         self.horizontalLayout_3 = QHBoxLayout(self.slpDataContainer)
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -89,6 +103,8 @@ class Ui_dataEntryCreator(object):
 
         self.horizontalLayout.addWidget(self.slpDataContainer, 0, Qt.AlignVCenter)
 
+        self.slpDataContainer.raise_()
+        self.dataContainer.raise_()
 
         self.verticalLayout.addWidget(self.data)
 

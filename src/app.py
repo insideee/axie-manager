@@ -1,8 +1,9 @@
 import sys
-from PySide2 import QtCore
-from PySide2.QtGui import QMovie
+from PySide2 import QtCore, QtGui
+import PySide2
+from PySide2.QtGui import QMovie, QGuiApplication, QScreen
 from PySide2.QtWidgets import *
-from PySide2.QtCore import QThread, QTimer, Signal, QPropertyAnimation, QPoint, QRect, Qt
+from PySide2.QtCore import QObject, QThread, QTimer, Signal, QPropertyAnimation, QPoint, QRect, Qt
 from datetime import datetime, timezone
 import os
 
@@ -26,7 +27,7 @@ class MainWindow(QMainWindow, UIFunctions):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
+        
         # worker variables
         self.load_info_worker = None
         self.load_home_info_thread_handle(initialization=True)
@@ -78,6 +79,12 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # show gui
         self.show()
+        
+        self.active_screen_geometry = QDesktopWidget().screenGeometry(self)
+        
+    def slot_test(self):
+        print('opa')
+        
 
     def window_gui_configuration(self):
         # center and config window
@@ -170,19 +177,18 @@ class MainWindow(QMainWindow, UIFunctions):
 
     def set_work_in_progress_pages(self):
 
-        work_pages = [self.ui.label_2, self.ui.label_3, self.ui.label_4, self.ui.label_5, self.ui.label_6]
+        work_pages = [self.ui.label_2, self.ui.label_4, self.ui.label_5, self.ui.label_6]
 
         for v in work_pages:
             self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
             v.setText('Work in progress...')
     
     def students_page_configuration(self):
-        # info label
-        self.ui.label_3.close()
+        self.students_widget = StudentsDataView()
         
-        students_widget = StudentsDataView()
+        self.students_widget.setParent(self.ui.bg)
         
-        self.ui.verticalLayout_27.addWidget(students_widget)
+        self.ui.verticalLayout_5.addWidget(self.students_widget)
             
     def showMaximized(self) -> None:
         if self.ui.icon_label.isVisible() or self.ui.info_label.isVisible():
@@ -253,6 +259,14 @@ class MainWindow(QMainWindow, UIFunctions):
     
     def event(self, event: QtCore.QEvent) -> bool:
         
+        # change window event      
+        if event.type() == QtCore.QEvent.Type.Move:
+            screen_geometry = QDesktopWidget().screenGeometry(self)
+            
+            if self.isVisible() and screen_geometry.width() != self.active_screen_geometry.width():
+                self.active_screen_geometry = screen_geometry
+                self.connect_with_student()
+            
         # wait until the label complete the animation then close
         state = False
         
@@ -269,6 +283,16 @@ class MainWindow(QMainWindow, UIFunctions):
                 self.ui.icon_label.close()    
         
         return super().event(event)
+    
+    def connect_with_student(self):
+        state = self.isMaximized()
+        
+        if state:
+            default = False
+        else:
+            default = True
+            
+        self.students_widget.set_max_height(default=default)
     
     def home_info_setter(self):
         print('setting')
