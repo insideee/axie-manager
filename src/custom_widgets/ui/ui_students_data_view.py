@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_students_data_viewMeVbgb.ui'
+## Form generated from reading UI file 'ui_students_data_viewsYGgXK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -122,10 +122,10 @@ class Ui_dataViewWidget(object):
         self.dataContainer.setObjectName(u"dataContainer")
         self.dataContainer.setMinimumSize(QSize(0, 0))
         self.dataContainer.setStyleSheet(u"")
-        self.verticalLayout_3 = QVBoxLayout(self.dataContainer)
-        self.verticalLayout_3.setSpacing(0)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.layoutDataWidgets = QVBoxLayout(self.dataContainer)
+        self.layoutDataWidgets.setSpacing(0)
+        self.layoutDataWidgets.setObjectName(u"layoutDataWidgets")
+        self.layoutDataWidgets.setContentsMargins(0, 0, 0, 0)
 
         self.verticalLayout_2.addWidget(self.dataContainer, 0, Qt.AlignTop)
 

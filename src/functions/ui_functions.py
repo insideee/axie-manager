@@ -1,7 +1,7 @@
 import sys
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt, QEvent)
+                            QSize, QTime, QUrl, Qt, QEvent, QAbstractAnimation)
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence,
                            QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
@@ -100,7 +100,8 @@ class UIFunctions(QWidget):
 
     def btn_style_applyer(self):
         default_style = 'background-color: #1E2226; border-radius: 0px; padding-left: 15px; color: #FFFFFF;'
-        clicked_style = 'background-color: #303840; border-left: 2px solid  #E64C3C; border-radius: 0px; padding-left: 15px; color: #FFFFFF;'
+        clicked_style = 'background-color: #303840; border-left: 2px solid  #E64C3C; border-radius: 0px; \
+                        padding-left: 15px; color: #FFFFFF;'
 
         sender = self.sender()
 
@@ -150,3 +151,22 @@ class UIFunctions(QWidget):
             drop_shadow.setOffset(0)
             drop_shadow.setColor(QtGui.QColor(0, 0, 0, 90))
             element.setGraphicsEffect(drop_shadow)
+
+    @staticmethod
+    def animate(end_pos, qwidget, duration=1000, start_pos=None, closing=False):
+        s_rect = start_pos
+        e_rect = end_pos
+
+        if not qwidget.isVisible():
+            qwidget.show()
+
+        qwidget.animation = QPropertyAnimation(qwidget, b'pos')
+        qwidget.animation.setDuration(800)
+        if s_rect != None:
+            qwidget.animation.setStartValue(s_rect)
+        qwidget.animation.setEndValue(e_rect)
+        qwidget.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+        qwidget.animation.start()
+
+        if closing:
+            qwidget.animation.finished.connect(lambda: qwidget.close())
