@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QDesktopWidget, QWidget
 from PySide2 import QtCore, QtGui
-from PySide2.QtCore import QAbstractAnimation
+from PySide2.QtCore import QAbstractAnimation, QPoint
 from PySide2.QtWidgets import QGraphicsOpacityEffect
 
 try:
@@ -126,7 +126,8 @@ class StudentsDataView(QWidget):
 
     def get_data_info(self):
 
-        """for i in range(0, 40):
+        """teste
+        for i in range(0, 40):
             self.data_entry_info.append({'name': f'{i}',
                                          'ronin': 'asd',
                                          'email': 'asd',
@@ -207,12 +208,6 @@ class StudentsDataView(QWidget):
 
             widget_width = self.width()
 
-            # transition current itens to ->
-            start_place_out = QtCore.QPoint(0, 0)
-            end_place_out = QtCore.QPoint(widget_width + 1000, 0)
-            start_place_in = QtCore.QPoint(-1000, 0)
-            end_place_in = QtCore.QPoint(0, 0)
-
             visible_widgets = self.data_entry_widgets[start_list[start_clean_i]: start_list[end_clean_i]] \
                 if goto_page != abs(number_pages-1) else \
                 self.data_entry_widgets[start_list[start_clean_i]:]
@@ -220,16 +215,12 @@ class StudentsDataView(QWidget):
             new_widgets = self.data_entry_widgets[start_list[start_i]:start_list[end_i]]
 
             for widget in visible_widgets:
-                self.transition_animation(start_place_out, end_place_out, duration=150, widget=widget, out=True)
-                start_place_out.setY(start_place_out.y() + 30)
-                end_place_out.setY(end_place_out.y() + 30)
+                widget.close()
 
             for widget in new_widgets:
                 if not widget.isVisible():
                     self.ui.layoutDataWidgets.addWidget(widget)
-                self.transition_animation(start_place_in, end_place_in, duration=150, widget=widget)
-                start_place_in.setY(start_place_in.y() + 30)
-                end_place_in.setY(end_place_in.y() + 30)
+                    widget.show()
 
         elif direction == 'right':
             # goto ->
@@ -245,28 +236,18 @@ class StudentsDataView(QWidget):
 
             widget_width = self.width()
 
-            # transition current itens to <-
-            start_place_out = QtCore.QPoint(0, 0)
-            end_place_out = QtCore.QPoint(-2000, 0)
-            start_place_in = QtCore.QPoint(widget_width + 2000, 0)
-            end_place_in = QtCore.QPoint(0, 0)
-
             visible_widgets = self.data_entry_widgets[start_list[start_clean_i]:start_list[end_clean_i]]
             new_widgets = self.data_entry_widgets[start_list[start_i]: start_list[end_i]] \
                 if goto_page != number_pages else \
                 self.data_entry_widgets[start_list[start_i]:]
 
-            for widget in visible_widgets:
-                self.transition_animation(start_place_out, end_place_out, duration=150, widget=widget, out=True)
-                start_place_out.setY(start_place_out.y() + 30)
-                end_place_out.setY(end_place_out.y() + 30)
+            for widget in visible_widgets:                
+                widget.close()
 
             for widget in new_widgets:
                 if not widget.isVisible():
                     self.ui.layoutDataWidgets.addWidget(widget)
-                self.transition_animation(start_place_in, end_place_in, duration=150, widget=widget)
-                start_place_in.setY(start_place_in.y() + 30)
-                end_place_in.setY(end_place_in.y() + 30)
+                    widget.show()
 
         elif direction == None:
 
@@ -285,8 +266,8 @@ class StudentsDataView(QWidget):
 
             for widget in new_widgets:
                 if not widget.isVisible():
-                    self.ui.layoutDataWidgets.addWidget(widget)
                     widget.show()
+                self.ui.layoutDataWidgets.addWidget(widget)
 
         self.ui.indiceLabel.setText(f'{goto_page}')
         self.current_page = goto_page
@@ -295,29 +276,6 @@ class StudentsDataView(QWidget):
         effect = QGraphicsOpacityEffect(widget)
         effect.setOpacity(value)
         widget.setGraphicsEffect(effect)
-
-    def transition_animation(self, start_point, end_point, duration, widget, out=False):
-        widget.animation = QtCore.QPropertyAnimation(widget, b'pos')
-        widget.animation.setDuration(duration)
-        widget.animation.setStartValue(start_point)
-        widget.animation.setEndValue(end_point)
-        widget.animation.setEasingCurve(QtCore.QEasingCurve.InQuad)
-
-        if out == True:
-            widget.animation.finished.connect(lambda: self.out_widget_func(widget))
-        else:
-            widget.animation.stateChanged.connect(lambda: self.in_widget_func(widget))
-
-        widget.animation.start()
-
-    def out_widget_func(self, widget):
-        self.set_opacity(widget, 0)
-        widget.close()
-
-    def in_widget_func(self, widget):
-        if widget.animation.state() == QAbstractAnimation.State.Running:
-            self.set_opacity(widget, 1)
-            widget.show()
 
     def font_configuration(self):
 
