@@ -1,6 +1,6 @@
 from PySide2.QtGui import QMovie
 from PySide2.QtWidgets import *
-from PySide2.QtCore import QThread, QTimer, Signal, QPoint, QRect, Qt, QEvent, QAbstractAnimation
+from PySide2.QtCore import QThread, QTimer, Signal, QPoint, QRect, Qt, QEvent, QAbstractAnimation, QObject
 from datetime import datetime, timezone
 import os
 import sys
@@ -26,6 +26,9 @@ class MainWindow(QMainWindow, UIFunctions):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        # install eventfilter
+        self.installEventFilter(self)
 
         # worker variables
         self.load_info_worker = None
@@ -91,7 +94,7 @@ class MainWindow(QMainWindow, UIFunctions):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         self.window_centered = True
-
+    
     def btn_gui_configuration(self):
         # toggle button
         self.ui.btn_toggle.clicked.connect(lambda: self.toggle_menu(self.ui.menu_container, 140, True))
@@ -188,18 +191,17 @@ class MainWindow(QMainWindow, UIFunctions):
 
         self.ui.verticalLayout_5.addWidget(self.students_widget)
 
-    def event(self, event: QEvent) -> bool:
+    def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         # black screen on initilization because \
         # students widget was showing first
-
-        if event.type() == QEvent.Type.Show:
+        if watched == self and event.type() == QEvent.Type.Show:
             self.students_widget.show()
 
-        if event.type() == QEvent.Type.Move:
+        if watched == self and event.type() == QEvent.Type.Move:
             if self.window_centered and hasattr(self, 'active_screen_geometry'):
                 self.check_window_changed()
 
-        return super().event(event)
+        return super().eventFilter(watched, event)
 
     def showMaximized(self) -> None:
         if self.ui.icon_label.isVisible() or self.ui.info_label.isVisible():
@@ -297,6 +299,8 @@ class MainWindow(QMainWindow, UIFunctions):
 
         elif self.updating_slot:
             state_maximized = self.isMaximized()
+
+            self.students_widget.set_new_data()
 
             # closing animation
             if state_maximized:

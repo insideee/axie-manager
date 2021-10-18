@@ -31,10 +31,14 @@ class StudentsDataView(QWidget):
         # variables
         self.actual_percent_screen = None
 
+        self.current_height = self.height()
+
         # font config
         self.font_configuration()
 
         self.data_entry_creator()
+
+        self.installEventFilter(self)
 
         # pages variables
         self.current_page = 1
@@ -42,29 +46,34 @@ class StudentsDataView(QWidget):
         self.receivers_count = 0
         self.show_widgets_each_page(self.current_page, direction=None)
 
-    def event(self, event: QtCore.QEvent) -> bool:
+    def set_new_data(self):
+        for widget in self.data_entry_widgets:
+            widget._close_widget()
 
+        self.data_entry_info = []
+        self.data_entry_widgets = []
+
+        self.data_entry_creator()
+        self.show_widgets_each_page(self.current_page, direction=None)
+    
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        
         if event.type() == QtCore.QEvent.Type.Resize:
-            try:
-                app_height = self.get_app_height()
-            except AttributeError:
-                app_height = 680
-
-            app_default_height = 680
-
-            if app_height == app_default_height:
-                self.set_max_height(default=True)
-            elif app_height > app_default_height:
+            
+            app_height = self.get_app_height()
+            
+            if app_height != self.current_height:
                 self.set_max_height(default=False)
-
-        return super().event(event)
+                self.current_height = app_height
+            
+        return super().eventFilter(watched, event)
 
     def get_height(self) -> int:
 
         try:
             app_height = self.get_app_height()
         except AttributeError:
-            app_height = 540
+            app_height = 680
 
         default_percent = (self.height_default / 680)
 
@@ -125,7 +134,6 @@ class StudentsDataView(QWidget):
         return int(max_widgets)
 
     def get_data_info(self):
-
         """teste
         for i in range(0, 40):
             self.data_entry_info.append({'name': f'{i}',
@@ -146,7 +154,6 @@ class StudentsDataView(QWidget):
                                          'today_profit': str(student.daily_profit)})
 
     def set_max_height(self, default) -> int:
-
         if default:
             height = self.height_default
         else:
@@ -324,6 +331,9 @@ class dataEntryCreator(QWidget):
         # font config
         self.font_configuration()
 
+    def _close_widget(self):
+        self.deleteLater()
+    
     def font_configuration(self):
         data_labels = [self.ui.nameData, self.ui.emailData, self.ui.roninData, self.ui.slpGoalData,
                        self.ui.slpTodayData]
