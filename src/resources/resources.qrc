@@ -18,6 +18,10 @@
     <file>img/proft1_menu.png</file>
     <file>img/trade_currency_icon.png</file>
     <file>img/user_menu.png</file>
+    <file>img/loading.gif</file>
+    <file>img/1st.png</file>
+    <file>img/2st.png</file>
+    <file>img/3st.png</file>
 	<file>img/left.png</file>
 	<file>img/right.png</file>
   </qresource>

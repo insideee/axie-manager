@@ -268,7 +268,7 @@ class MainWindow(QMainWindow, UIFunctions):
 
             # label movie config
             self.ui.icon_label.setGeometry(QRect(0, 0, 25, 25))
-            gif_dir = os.path.dirname(os.path.abspath(__name__)) + '/img/loading.gif'
+            gif_dir = ':/images/img/loading.gif'
             self.movie = QMovie(gif_dir)
             self.ui.icon_label.setMovie(self.movie)
             self.ui.icon_label.close()
@@ -643,6 +643,19 @@ class LoadHomeInfoWorker(QThread):
 def main():
     app = QApplication(sys.argv)
     window = MainWindow()
+    
+    b = QWidget()
+    b.setGeometry(0, 0, 150, 150)
+    c = QVBoxLayout(b)
+    c.setSpacing(0)
+    c.setContentsMargins(0, 0, 0, 0)
+    
+    a = RankLeaderboard()
+    a.show()
+    c.addWidget(a)
+    b.show()
+    
+    
     sys.exit(app.exec_())
 
 

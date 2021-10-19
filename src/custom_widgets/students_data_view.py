@@ -1,7 +1,12 @@
-from PySide2.QtWidgets import QDesktopWidget, QWidget
+from PySide2.QtWidgets import QDesktopWidget, QLabel, QWidget
 from PySide2 import QtCore, QtGui
-from PySide2.QtCore import QAbstractAnimation, QPoint
-from PySide2.QtWidgets import QGraphicsOpacityEffect
+from PySide2.QtCore import QRect, Qt, QPoint, QSize
+from PySide2.QtWidgets import QGraphicsDropShadowEffect
+from PySide2.QtGui import QColor, QImage, QPaintEvent, QPainter, QFont, QPen, QPixmap
+
+import tempfile
+import requests
+import os
 
 try:
     from custom_widgets.ui import Ui_dataViewWidget, Ui_dataEntryCreator
@@ -349,3 +354,137 @@ class dataEntryCreator(QWidget):
 
         font_config = [self.func.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#F9F9F9', True, True) for label in
                        data_labels]
+
+class RankLeaderboard(QWidget):
+    def __init__(self, name='Gustavo', font_family='Segoe UI', color=0xB9AA1A, image=':/images/img/1st.png'):
+        super(RankLeaderboard, self).__init__()
+        self.setGeometry(0, 0, 200, 200)
+        
+        self.current_heigth = self.height()
+        self.current_width = self.width()
+        
+        self.medal_image_label = QLabel(self)
+        self.icon_image_label = QLabel(self)
+        
+        # properties
+        self.color = color
+        self.text_color = 0x7A8A98
+        self.line_width = 5
+        self.font_family = font_family
+        self.font_size = 11
+        self.image = image
+        self.name = name
+        self.image_url = 'https://storage.googleapis.com/assets.axieinfinity.com/axies/3557949/axie/axie-full-transparent.png'
+        self.tempdir_image = None
+        
+        self.installEventFilter(self)
+        self.enable_shadow(True)
+        
+    def update_widget(self):
+        self.repaint()
+
+    def enable_shadow(self, enable):
+        if enable:
+            self.shadow = QGraphicsDropShadowEffect()
+            self.shadow.setBlurRadius(6)
+            self.shadow.setOffset(0)
+            self.shadow.setColor(QColor(0, 0, 0, 90))
+            self.setGraphicsEffect(self.shadow)
+
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        if watched == self and event.type() == QtCore.QEvent.Resize:
+            print(self.width(), self.height())
+            
+            if self.width() < self.height():
+                size = QSize(self.height(), self.height())
+                rect = QRect(self.pos(), size)
+                self.setGeometry(rect)
+            elif self.height() < self.width():
+                size = QSize(self.width(), self.width())
+                rect = QRect(self.pos(), size)
+                self.setGeometry(rect)
+                
+            self.update_widget()
+        
+        return super().eventFilter(watched, event)
+    
+    def paintEvent(self, event: QPaintEvent) -> None:
+        
+        if self.tempdir_image == None:
+            self.save_picture()
+        
+        margin_w = self.width() * 0.3
+        margin_h = self.width() * 0.3
+        height = self.height() - margin_h
+        width = self.width() - margin_w
+        
+        dinamic_font_size = 0.055 * self.width()
+        font_size = dinamic_font_size
+        
+        if dinamic_font_size < self.font_size:
+            font_size = 9
+        
+        if height != width:
+            height = width
+
+        paint = QPainter()
+        paint.begin(self)
+        paint.setRenderHint(QPainter.Antialiasing)  # remove pixelated edges
+        paint.setFont(QFont(self.font_family, font_size))
+        
+        pen = QPen()
+        pen.setWidth(self.line_width)
+        pen.setCapStyle(Qt.RoundCap)
+        paint.setPen(pen)
+
+        rect_center = QRect(QPoint(margin_w/2, margin_h/2), QSize(width, height))
+        
+        size_sides_rect = margin_h/2
+        height_bottom_r = rect_center.height() + (margin_h/2)
+        rect_bottom = QRect(0, height_bottom_r, self.width(), size_sides_rect)
+        
+        rect_top = QRect(0, 0, self.width(), size_sides_rect)
+        
+        paint.setPen(Qt.NoPen)
+        paint.drawRect(rect_bottom)        
+        paint.drawRect(rect_center)
+        paint.drawRect(rect_top)
+        
+        # name
+        pen.setColor(QColor(self.text_color))
+        paint.setPen(pen)
+        paint.drawText(rect_top, Qt.AlignCenter, f'{self.name}')
+        
+        size = QSize(margin_h/2, margin_h/2)
+        height = rect_center.height() + (margin_h/2)
+        width = (self.width()/2) - (size.width()/2)    
+        
+        # medal image
+        self.medal_image_label.setPixmap(QPixmap(f'{self.image}'))
+        self.medal_image_label.setGeometry(width, height, size.width(), size.height())
+        self.medal_image_label.setMaximumSize(size)
+        self.medal_image_label.setMinimumSize(size)
+        self.medal_image_label.setScaledContents(True)
+        
+        # icon image
+        size = QSize(self.width(), self.height())
+        self.icon_image_label.setPixmap(QPixmap(f'{self.tempdir_image}'))
+        self.icon_image_label.setGeometry(0, 0, self.width(), self.height())
+        self.icon_image_label.setMinimumSize(size)
+        self.icon_image_label.setMaximumSize(size)
+        self.icon_image_label.setScaledContents(True)
+        
+        # arc    
+        pen.setColor(QColor(self.color))
+        pen.setWidth(self.line_width)
+        paint.setPen(pen)
+        paint.drawEllipse(rect_center) 
+        
+        paint.end()        
+        
+    def save_picture(self):
+        self.tempdir_image = tempfile.mkdtemp(prefix='axie-manager')
+        r = requests.get(self.image_url, allow_redirects=True)
+        self.tempdir_image = os.path.join(self.tempdir_image, 'image.png')
+        open(f'{self.tempdir_image}', 'wb').write(r.content)
+        

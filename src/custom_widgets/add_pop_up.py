@@ -18,6 +18,7 @@ except ModuleNotFoundError:
 
 
 class AddPopUp(QWidget):
+    
     close_signal = Signal(bool)
     finished_signal = Signal(bool)
 
@@ -81,8 +82,7 @@ class AddPopUp(QWidget):
         self.btn_animation()
 
         self.ui.log_label.setGeometry(QRect(187, 0, 25, 25))
-        my_dir = os.path.dirname(os.path.abspath(__name__))
-        gif_dir = my_dir + '/img/loading.gif'
+        gif_dir = ':/images/img/loading.gif'
 
         self.movie = QMovie(gif_dir)
         self.ui.log_label.setMovie(self.movie)
