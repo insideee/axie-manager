@@ -496,7 +496,11 @@ class LoadHomeInfoWorker(QThread):
 
         return True, {'ronin_address': ronin_account,
                       'daily_updated': user_api.get_daily_slp(),
-                      'yesterdaySLP': user_api.get_yesterday_slp()}
+                      'yesterdaySLP': user_api.get_yesterday_slp(),
+                      'mmr': user_api.get_mmr(),
+                      'rank': user_api.get_rank(), 
+                      'total_slp_acc': user_api.get_account_slp(),
+                      'average': user_api.get_average_slp()}
 
     def check_daily_profit(self):
         """Check if need update in the daily profit and return the needed update list
@@ -515,7 +519,11 @@ class LoadHomeInfoWorker(QThread):
             if students[i].daily_profit < data['daily_updated']:
                 need_update = True
                 need_update_list.append({'name': students[i].name,
-                                         'value': data['daily_updated']})
+                                         'value': data['daily_updated'],
+                                         'rank': data['rank'],
+                                         'mmr': data['mmr'], 
+                                         'total_acc_slp': data['total_slp_acc'],
+                                         'average': data['average']})
 
         return need_update, need_update_list
 
@@ -546,6 +554,9 @@ class LoadHomeInfoWorker(QThread):
 
                 done, data = self.api_validator(students[i].account.ronin_address)
 
+                if not done:
+                    continue
+
                 if students[i].daily_profit < data['yesterdaySLP']:
                     value = abs(students[i].daily_profit - data['yesterdaySLP']) + data['daily_updated']
                 else:
@@ -560,12 +571,18 @@ class LoadHomeInfoWorker(QThread):
 
                 self.students_db_handle.set_daily_profit(DefaultTools.session_handle, data['daily_updated'],
                                                          ronin=data['ronin_address'])
+                # update rank, mmr, total_slp, average                                              
+                self.update_rank_mmr_total_average(students[i].name, data['rank'], data['mmr'], data['total_slp_acc'], data['average'])
 
     def need_daily_update(self, list_update_needed):
 
         for i in range(0, len(list_update_needed)):
             name = list_update_needed[i]['name']
             value = list_update_needed[i]['value']
+            rank_value = list_update_needed[i]['rank']
+            mmr_value = list_update_needed[i]['mmr']
+            total_slp_value = list_update_needed[i]['total_acc_slp']
+            average_value = list_update_needed[i]['average']
             student = self.students_db_handle.find_by_name(DefaultTools.session_handle, name)
 
             difference = student.daily_profit - value
@@ -579,6 +596,29 @@ class LoadHomeInfoWorker(QThread):
             self.students_db_handle.set_daily_profit(DefaultTools.session_handle,
                                                      value,
                                                      name_input=name)
+
+            # update rank, mmr, total_slp, average
+            self.update_rank_mmr_total_average(name, rank_value, mmr_value, total_slp_value, average_value)
+            
+
+    def update_rank_mmr_total_average(self, name, rank_value: str, mmr_value: str, 
+                                    total_slp_value: str, average_value: str):
+
+        self.students_db_handle.update_rank(DefaultTools.session_handle,
+                                                name,
+                                                rank_value)
+
+        self.students_db_handle.update_mmr(DefaultTools.session_handle,
+                                            name,
+                                            mmr_value)
+
+        self.students_db_handle.update_total_slp_acc(DefaultTools.session_handle,
+                                            name,
+                                            total_slp_value)
+
+        self.students_db_handle.update_average_slp(DefaultTools.session_handle,
+                                            name,
+                                            average_value)
 
     def month_changed(self):
 

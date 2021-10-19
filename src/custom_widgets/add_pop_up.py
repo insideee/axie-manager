@@ -223,20 +223,26 @@ class ValidatorThread(QThread):
 
             acc_api = AccAxie(self.ronin_value)
             user_api = FullData(self.ronin_value)
+            mmr = user_api.get_mmr()
+            rank = user_api.get_rank()
+            average_slp = user_api.get_average_slp()
+            total_account_slp = user_api.get_account_slp()
             axie_data = acc_api.get_axie_data_str()
             daily_profit = user_api.get_daily_slp()
             last_time = formated_datetime
-            daily_profit_cached = daily_profit
             actual_month_profit = daily_profit
             last_month = 0
             next_to_last_month = 0
             new_account = Account(ronin_address=self.ronin_value, data=axie_data,
                                   scholar=[Scholar(name=self.name_value,
                                                    email=self.email_value,
+                                                   mmr=mmr,
+                                                   rank=rank,
+                                                   total_acc_slp=total_account_slp,
+                                                   total_average_slp=average_slp,
                                                    daily_goal=daily_goal,
                                                    last_time_checked=last_time,
                                                    daily_profit=daily_profit,
-                                                   daily_profit_cached=daily_profit_cached,
                                                    actual_month_profit=actual_month_profit,
                                                    last_month_profit=last_month,
                                                    next_to_last_month_profit=next_to_last_month)]

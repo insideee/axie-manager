@@ -1,5 +1,5 @@
 from requests.sessions import session
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, engine
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 import os
@@ -20,7 +20,7 @@ class Account(DefaultTools.base):
     __tablename__ = 'accounts'
 
     id = Column(Integer, primary_key=True)
-    ronin_address = Column(String(32))
+    ronin_address = Column(String(42))
     data = Column(String(500))
     scholar = relationship('Scholar', backref='account')
 
@@ -53,11 +53,14 @@ class Scholar(DefaultTools.base):
 
     name = Column(String(32), primary_key=True)
     email = Column(String(32))
+    mmr = Column(Integer)
+    rank = Column(Integer)
+    total_acc_slp = Column(Integer)
+    total_average_slp = Column(Integer)
     daily_goal = Column(Integer)
     account_id = Column(Integer, ForeignKey('accounts.id'), primary_key=True)
     last_time_checked = Column(String(16))
     daily_profit = Column(Integer)
-    daily_profit_cached = Column(Integer)
     actual_month_profit = Column(Integer)
     last_month_profit = Column(Integer)
     next_to_last_month_profit = Column(Integer)
@@ -106,6 +109,34 @@ class Scholar(DefaultTools.base):
         
         session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.actual_month_profit: value_update},  synchronize_session=False)
         session.commit()
+    
+    @classmethod
+    def update_rank(cls, session, name_input: str, value: int):        
+        value_update = value
+        
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.rank: value_update},  synchronize_session=False)
+        session.commit()
+    
+    @classmethod
+    def update_mmr(cls, session, name_input: str, value: int):        
+        value_update = value
+        
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.mmr: value_update},  synchronize_session=False)
+        session.commit()
+
+    @classmethod
+    def update_total_slp_acc(cls, session, name_input: str, value: int):        
+        value_update = value
+        
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.total_acc_slp: value_update},  synchronize_session=False)
+        session.commit()
+
+    @classmethod
+    def update_average_slp(cls, session, name_input: str, value: int):        
+        value_update = value
+        
+        session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.total_average_slp: value_update},  synchronize_session=False)
+        session.commit()
                     
     @classmethod
     def update_time_checked(cls, session, value: str):
@@ -114,6 +145,14 @@ class Scholar(DefaultTools.base):
         
         session.query(cls).update({cls.last_time_checked: value}, synchronize_session=False)
         session.commit()
+    
+    @classmethod
+    def get_ronin_address(cls, session, name_input: str) -> list:
+        student = cls.find_by_name(session, name_input)
+        
+        ronin_address = student.account.ronin_address
+
+        return ronin_address
     
     @classmethod
     def get_all_scholars(cls, session) -> list:
@@ -191,3 +230,8 @@ class Scholar(DefaultTools.base):
                     dict_return['acc_ronin'].append(r.ronin_address)
         
         return dict_return
+
+
+
+if __name__ == '__main__':
+    DefaultTools.base.metadata.create_all(DefaultTools.engine)

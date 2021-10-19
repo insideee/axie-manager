@@ -37,6 +37,25 @@ class FullData:
             if k == 'slp':
                 return self.data['slp']['yesterdaySLP']
 
+    def get_account_slp(self) -> int:
+        for k, v in self.data.items():
+            if k == 'slp':
+                return self.data['slp']['total']
+
+    def get_average_slp(self) -> int:
+        for k, v in self.data.items():
+            if k == 'slp':
+                return self.data['slp']['average']
+
+    def get_mmr(self):
+        for k, v in self.data.items():
+            if k == 'leaderboard':
+                return self.data['leaderboard']['elo']
+
+    def get_rank(self):
+        for k, v in self.data.items():
+            if k == 'leaderboard':
+                return self.data['leaderboard']['rank']
 
 class AccAxie:
 

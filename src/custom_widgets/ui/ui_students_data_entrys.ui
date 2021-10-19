@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>885</width>
+    <width>843</width>
     <height>30</height>
    </rect>
   </property>
@@ -90,7 +90,7 @@ QLabel{border: 0px}</string>
        <widget class="QWidget" name="dataContainer" native="true">
         <property name="minimumSize">
          <size>
-          <width>695</width>
+          <width>350</width>
           <height>0</height>
          </size>
         </property>
@@ -117,13 +117,13 @@ QLabel{border: 0px}</string>
           <widget class="QLabel" name="nameData">
            <property name="minimumSize">
             <size>
-             <width>223</width>
+             <width>100</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>223</width>
+             <width>250</width>
              <height>16777215</height>
             </size>
            </property>
@@ -136,7 +136,7 @@ QLabel{border: 0px}</string>
           <widget class="QLabel" name="roninData">
            <property name="minimumSize">
             <size>
-             <width>260</width>
+             <width>100</width>
              <height>0</height>
             </size>
            </property>
@@ -152,35 +152,61 @@ QLabel{border: 0px}</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="emailData">
+          <widget class="QLabel" name="mmrData">
            <property name="minimumSize">
             <size>
-             <width>186</width>
+             <width>60</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>186</width>
+             <width>80</width>
              <height>16777215</height>
             </size>
            </property>
            <property name="text">
-            <string>Email</string>
+            <string>MMR</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="rankData">
+           <property name="minimumSize">
+            <size>
+             <width>80</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>80</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Rank</string>
            </property>
           </widget>
          </item>
         </layout>
         <zorder>roninData</zorder>
         <zorder>nameData</zorder>
-        <zorder>emailData</zorder>
+        <zorder>mmrData</zorder>
+        <zorder>rankData</zorder>
        </widget>
       </item>
       <item alignment="Qt::AlignVCenter">
        <widget class="QWidget" name="slpDataContainer" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>190</width>
+          <width>400</width>
           <height>16777215</height>
          </size>
         </property>
@@ -192,7 +218,7 @@ QLabel{border: 0px}</string>
           <number>0</number>
          </property>
          <property name="leftMargin">
-          <number>0</number>
+          <number>4</number>
          </property>
          <property name="topMargin">
           <number>0</number>
@@ -204,16 +230,54 @@ QLabel{border: 0px}</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="slpGoalData">
+          <widget class="QLabel" name="totalSlpData">
            <property name="minimumSize">
             <size>
-             <width>95</width>
+             <width>80</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>95</width>
+             <width>90</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Total SLP</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="averageData">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>90</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>avg SLP</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="slpGoalData">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>90</width>
              <height>16777215</height>
             </size>
            </property>
@@ -226,13 +290,13 @@ QLabel{border: 0px}</string>
           <widget class="QLabel" name="slpTodayData">
            <property name="minimumSize">
             <size>
-             <width>94</width>
+             <width>30</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>94</width>
+             <width>90</width>
              <height>16777215</height>
             </size>
            </property>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_students_data_entrysgjrjcx.ui'
+## Form generated from reading UI file 'ui_students_data_entrysFEOOwU.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.3
 ##
@@ -94,32 +94,32 @@ class Ui_dataEntryCreator(object):
         self.horizontalLayout_3 = QHBoxLayout(self.slpDataContainer)
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(4, 0, 1, 0)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 1, 0)
         self.totalSlpData = QLabel(self.slpDataContainer)
         self.totalSlpData.setObjectName(u"totalSlpData")
         self.totalSlpData.setMinimumSize(QSize(80, 0))
-        self.totalSlpData.setMaximumSize(QSize(90, 16777215))
+        self.totalSlpData.setMaximumSize(QSize(99999, 16777215))
 
         self.horizontalLayout_3.addWidget(self.totalSlpData)
 
         self.averageData = QLabel(self.slpDataContainer)
         self.averageData.setObjectName(u"averageData")
         self.averageData.setMinimumSize(QSize(30, 0))
-        self.averageData.setMaximumSize(QSize(90, 16777215))
+        self.averageData.setMaximumSize(QSize(99999, 16777215))
 
         self.horizontalLayout_3.addWidget(self.averageData)
 
         self.slpGoalData = QLabel(self.slpDataContainer)
         self.slpGoalData.setObjectName(u"slpGoalData")
         self.slpGoalData.setMinimumSize(QSize(30, 0))
-        self.slpGoalData.setMaximumSize(QSize(90, 16777215))
+        self.slpGoalData.setMaximumSize(QSize(99999, 16777215))
 
         self.horizontalLayout_3.addWidget(self.slpGoalData)
 
         self.slpTodayData = QLabel(self.slpDataContainer)
         self.slpTodayData.setObjectName(u"slpTodayData")
         self.slpTodayData.setMinimumSize(QSize(30, 0))
-        self.slpTodayData.setMaximumSize(QSize(90, 16777215))
+        self.slpTodayData.setMaximumSize(QSize(99999, 16777215))
 
         self.horizontalLayout_3.addWidget(self.slpTodayData)
 

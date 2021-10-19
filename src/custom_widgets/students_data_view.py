@@ -30,6 +30,7 @@ class StudentsDataView(QWidget):
 
         # variables
         self.actual_percent_screen = None
+        self.default_height = 680
 
         self.current_height = self.height()
 
@@ -39,6 +40,8 @@ class StudentsDataView(QWidget):
         self.data_entry_creator()
 
         self.installEventFilter(self)
+
+        self.students_db_handle = Scholar()
 
         # pages variables
         self.current_page = 1
@@ -61,6 +64,8 @@ class StudentsDataView(QWidget):
         if event.type() == QtCore.QEvent.Type.Resize:
             
             app_height = self.get_app_height()
+
+            print('width:', self.ui.dataContainer.width())
             
             if app_height != self.current_height:
                 self.set_max_height(default=False)
@@ -78,7 +83,7 @@ class StudentsDataView(QWidget):
         default_percent = (self.height_default / 680)
 
         height = default_percent * app_height
-
+        
         return (int(height))
 
     def get_app_height(self) -> int:
@@ -134,22 +139,16 @@ class StudentsDataView(QWidget):
         return int(max_widgets)
 
     def get_data_info(self):
-        """teste
-        for i in range(0, 40):
-            self.data_entry_info.append({'name': f'{i}',
-                                         'ronin': 'asd',
-                                         'email': 'asd',
-                                         'daily_goal': 'asd',
-                                         'today_profit': 'asd'})
-
-        return"""
 
         students_list = Scholar.get_all_scholars(DefaultTools.session_handle)
 
         for student in students_list:
             self.data_entry_info.append({'name': student.name,
                                          'ronin': student.account.ronin_address,
-                                         'email': student.email,
+                                         'mmr': str(student.mmr),
+                                         'rank': str(student.rank),
+                                         'total_acc_slp':str(student.total_acc_slp),
+                                         'total_average_slp':str(student.total_average_slp),
                                          'daily_goal': str(student.daily_goal),
                                          'today_profit': str(student.daily_profit)})
 
@@ -202,6 +201,10 @@ class StudentsDataView(QWidget):
 
         print(f'height: {height}, max:{max_widgets}, number_pages: {number_pages}, total_widgets: {total_widget}')
         print(f'Goto page: {goto_page}')
+
+        if number_pages == 0:
+            return
+
         if direction == 'left':
             # goto <-
             for i in range(0, number_pages):
@@ -258,8 +261,16 @@ class StudentsDataView(QWidget):
 
         elif direction == None:
 
+            height = self.get_app_height()
+            
             for widget in self.data_entry_widgets:
                 widget.close()
+                ronin = self.students_db_handle.get_ronin_address(DefaultTools.session_handle, widget.ui.nameData.text())
+
+                if height > 1000:
+                    widget.ui.roninData.setText(ronin)
+                else:
+                    widget.ui.roninData.setText(ronin[:10]+'...')
 
             for i in range(0, number_pages):
                 start_list.append(max_widgets * i)
@@ -279,18 +290,13 @@ class StudentsDataView(QWidget):
         self.ui.indiceLabel.setText(f'{goto_page}')
         self.current_page = goto_page
 
-    def set_opacity(self, widget, value):
-        effect = QGraphicsOpacityEffect(widget)
-        effect.setOpacity(value)
-        widget.setGraphicsEffect(effect)
-
     def font_configuration(self):
 
         # header widgets
-        h_labels = [self.ui.nameLabel, self.ui.emailLabel, self.ui.roninLabel, self.ui.slpGoalLabel,
+        h_labels = [self.ui.nameLabel, self.ui.mmrLabel, self.ui.rankLabel, self.ui.totalSlpLabel, self.ui.averageLabel, self.ui.roninLabel, self.ui.slpGoalLabel,
                     self.ui.slpTodayLabel]
 
-        font_config = [self.func.set_font(label, 11, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True) for label in
+        font_config = [self.func.set_font(label, 9, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True) for label in
                        h_labels]
 
         self.func.set_font(self.ui.indiceLabel, 9, ':/font/fonts/Saira-Bold.ttf', '#7A8289', True, True)
@@ -323,8 +329,11 @@ class dataEntryCreator(QWidget):
 
         # set info
         self.ui.nameData.setText(dict_info['name'])
-        self.ui.roninData.setText(dict_info['ronin'])
-        self.ui.emailData.setText(dict_info['email'])
+        self.ui.roninData.setText(dict_info['ronin'][:10]+'...')
+        self.ui.mmrData.setText(dict_info['mmr'])
+        self.ui.rankData.setText(dict_info['rank'])
+        self.ui.averageData.setText(dict_info['total_average_slp'])
+        self.ui.totalSlpData.setText(dict_info['total_acc_slp'])
         self.ui.slpGoalData.setText(dict_info['daily_goal'])
         self.ui.slpTodayData.setText(dict_info['today_profit'])
 
@@ -335,7 +344,7 @@ class dataEntryCreator(QWidget):
         self.deleteLater()
     
     def font_configuration(self):
-        data_labels = [self.ui.nameData, self.ui.emailData, self.ui.roninData, self.ui.slpGoalData,
+        data_labels = [self.ui.nameData, self.ui.mmrData, self.ui.rankData, self.ui.averageData,self.ui.totalSlpData, self.ui.roninData, self.ui.slpGoalData,
                        self.ui.slpTodayData]
 
         font_config = [self.func.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#F9F9F9', True, True) for label in
