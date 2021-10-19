@@ -642,19 +642,7 @@ class LoadHomeInfoWorker(QThread):
 
 def main():
     app = QApplication(sys.argv)
-    window = MainWindow()
-    
-    b = QWidget()
-    b.setGeometry(0, 0, 150, 150)
-    c = QVBoxLayout(b)
-    c.setSpacing(0)
-    c.setContentsMargins(0, 0, 0, 0)
-    
-    a = RankLeaderboard()
-    a.show()
-    c.addWidget(a)
-    b.show()
-    
+    window = MainWindow()    
     
     sys.exit(app.exec_())
 
