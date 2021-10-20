@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1054</width>
-    <height>590</height>
+    <width>1218</width>
+    <height>953</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -49,6 +49,9 @@
        <height>16777215</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <widget class="QWidget" name="leaderboardFrame" native="true">
@@ -63,6 +66,9 @@
           <width>370</width>
           <height>470</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <property name="spacing">
@@ -82,6 +88,12 @@
          </property>
          <item>
           <widget class="QWidget" name="board_bg" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>400</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -98,6 +110,21 @@ border-bottom-left-radius: 0px;
 }</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_9">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>1</number>
+            </property>
+            <property name="topMargin">
+             <number>1</number>
+            </property>
+            <property name="rightMargin">
+             <number>1</number>
+            </property>
+            <property name="bottomMargin">
+             <number>1</number>
+            </property>
             <item>
              <widget class="QWidget" name="board_header" native="true">
               <property name="minimumSize">
@@ -114,7 +141,7 @@ border-bottom-left-radius: 0px;
               </property>
               <property name="styleSheet">
                <string notr="true">QWidget{border: 0px;
-border-top-left-radius: 0px;
+border-top-left-radius: 10px;
 border-bottom-right-radius: 0px;
 border-top-right-radius: 0px;
 border-bottom-left-radius: 0px;
@@ -149,7 +176,7 @@ border-bottom-left-radius: 0px;
                    <number>0</number>
                   </property>
                   <property name="leftMargin">
-                   <number>0</number>
+                   <number>6</number>
                   </property>
                   <property name="topMargin">
                    <number>0</number>
@@ -161,50 +188,9 @@ border-bottom-left-radius: 0px;
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="label">
+                   <widget class="QLabel" name="leaderLabel">
                     <property name="text">
                      <string>Leaderboard</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QWidget" name="changeParameterFrame" native="true">
-                 <property name="maximumSize">
-                  <size>
-                   <width>120</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_8">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="parameterLabel">
-                    <property name="text">
-                     <string>rank</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QToolButton" name="changeBtn">
-                    <property name="text">
-                     <string/>
                     </property>
                    </widget>
                   </item>
@@ -219,7 +205,7 @@ border-bottom-left-radius: 0px;
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>170</height>
+                <height>240</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -252,6 +238,33 @@ border-bottom-left-radius: 0px;
                <property name="bottomMargin">
                 <number>0</number>
                </property>
+               <item>
+                <widget class="QFrame" name="firstPlace">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_15">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                 </layout>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -278,7 +291,7 @@ border-bottom-left-radius: 0px;
               <property name="styleSheet">
                <string notr="true">QWidget{border: 0px;
 border-top-left-radius: 0px;
-border-bottom-right-radius: 0px;
+border-bottom-right-radius: 10px;
 border-top-right-radius: 0px;
 border-bottom-left-radius: 0px;
 }</string>
@@ -835,7 +848,7 @@ border: 1px solid #61676D
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="../../resources/resources.qrc">
                    <normaloff>:/images/img/left.png</normaloff>:/images/img/left.png</iconset>
                  </property>
                  <property name="iconSize">
@@ -901,7 +914,7 @@ border: 1px solid #61676D
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="../../resources/resources.qrc">
                    <normaloff>:/images/img/right.png</normaloff>:/images/img/right.png</iconset>
                  </property>
                 </widget>

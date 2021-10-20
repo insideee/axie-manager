@@ -74,7 +74,7 @@ class UIFunctions(QWidget):
             ui_widget.animation.setStartValue(width)
             ui_widget.animation.setEndValue(width_extend)
             ui_widget.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
-            ui_widget.animation.start()
+            ui_widget.animation.start(QAbstractAnimation.DeleteWhenStopped)
 
     @staticmethod
     def link_pages(*args, **kwargs) -> None:

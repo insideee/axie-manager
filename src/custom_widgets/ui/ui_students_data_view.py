@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_students_data_viewjXXOcJ.ui'
+## Form generated from reading UI file 'ui_students_data_viewHHbxwl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.3
 ##
@@ -21,7 +21,7 @@ class Ui_dataViewWidget(object):
     def setupUi(self, dataViewWidget):
         if not dataViewWidget.objectName():
             dataViewWidget.setObjectName(u"dataViewWidget")
-        dataViewWidget.resize(1054, 590)
+        dataViewWidget.resize(1218, 953)
         dataViewWidget.setMinimumSize(QSize(0, 540))
         self.horizontalLayout_5 = QHBoxLayout(dataViewWidget)
         self.horizontalLayout_5.setSpacing(0)
@@ -31,18 +31,21 @@ class Ui_dataViewWidget(object):
         self.leaderboardContent.setObjectName(u"leaderboardContent")
         self.leaderboardContent.setMinimumSize(QSize(270, 0))
         self.leaderboardContent.setMaximumSize(QSize(316, 16777215))
+        self.leaderboardContent.setStyleSheet(u"")
         self.verticalLayout_3 = QVBoxLayout(self.leaderboardContent)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.leaderboardFrame = QWidget(self.leaderboardContent)
         self.leaderboardFrame.setObjectName(u"leaderboardFrame")
         self.leaderboardFrame.setMinimumSize(QSize(0, 350))
         self.leaderboardFrame.setMaximumSize(QSize(370, 470))
+        self.leaderboardFrame.setStyleSheet(u"")
         self.verticalLayout_8 = QVBoxLayout(self.leaderboardFrame)
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.board_bg = QWidget(self.leaderboardFrame)
         self.board_bg.setObjectName(u"board_bg")
+        self.board_bg.setMinimumSize(QSize(0, 400))
         self.board_bg.setMaximumSize(QSize(16777215, 470))
         self.board_bg.setStyleSheet(u"QWidget{background-color: #47525E;\n"
 "border: 1px solid #61676D;\n"
@@ -52,13 +55,15 @@ class Ui_dataViewWidget(object):
 "border-bottom-left-radius: 0px;\n"
 "}")
         self.verticalLayout_9 = QVBoxLayout(self.board_bg)
+        self.verticalLayout_9.setSpacing(0)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.verticalLayout_9.setContentsMargins(1, 1, 1, 1)
         self.board_header = QWidget(self.board_bg)
         self.board_header.setObjectName(u"board_header")
         self.board_header.setMinimumSize(QSize(0, 30))
         self.board_header.setMaximumSize(QSize(316, 30))
         self.board_header.setStyleSheet(u"QWidget{border: 0px;\n"
-"border-top-left-radius: 0px;\n"
+"border-top-left-radius: 10px;\n"
 "border-bottom-right-radius: 0px;\n"
 "border-top-right-radius: 0px;\n"
 "border-bottom-left-radius: 0px;\n"
@@ -73,41 +78,21 @@ class Ui_dataViewWidget(object):
         self.verticalLayout_14 = QVBoxLayout(self.labelFrame)
         self.verticalLayout_14.setSpacing(0)
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
-        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
-        self.label = QLabel(self.labelFrame)
-        self.label.setObjectName(u"label")
+        self.verticalLayout_14.setContentsMargins(6, 0, 0, 0)
+        self.leaderLabel = QLabel(self.labelFrame)
+        self.leaderLabel.setObjectName(u"leaderLabel")
 
-        self.verticalLayout_14.addWidget(self.label)
+        self.verticalLayout_14.addWidget(self.leaderLabel)
 
 
         self.horizontalLayout_7.addWidget(self.labelFrame)
-
-        self.changeParameterFrame = QWidget(self.board_header)
-        self.changeParameterFrame.setObjectName(u"changeParameterFrame")
-        self.changeParameterFrame.setMaximumSize(QSize(120, 16777215))
-        self.horizontalLayout_8 = QHBoxLayout(self.changeParameterFrame)
-        self.horizontalLayout_8.setSpacing(0)
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.parameterLabel = QLabel(self.changeParameterFrame)
-        self.parameterLabel.setObjectName(u"parameterLabel")
-
-        self.horizontalLayout_8.addWidget(self.parameterLabel)
-
-        self.changeBtn = QToolButton(self.changeParameterFrame)
-        self.changeBtn.setObjectName(u"changeBtn")
-
-        self.horizontalLayout_8.addWidget(self.changeBtn)
-
-
-        self.horizontalLayout_7.addWidget(self.changeParameterFrame)
 
 
         self.verticalLayout_9.addWidget(self.board_header)
 
         self.firstPlaceFrame = QWidget(self.board_bg)
         self.firstPlaceFrame.setObjectName(u"firstPlaceFrame")
-        self.firstPlaceFrame.setMinimumSize(QSize(0, 170))
+        self.firstPlaceFrame.setMinimumSize(QSize(0, 240))
         self.firstPlaceFrame.setMaximumSize(QSize(316, 240))
         self.firstPlaceFrame.setStyleSheet(u"QWidget{border: 0px;\n"
 "border-top-left-radius: 0px;\n"
@@ -119,6 +104,17 @@ class Ui_dataViewWidget(object):
         self.verticalLayout_13.setSpacing(0)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.verticalLayout_13.setContentsMargins(0, 0, 0, 0)
+        self.firstPlace = QFrame(self.firstPlaceFrame)
+        self.firstPlace.setObjectName(u"firstPlace")
+        self.firstPlace.setFrameShape(QFrame.StyledPanel)
+        self.firstPlace.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_15 = QVBoxLayout(self.firstPlace)
+        self.verticalLayout_15.setSpacing(0)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_13.addWidget(self.firstPlace)
+
 
         self.verticalLayout_9.addWidget(self.firstPlaceFrame)
 
@@ -133,7 +129,7 @@ class Ui_dataViewWidget(object):
         self.othersPlaceFrame.setMaximumSize(QSize(316, 200))
         self.othersPlaceFrame.setStyleSheet(u"QWidget{border: 0px;\n"
 "border-top-left-radius: 0px;\n"
-"border-bottom-right-radius: 0px;\n"
+"border-bottom-right-radius: 10px;\n"
 "border-top-right-radius: 0px;\n"
 "border-bottom-left-radius: 0px;\n"
 "}")
@@ -414,9 +410,7 @@ class Ui_dataViewWidget(object):
 
     def retranslateUi(self, dataViewWidget):
         dataViewWidget.setWindowTitle(QCoreApplication.translate("dataViewWidget", u"Form", None))
-        self.label.setText(QCoreApplication.translate("dataViewWidget", u"Leaderboard", None))
-        self.parameterLabel.setText(QCoreApplication.translate("dataViewWidget", u"rank", None))
-        self.changeBtn.setText("")
+        self.leaderLabel.setText(QCoreApplication.translate("dataViewWidget", u"Leaderboard", None))
         self.addBtn.setText(QCoreApplication.translate("dataViewWidget", u"add", None))
         self.nameLabel.setText(QCoreApplication.translate("dataViewWidget", u"Name", None))
         self.roninLabel.setText(QCoreApplication.translate("dataViewWidget", u"Ronin", None))
