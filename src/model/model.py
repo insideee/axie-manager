@@ -48,6 +48,19 @@ class Account(DefaultTools.base):
             
         return amount_axies
 
+    @classmethod
+    def get_axie_image(cls, session, lista_id: list) -> list:
+        images = []
+
+        for id in lista_id:
+            obj = session.query(cls).filter(cls.id == id).first()
+            data = ast.literal_eval(obj.data)
+
+            images.append(data['0']['image'])
+
+        return images
+
+
 class Scholar(DefaultTools.base):
     __tablename__ = 'scholars'
 
@@ -72,6 +85,15 @@ class Scholar(DefaultTools.base):
     @classmethod
     def find_by_name(cls, session, name_input: str):
         return session.query(cls).filter(cls.name.like(f'%{name_input}%')).first()
+
+    @classmethod
+    def find_by_rank(cls, session, rank_input: list) -> list:
+        q = []
+        
+        for rank in rank_input:
+            q.append(session.query(cls).filter_by(rank=rank).first())
+
+        return q
     
     @classmethod
     def set_account_id(cls, session, name_input: str, account_id: int):
@@ -175,7 +197,7 @@ class Scholar(DefaultTools.base):
         profit = [tpl[0] for tpl in session.query(cls.daily_profit).all()]
         
         total_goal = sum(goal)
-        total_profit = sum(profit)     
+        total_profit = sum(profit) 
             
         return total_goal, total_profit
     

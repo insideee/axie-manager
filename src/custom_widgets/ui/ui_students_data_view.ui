@@ -386,6 +386,11 @@ border-bottom-left-radius: 0px;
          </property>
          <item>
           <widget class="QPushButton" name="addBtn">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: #47525E;
+border-radius: 5px;
+color:#FFFFFF}</string>
+           </property>
            <property name="text">
             <string>add</string>
            </property>

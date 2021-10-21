@@ -25,11 +25,27 @@ class FullData:
         self.response = requests.request('GET', self.url + f'/{self.ronin_acc}', headers=self.headers,
                                          params=self.querystring)
 
-        self.data = ast.literal_eval(self.response.text)
+        response_treated = self._response_treatment()
+        
+        self.data = ast.literal_eval(response_treated)
+
+    def _response_treatment(self) -> str:
+        replace_dict = {'null': '"null"',
+                        'false': '"false"'}
+
+        response_str = self.response.text
+
+        for k, v in replace_dict.items():
+            response_str = response_str.replace(k, v)
+
+        return response_str
 
     def get_daily_slp(self) -> int:
         for k, v in self.data.items():
             if k == 'slp':
+                if self.data['slp']['todaySoFar'] == 'null':
+                    return 0
+                    
                 return self.data['slp']['todaySoFar']
 
     def get_yesterday_slp(self) -> int:
@@ -85,11 +101,14 @@ class AccAxie:
         return response_str
 
     def get_axie_data_str(self) -> str:
-        list_axies = self.data['data']['axies']['results']
-        dict_axies = {}
+        try:
+            list_axies = self.data['data']['axies']['results']
+            dict_axies = {}
 
-        for i in range(0, len(list_axies)):
-            dict_axies[f'{i}'] = list_axies[i]
+            for i in range(0, len(list_axies)):
+                dict_axies[f'{i}'] = list_axies[i]
+        except Exception:
+            dict_axies = {}
 
         return json.dumps(dict_axies)
 
@@ -109,7 +128,7 @@ if __name__ == '__main__':
     # dict_a = a.get_axie_data_dict()
     # print(type(dict_a), type(str_a), len(dict_a))
 
-    # a = FullData('26d252724d08a30151ab5c87bd6b4fb5eadb1500')
+    #a = FullData('523a6ca8c09f0653f8b69ce09d3f3d1d2f714101')
     # daily = a.get_daily_slp()
 
     time_now = datetime.now()

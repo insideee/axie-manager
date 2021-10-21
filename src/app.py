@@ -2,7 +2,6 @@ from PySide2.QtGui import QMovie
 from PySide2.QtWidgets import *
 from PySide2.QtCore import QThread, QTimer, Signal, QPoint, QRect, Qt, QEvent, QAbstractAnimation, QObject
 from datetime import datetime, timezone
-import os
 import sys
 
 # gui file and gui functions
@@ -58,31 +57,18 @@ class MainWindow(QMainWindow, UIFunctions):
         self.profit_graphic = None
         self.axies_graphic = None
 
-        # window configs
+        # configurations
         self.window_centered = False
         self.window_gui_configuration()
-
-        # button configs
         self.btn_gui_configuration()
-
-        # fonts configs
         self.fonts_gui_configuration()
-
-        # drop shadow configs
         self.drop_shadow_gui_configuration()
-
-        # home page graphics configuration
         self.graph_configurations()
-
-        # students page configuration
         self.students_page_configuration()
-
-        # work in progress
         self.set_work_in_progress_pages()
 
         # show gui
         self.show()
-
         self.active_screen_geometry = QDesktopWidget().screenGeometry(self)
 
     def window_gui_configuration(self):
@@ -94,15 +80,17 @@ class MainWindow(QMainWindow, UIFunctions):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         self.window_centered = True
-    
+
     def btn_gui_configuration(self):
         # toggle button
-        self.ui.btn_toggle.clicked.connect(lambda: self.toggle_menu(self.ui.menu_container, 140, True))
+        self.ui.btn_toggle.clicked.connect(
+            lambda: self.toggle_menu(self.ui.menu_container, 140, True))
 
         # title bar buttons
         self.ui.btn_exit.clicked.connect(lambda: sys.exit(1))
         self.ui.btn_minimize.clicked.connect(self.showMinimized)
-        self.ui.btn_expand.clicked.connect(lambda: self.min_and_max_window(self))
+        self.ui.btn_expand.clicked.connect(
+            lambda: self.min_and_max_window(self))
 
         # add student home page
         self.ui.add_home_btn.setMinimumWidth(100)
@@ -121,7 +109,8 @@ class MainWindow(QMainWindow, UIFunctions):
 
         # link home_page buttons -> pages
         self.link_pages(self.ui.pages_container,
-                        list_btn=[self.ui.goto_students_btn, self.ui.goto_profit_btn, self.ui.goto_axies_btn],
+                        list_btn=[self.ui.goto_students_btn,
+                                  self.ui.goto_profit_btn, self.ui.goto_axies_btn],
                         list_pages=[self.ui.students_page, self.ui.profit_page, self.ui.inventory_page])
 
         # home_btn style
@@ -133,11 +122,14 @@ class MainWindow(QMainWindow, UIFunctions):
 
     def fonts_gui_configuration(self):
         # title bar
-        self.set_font(self.ui.title1_label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, True)
-        self.set_font(self.ui.title2_label, 12, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
+        self.set_font(self.ui.title1_label, 12,
+                      ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, True)
+        self.set_font(self.ui.title2_label, 12,
+                      ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
 
         # info bottom
-        self.set_font(self.ui.info_label, 10, ':/font/fonts/Saira-Light.ttf', '#E64C3C', True, True)
+        self.set_font(self.ui.info_label, 10,
+                      ':/font/fonts/Saira-Light.ttf', '#E64C3C', True, True)
 
         # menu
         menu_labels = [self.set_font(label, 12, ':/font/fonts/Saira-Light.ttf', '#FFFFFF', False, False) for label in
@@ -156,7 +148,8 @@ class MainWindow(QMainWindow, UIFunctions):
                                [self.ui.data_label_students, self.ui.data_label_profit, self.ui.data_label_axies]]
 
         # add home btn
-        self.set_font(self.ui.add_home_btn, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
+        self.set_font(self.ui.add_home_btn, 10,
+                      ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
 
     def drop_shadow_gui_configuration(self):
         # shadow top bar
@@ -166,10 +159,12 @@ class MainWindow(QMainWindow, UIFunctions):
         self.set_drop_shadow(self.ui.add_home_btn)
 
         # shadow home widgets
-        self.set_drop_shadow(self.ui.axies_widget, self.ui.profit_widget, self.ui.students_widget)
+        self.set_drop_shadow(self.ui.axies_widget,
+                             self.ui.profit_widget, self.ui.students_widget)
 
     def graph_configurations(self):
-        self.students_goal_graphic = CircularProgress(200, 200, font_family='Saira')
+        self.students_goal_graphic = CircularProgress(
+            200, 200, font_family='Saira')
 
         self.profit_graphic = BarGraph(250, 250, font_family='Saira')
 
@@ -180,10 +175,12 @@ class MainWindow(QMainWindow, UIFunctions):
 
     def set_work_in_progress_pages(self):
 
-        work_pages = [self.ui.label_2, self.ui.label_4, self.ui.label_5, self.ui.label_6]
+        work_pages = [self.ui.label_2, self.ui.label_4,
+                      self.ui.label_5, self.ui.label_6]
 
         for v in work_pages:
-            self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
+            self.set_font(v, 25, ':/font/fonts/Saira-Bold.ttf',
+                          '#E64C3C', True, True)
             v.setText('Work in progress...')
 
     def students_page_configuration(self):
@@ -206,7 +203,7 @@ class MainWindow(QMainWindow, UIFunctions):
     def showMaximized(self) -> None:
         if self.ui.icon_label.isVisible() or self.ui.info_label.isVisible():
             stopped = self.ui.icon_label.animation.state() == QAbstractAnimation.State.Stopped \
-                      and self.ui.info_label.animation.state() == QAbstractAnimation.State.Stopped
+                and self.ui.info_label.animation.state() == QAbstractAnimation.State.Stopped
 
             if self.ui.icon_label.y() == 0 and stopped:
                 self.animate(QPoint(10, 0), self.ui.info_label)
@@ -217,7 +214,7 @@ class MainWindow(QMainWindow, UIFunctions):
     def showNormal(self) -> None:
         if self.ui.icon_label.isVisible() or self.ui.info_label.isVisible():
             stopped = self.ui.icon_label.animation.state() == QAbstractAnimation.State.Stopped \
-                      and self.ui.info_label.animation.state() == QAbstractAnimation.State.Stopped
+                and self.ui.info_label.animation.state() == QAbstractAnimation.State.Stopped
 
             if self.ui.icon_label.y() == 0 and stopped:
                 self.animate(QPoint(1009, 0), self.ui.info_label)
@@ -238,15 +235,23 @@ class MainWindow(QMainWindow, UIFunctions):
         elif update:
             self.load_info_worker = LoadHomeInfoWorker(update=True)
 
-        self.load_info_worker.students_amount_signal.connect(self.students_amount_receive)
-        self.load_info_worker.students_goal_percent_signal.connect(self.students_goal_percent_receive)
-        self.load_info_worker.actual_month_signal.connect(self.actual_month_receive)
-        self.load_info_worker.last_month_signal.connect(self.last_month_receive)
-        self.load_info_worker.next_last_month_signal.connect(self.next_last_month_receive)
-        self.load_info_worker.axie_amount_signal.connect(self.axie_amount_receive)
-        self.load_info_worker.initalization_signal.connect(self.initialization_receive)
+        self.load_info_worker.students_amount_signal.connect(
+            self.students_amount_receive)
+        self.load_info_worker.students_goal_percent_signal.connect(
+            self.students_goal_percent_receive)
+        self.load_info_worker.actual_month_signal.connect(
+            self.actual_month_receive)
+        self.load_info_worker.last_month_signal.connect(
+            self.last_month_receive)
+        self.load_info_worker.next_last_month_signal.connect(
+            self.next_last_month_receive)
+        self.load_info_worker.axie_amount_signal.connect(
+            self.axie_amount_receive)
+        self.load_info_worker.initalization_signal.connect(
+            self.initialization_receive)
         self.load_info_worker.updating_signal.connect(self.updating_receive)
-        self.load_info_worker.after_add_popup_signal.connect(self.after_add_popup_receive)
+        self.load_info_worker.after_add_popup_signal.connect(
+            self.after_add_popup_receive)
         self.load_info_worker.message_signal.connect(self.message_handle)
 
         self.load_info_worker.start()
@@ -293,28 +298,33 @@ class MainWindow(QMainWindow, UIFunctions):
 
     def home_info_setter(self):
         print('setting')
-        if self.initialization_slot:
-            self.load_home_info_thread_handle(update=True)
-            self.initialization_slot = False
 
-        elif self.updating_slot:
+        if self.updating_slot:
             state_maximized = self.isMaximized()
 
+            
+            print("here")
             self.students_widget.set_new_data()
 
             # closing animation
             if state_maximized:
-                self.animate(QPoint(10, 30), self.ui.info_label, duration=1000, closing=True)
-                self.animate(QPoint(110, 30), self.ui.icon_label, duration=1000, closing=True)
+                self.animate(QPoint(10, 30), self.ui.info_label,
+                             duration=1000, closing=True)
+                self.animate(QPoint(110, 30), self.ui.icon_label,
+                             duration=1000, closing=True)
             else:
-                self.animate(QPoint(1009, 30), self.ui.info_label, duration=1000, closing=True)
-                self.animate(QPoint(1109, 30), self.ui.icon_label, duration=1000, closing=True)
+                self.animate(QPoint(1009, 30), self.ui.info_label,
+                             duration=1000, closing=True)
+                self.animate(QPoint(1109, 30), self.ui.icon_label,
+                             duration=1000, closing=True)
 
             self.updating_slot = False
 
         # set graph widgets infos
-        self.students_goal_graphic.update_value(self.students_goal_percent_slot)
-        self.profit_graphic.update_value(self.next_last_month_slot, self.last_month_slot, self.actual_month_slot)
+        self.students_goal_graphic.update_value(
+            self.students_goal_percent_slot)
+        self.profit_graphic.update_value(
+            self.next_last_month_slot, self.last_month_slot, self.actual_month_slot)
 
         # set data view infos
         self.ui.data_label_students.setText(str(self.students_amount_slot))
@@ -330,10 +340,18 @@ class MainWindow(QMainWindow, UIFunctions):
             self.ui.data_label_students.show()
             self.ui.add_home_btn.close()
 
+        if self.initialization_slot:
+            self.load_home_info_thread_handle(update=True)
+            self.initialization_slot = False
+        elif self.add_popup_slot:
+            self.load_home_info_thread_handle(update=True)
+            self.add_popup_slot = False
+
     def timer_handle(self):
         self.update_infos_timer = QTimer()
         self.update_infos_timer.start(900000)
-        self.update_infos_timer.timeout.connect(lambda: self.load_home_info_thread_handle(update=True))
+        self.update_infos_timer.timeout.connect(
+            lambda: self.load_home_info_thread_handle(update=True))
 
     def check_window_changed(self):
 
@@ -396,10 +414,12 @@ class LoadHomeInfoWorker(QThread):
 
     def __init__(self, initialization=False, after_add_popup=False, update=False):
         super(LoadHomeInfoWorker, self).__init__()
+        # properties
         self.initalization = initialization
         self.after_add_popup = after_add_popup
         self.update = update
 
+        # variables
         self.students_db_handle = Scholar()
         self.acc_db_handle = Account()
 
@@ -432,7 +452,7 @@ class LoadHomeInfoWorker(QThread):
 
             self.update_time()
 
-        # crud            
+        # crud
         amount_students = self.get_students_amount()
         daily_goal_percent = int(self.get_students_goal_percent())
         actual_month, last_month, next_last_month = self.get_months_values()
@@ -447,14 +467,18 @@ class LoadHomeInfoWorker(QThread):
 
         if self.initalization:
             self.initalization_signal.emit(True)
+        elif self.after_add_popup:
+            self.after_add_popup_signal.emit(True)
 
     def get_students_amount(self) -> int:
-        amount_students = self.students_db_handle.get_scholar_amount(DefaultTools.session_handle)
+        amount_students = self.students_db_handle.get_scholar_amount(
+            DefaultTools.session_handle)
 
         return amount_students
 
     def get_students_goal_percent(self) -> int:
-        daily_goal, daily_profit = self.students_db_handle.get_daily_goal_and_profit(DefaultTools.session_handle)
+        daily_goal, daily_profit = self.students_db_handle.get_daily_goal_and_profit(
+            DefaultTools.session_handle)
 
         try:
             percent = (daily_profit / daily_goal) * 100
@@ -473,7 +497,8 @@ class LoadHomeInfoWorker(QThread):
         return self.acc_db_handle.get_axies_amount(DefaultTools.session_handle)
 
     def check_day_change(self) -> bool:
-        last_time_dict = self.students_db_handle.get_dict_last_time_checked(DefaultTools.session_handle)
+        last_time_dict = self.students_db_handle.get_dict_last_time_checked(
+            DefaultTools.session_handle)
         time_now = datetime.now(timezone.utc)
 
         for time_string in last_time_dict['last_time']:
@@ -498,7 +523,7 @@ class LoadHomeInfoWorker(QThread):
                       'daily_updated': user_api.get_daily_slp(),
                       'yesterdaySLP': user_api.get_yesterday_slp(),
                       'mmr': user_api.get_mmr(),
-                      'rank': user_api.get_rank(), 
+                      'rank': user_api.get_rank(),
                       'total_slp_acc': user_api.get_account_slp(),
                       'average': user_api.get_average_slp()}
 
@@ -506,7 +531,8 @@ class LoadHomeInfoWorker(QThread):
         """Check if need update in the daily profit and return the needed update list
         """
         need_update = False
-        students = self.students_db_handle.get_all_scholars(DefaultTools.session_handle)
+        students = self.students_db_handle.get_all_scholars(
+            DefaultTools.session_handle)
         need_update_list = []
 
         for i in range(0, self.students_db_handle.get_scholar_amount(DefaultTools.session_handle)):
@@ -514,14 +540,15 @@ class LoadHomeInfoWorker(QThread):
             data = None
 
             while not done:
-                done, data = self.api_validator(students[i].account.ronin_address)
+                done, data = self.api_validator(
+                    students[i].account.ronin_address)
 
             if students[i].daily_profit < data['daily_updated']:
                 need_update = True
                 need_update_list.append({'name': students[i].name,
                                          'value': data['daily_updated'],
                                          'rank': data['rank'],
-                                         'mmr': data['mmr'], 
+                                         'mmr': data['mmr'],
                                          'total_acc_slp': data['total_slp_acc'],
                                          'average': data['average']})
 
@@ -530,7 +557,8 @@ class LoadHomeInfoWorker(QThread):
     def check_month_changed(self) -> bool:
         """Check if month changed and return it
         """
-        last_time_dict = self.students_db_handle.get_dict_last_time_checked(DefaultTools.session_handle)
+        last_time_dict = self.students_db_handle.get_dict_last_time_checked(
+            DefaultTools.session_handle)
         time_now = datetime.now(timezone.utc)
 
         for time_string in last_time_dict['last_time']:
@@ -543,7 +571,8 @@ class LoadHomeInfoWorker(QThread):
         return False
 
     def day_changed(self, month_changed=False):
-        students = self.students_db_handle.get_all_scholars(DefaultTools.session_handle)
+        students = self.students_db_handle.get_all_scholars(
+            DefaultTools.session_handle)
 
         for i in range(0, self.students_db_handle.get_scholar_amount(DefaultTools.session_handle)):
             done = False
@@ -552,13 +581,15 @@ class LoadHomeInfoWorker(QThread):
 
             while not done:
 
-                done, data = self.api_validator(students[i].account.ronin_address)
+                done, data = self.api_validator(
+                    students[i].account.ronin_address)
 
                 if not done:
                     continue
 
                 if students[i].daily_profit < data['yesterdaySLP']:
-                    value = abs(students[i].daily_profit - data['yesterdaySLP']) + data['daily_updated']
+                    value = abs(
+                        students[i].daily_profit - data['yesterdaySLP']) + data['daily_updated']
                 else:
                     value = data['daily_updated']
 
@@ -571,8 +602,9 @@ class LoadHomeInfoWorker(QThread):
 
                 self.students_db_handle.set_daily_profit(DefaultTools.session_handle, data['daily_updated'],
                                                          ronin=data['ronin_address'])
-                # update rank, mmr, total_slp, average                                              
-                self.update_rank_mmr_total_average(students[i].name, data['rank'], data['mmr'], data['total_slp_acc'], data['average'])
+                # update rank, mmr, total_slp, average
+                self.update_rank_mmr_total_average(
+                    students[i].name, data['rank'], data['mmr'], data['total_slp_acc'], data['average'])
 
     def need_daily_update(self, list_update_needed):
 
@@ -583,7 +615,8 @@ class LoadHomeInfoWorker(QThread):
             mmr_value = list_update_needed[i]['mmr']
             total_slp_value = list_update_needed[i]['total_acc_slp']
             average_value = list_update_needed[i]['average']
-            student = self.students_db_handle.find_by_name(DefaultTools.session_handle, name)
+            student = self.students_db_handle.find_by_name(
+                DefaultTools.session_handle, name)
 
             difference = student.daily_profit - value
 
@@ -598,27 +631,27 @@ class LoadHomeInfoWorker(QThread):
                                                      name_input=name)
 
             # update rank, mmr, total_slp, average
-            self.update_rank_mmr_total_average(name, rank_value, mmr_value, total_slp_value, average_value)
-            
+            self.update_rank_mmr_total_average(
+                name, rank_value, mmr_value, total_slp_value, average_value)
 
-    def update_rank_mmr_total_average(self, name, rank_value: str, mmr_value: str, 
-                                    total_slp_value: str, average_value: str):
+    def update_rank_mmr_total_average(self, name, rank_value: str, mmr_value: str,
+                                      total_slp_value: str, average_value: str):
 
         self.students_db_handle.update_rank(DefaultTools.session_handle,
-                                                name,
-                                                rank_value)
+                                            name,
+                                            rank_value)
 
         self.students_db_handle.update_mmr(DefaultTools.session_handle,
-                                            name,
-                                            mmr_value)
+                                           name,
+                                           mmr_value)
 
         self.students_db_handle.update_total_slp_acc(DefaultTools.session_handle,
-                                            name,
-                                            total_slp_value)
+                                                     name,
+                                                     total_slp_value)
 
         self.students_db_handle.update_average_slp(DefaultTools.session_handle,
-                                            name,
-                                            average_value)
+                                                   name,
+                                                   average_value)
 
     def month_changed(self):
 
@@ -626,7 +659,8 @@ class LoadHomeInfoWorker(QThread):
 
         self.students_db_handle.set_month_changed(DefaultTools.session_handle)
 
-        daily_dict = self.students_db_handle.get_dict_daily_profit(DefaultTools.session_handle)
+        daily_dict = self.students_db_handle.get_dict_daily_profit(
+            DefaultTools.session_handle)
 
         for i in range(0, len(daily_dict['name'])):
             self.students_db_handle.update_month_profit(DefaultTools.session_handle,
@@ -637,13 +671,15 @@ class LoadHomeInfoWorker(QThread):
         time_now = datetime.now(timezone.utc)
         formated_datetime = time_now.strftime('%Y-%m-%d %H:%M')
 
-        self.students_db_handle.update_time_checked(DefaultTools.session_handle, formated_datetime)
+        self.students_db_handle.update_time_checked(
+            DefaultTools.session_handle, formated_datetime)
 
 
 def main():
     app = QApplication(sys.argv)
-    window = MainWindow()   
+    window = MainWindow()
     sys.exit(app.exec_())
-    
+
+
 if __name__ == '__main__':
     main()

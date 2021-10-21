@@ -9,11 +9,13 @@ import requests
 import os
 
 try:
+    from custom_widgets import AddPopUp
     from custom_widgets.ui import Ui_dataViewWidget, Ui_dataEntryCreator
     from functions import UIFunctions
     from model import Scholar, Account, DefaultTools
 
 except ModuleNotFoundError:
+    from custom_widgets import AddPopUp
     from src.custom_widgets.ui import Ui_dataViewWidget, Ui_dataEntryCreator
     from src.functions import UIFunctions
     from src.model import Scholar, Account, DefaultTools
@@ -36,47 +38,106 @@ class StudentsDataView(QWidget):
         # variables
         self.actual_percent_screen = None
         self.default_height = 680
-
-        self.current_height = self.height()    
-
-        self.first_place_widget = RankLeaderboard(width=self.ui.firstPlace.width(), height=self.ui.firstPlace.height(), 
-                                                    color=0xB9AA1A, image=':/images/img/1st.png')        
-        self.second_place_widget = RankLeaderboard(width=self.ui.secondPlace.width(), height=self.ui.secondPlace.height(), 
-                                                    color=0xC2C2C2, image=':/images/img/2st.png')
-        self.third_place_widget = RankLeaderboard(width=self.ui.thirdPlace.width(), height=self.ui.thirdPlace.height(), 
-                                                    color=0xB15C21, image=':/images/img/3st.png')
-        self.ui.verticalLayout_15.setAlignment(self.first_place_widget, Qt.AlignCenter)
-        
-        self.ui.verticalLayout_11.addWidget(self.second_place_widget)
-        self.ui.verticalLayout_12.addWidget(self.third_place_widget)
-        self.ui.verticalLayout_15.addWidget(self.first_place_widget)
-
-        # font config
-        self.font_configuration()
-
-        self.data_entry_creator()
-
-        self.installEventFilter(self)
-
+        self.current_height = self.height()
         self.students_db_handle = Scholar()
+        self.account_db_handle = Account()
 
         # pages variables
         self.current_page = 1
         self.goto_page = 0
         self.receivers_count = 0
-        self.show_widgets_each_page(self.current_page, direction=None)
+
+        # leaderboard variables
+        self.leaderboard_widget = None
+
+        # add pop_up
+        self.pop_up = AddPopUp()
+
+        # configs
+        self.font_configuration()
+        self.btn_configuration()
+        self.installEventFilter(self)
+
+        # default init
+        self.data_entry_creator()
+        if len(self.data_entry_widgets) > 0:
+            self.show_widgets_each_page(self.current_page, direction=None)
+        self.set_leaderboard_ranks()
+
+    def btn_configuration(self):
+        self.ui.verticalLayout_10.setAlignment(Qt.AlignCenter)
+        self.ui.addBtn.setText('Add')
+        self.ui.addBtn.setMinimumSize(QSize(120, 25))
+        self.ui.addBtn.setMaximumSize(QSize(120, 25))
+        self.ui.addBtn.clicked.connect(self.pop_up_handle)
+
+    def pop_up_handle(self):
+        self.pop_up.show()
 
     def set_new_data(self):
-        for widget in self.data_entry_widgets:
-            widget._close_widget()
+        print('setting new data')
+        if len(self.data_entry_widgets) > 0:
+            for widget in self.data_entry_widgets:
+                widget._close_widget()
 
-        self.data_entry_info = []
-        self.data_entry_widgets = []
+            self.data_entry_info = []
+            self.data_entry_widgets = []
 
         self.data_entry_creator()
         self.show_widgets_each_page(self.current_page, direction=None)
-    
-    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:            
+        self.set_leaderboard_ranks(update=True)
+
+    def set_leaderboard_ranks(self, update=False):
+        if self.leaderboard_widget != None:
+            for widgets in self.leaderboard_widget:
+                widgets._close_widget()
+            self.leaderboard_widget = None
+
+        students_list = self.students_db_handle.get_all_scholars(
+            DefaultTools.session_handle)
+
+        if len(students_list) > 0:
+
+            top_students = []
+
+            for student in students_list:
+                top_students.append(student.rank)
+
+            top_students.sort()
+
+            top_students = top_students[:3]
+
+            students_obj = self.students_db_handle.find_by_rank(DefaultTools.session_handle, top_students)
+
+            id_list = [student.account_id for student in students_obj]
+            images_list = self.account_db_handle.get_axie_image(DefaultTools.session_handle ,id_list)
+
+            self.leaderboard_widget = []
+            
+            if len(top_students) == 3:
+                
+                for i in range(0, 3):
+                    self.leaderboard_widget.append(RankLeaderboard(
+                        image_url=images_list[i], name=students_obj[i].name, pos=i))
+                
+            else:
+
+                for i in range(0, 3):
+
+                    if i < len(top_students):
+                        self.leaderboard_widget.append(RankLeaderboard(image_url=images_list[i], name=students_obj[i].name, pos=i))
+                    else:
+                        self.leaderboard_widget.append(RankLeaderboard(pos=i))
+        else:
+            # default theres no rank
+            for i in range(0, 3):
+                self.leaderboard_widget.append(RankLeaderboard(pos=i))
+        
+        self.ui.verticalLayout_11.addWidget(self.leaderboard_widget[1])
+        self.ui.verticalLayout_12.addWidget(self.leaderboard_widget[2])
+        self.ui.verticalLayout_15.addWidget(self.leaderboard_widget[0])
+
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
 
         if event.type() == QtCore.QEvent.Type.Resize:
 
@@ -84,13 +145,13 @@ class StudentsDataView(QWidget):
                 self.ui.verticalLayout_15.setContentsMargins(45, 0, 0, 30)
                 self.ui.verticalLayout_11.setContentsMargins(26, 0, 0, 13)
                 self.ui.verticalLayout_12.setContentsMargins(26, 0, 0, 13)
-            
+
             app_height = self.get_app_height()
-            
+
             if app_height != self.current_height:
                 self.set_max_height(default=False)
                 self.current_height = app_height
-            
+
         return super().eventFilter(watched, event)
 
     def get_height(self) -> int:
@@ -103,7 +164,7 @@ class StudentsDataView(QWidget):
         default_percent = (self.height_default / 680)
 
         height = default_percent * app_height
-        
+
         return (int(height))
 
     def get_app_height(self) -> int:
@@ -167,8 +228,8 @@ class StudentsDataView(QWidget):
                                          'ronin': student.account.ronin_address,
                                          'mmr': str(student.mmr),
                                          'rank': str(student.rank),
-                                         'total_acc_slp':str(student.total_acc_slp),
-                                         'total_average_slp':str(student.total_average_slp),
+                                         'total_acc_slp': str(student.total_acc_slp),
+                                         'total_average_slp': str(student.total_average_slp),
                                          'daily_goal': str(student.daily_goal),
                                          'today_profit': str(student.daily_profit)})
 
@@ -182,8 +243,10 @@ class StudentsDataView(QWidget):
 
         max_widgets = self.get_max_widgets(height)
         max_pages = self.get_number_pages(max_widgets)
-
-        if self.current_page > max_pages:
+        
+        if max_pages == 0:
+            self.current_page = 1
+        elif self.current_page > max_pages:
             self.current_page = max_pages
 
         self.show_widgets_each_page(self.current_page, direction=None)
@@ -268,7 +331,7 @@ class StudentsDataView(QWidget):
                 if goto_page != number_pages else \
                 self.data_entry_widgets[start_list[start_i]:]
 
-            for widget in visible_widgets:                
+            for widget in visible_widgets:
                 widget.close()
 
             for widget in new_widgets:
@@ -279,10 +342,11 @@ class StudentsDataView(QWidget):
         elif direction == None:
 
             height = self.get_app_height()
-            
+
             for widget in self.data_entry_widgets:
                 widget.close()
-                ronin = self.students_db_handle.get_ronin_address(DefaultTools.session_handle, widget.ui.nameData.text())
+                ronin = self.students_db_handle.get_ronin_address(
+                    DefaultTools.session_handle, widget.ui.nameData.text())
 
                 if height > 1000:
                     widget.ui.roninData.setText(ronin)
@@ -311,12 +375,16 @@ class StudentsDataView(QWidget):
 
         # header widgets
         h_labels = [self.ui.nameLabel, self.ui.mmrLabel, self.ui.rankLabel, self.ui.totalSlpLabel, self.ui.averageLabel, self.ui.roninLabel, self.ui.slpGoalLabel,
-                    self.ui.slpTodayLabel,self.ui.leaderLabel]
+                    self.ui.slpTodayLabel, self.ui.leaderLabel]
 
         font_config = [self.func.set_font(label, 9, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True) for label in
                        h_labels]
 
-        self.func.set_font(self.ui.indiceLabel, 9, ':/font/fonts/Saira-Bold.ttf', '#7A8289', True, True)
+        self.func.set_font(self.ui.indiceLabel, 9,
+                           ':/font/fonts/Saira-Bold.ttf', '#7A8289', True, True)
+
+        self.func.set_font(self.ui.addBtn, 10,
+                           ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
 
     def shadow_configuration(self):
         self.func.set_drop_shadow(self)
@@ -359,33 +427,47 @@ class dataEntryCreator(QWidget):
 
     def _close_widget(self):
         self.deleteLater()
-    
+
     def font_configuration(self):
-        data_labels = [self.ui.nameData, self.ui.mmrData, self.ui.rankData, self.ui.averageData,self.ui.totalSlpData, self.ui.roninData, self.ui.slpGoalData,
+        data_labels = [self.ui.nameData, self.ui.mmrData, self.ui.rankData, self.ui.averageData, self.ui.totalSlpData, self.ui.roninData, self.ui.slpGoalData,
                        self.ui.slpTodayData]
 
         font_config = [self.func.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#F9F9F9', True, True) for label in
                        data_labels]
 
+
 class RankLeaderboard(QWidget):
-    def __init__(self, name='Gustavo',width=200, height=200, font_family='Segoe UI', color=0xB9AA1A, image=':/images/img/1st.png', size=None):
+    def __init__(self, name='', pos=0, image_url=None):
         super(RankLeaderboard, self).__init__()
-        self.setGeometry(0, 0, width, height)
-        
+
+        # default data
+        default_data = [{'image_medal': ':/images/img/1st.png',
+                         'color': 0xB9AA1A,
+                         'size': QSize(205, 210)},
+                        {'image_medal': ':/images/img/2st.png',
+                         'color': 0xC2C2C2,
+                         'size': QSize(99, 117)},
+                        {'image_medal': ':/images/img/3st.png',
+                         'color': 0xB15C21,
+                         'size': QSize(99, 117)}]
+
+        self.setMinimumSize(default_data[pos]['size'])
+        self.setMaximumSize(default_data[pos]['size'])
+
         # properties
         self.default_width = 126
-        self.color = color
+        self.color = default_data[pos]['color']
         self.text_color = 0x7A8A98
         self.line_width = 5
-        self.font_family = font_family
+        self.font_family = 'Segoe UI'
         self.font_size = 11
         self.name = name
-        self.image_url = 'https://storage.googleapis.com/assets.axieinfinity.com/axies/3557949/axie/axie-full-transparent.png'
+        self.image_url = image_url
         self.tempdir_image = None
         self.already_painted = False
         self.current_heigth = self.height()
         self.current_width = self.width()
-        self.image = image
+        self.medal_image = default_data[pos]['image_medal']
 
         # image handle
         self.medal_image_label = QLabel(self)
@@ -393,17 +475,9 @@ class RankLeaderboard(QWidget):
         if self.tempdir_image == None:
             self.save_picture()
         self.repos_images()
-        
-        self.installEventFilter(self)
-        self.enable_shadow(False)
 
-    def enable_shadow(self, enable):
-        if enable:
-            self.shadow = QGraphicsDropShadowEffect()
-            self.shadow.setBlurRadius(6)
-            self.shadow.setOffset(0)
-            self.shadow.setColor(QColor(0, 0, 0, 90))
-            self.setGraphicsEffect(self.shadow)
+        # configurations
+        self.installEventFilter(self)
 
     def update_widget(self):
         self.repaint()
@@ -418,59 +492,65 @@ class RankLeaderboard(QWidget):
 
             if self.width != self.default_width:
                 self.repos_images()
-                
+
             self.update_widget()
-        
+
         return super().eventFilter(watched, event)
 
     def repos_images(self):
         # medal
         size_percent = 0.16 if self.height() < 130 else 0.11
-        size = QSize(size_percent * self.current_heigth, size_percent * self.current_heigth)
+        size = QSize(size_percent * self.current_heigth,
+                     size_percent * self.current_heigth)
         circle_size = 0.58 * self.current_heigth
         margin_w = 0.075 * self.current_width
         margin_h = self.width() * 0.32
         width = (self.width()/2) - (size.width()/2)
         height = circle_size + margin_h
 
-        self.medal_image_label.setPixmap(QPixmap(f'{self.image}'))
-        self.medal_image_label.setGeometry(width, height, size.width(), size.height())
+        self.medal_image_label.setPixmap(QPixmap(f'{self.medal_image}'))
+        self.medal_image_label.setGeometry(
+            width, height, size.width(), size.height())
         self.medal_image_label.setMaximumSize(size)
         self.medal_image_label.setMinimumSize(size)
         self.medal_image_label.setScaledContents(True)
 
         # icon
         size = QSize(self.width(), (0.75 * self.width()))
-        margin_h = (0.195 * self.height())/1.1 if self.height() < 130 else (0.195 * self.height())/1.5
+        margin_h = (0.195 * self.height()) / \
+            1.1 if self.height() < 130 else (0.195 * self.height())/1.5
 
-        self.icon_image_label.setStyleSheet('background-color: rgba(255, 255, 255, 0);')
+        self.icon_image_label.setStyleSheet(
+            'background-color: rgba(255, 255, 255, 0);')
         self.icon_image_label.setPixmap(QPixmap(f'{self.tempdir_image}'))
-        self.icon_image_label.setGeometry(0, margin_h, self.width(), self.height())
+        self.icon_image_label.setGeometry(
+            0, margin_h, self.width(), self.height())
         self.icon_image_label.setMinimumSize(size)
         self.icon_image_label.setMaximumSize(size)
         self.icon_image_label.setScaledContents(True)
-    
+
     def paintEvent(self, event: QPaintEvent) -> None:
-    
+
         if self.tempdir_image == None:
             self.save_picture()
-        
+
         margin_w = self.width() * 0.3
         margin_h = self.width() * 0.45 if self.height() < 130 else self.width() * 0.34
         height = self.height() - margin_h
         width = self.width() - margin_w
-        
+
         dinamic_font_size = 0.055 * self.width()
         font_size = dinamic_font_size
-        
+
         if dinamic_font_size < self.font_size:
             font_size = 9
-        
+
         if height != width:
             height = width
 
         # center rect
-        rect_center = QRect(QPoint(margin_w/2, margin_h/2), QSize(width, height))
+        rect_center = QRect(QPoint(margin_w/2, margin_h/2),
+                            QSize(width, height))
         size_sides_rect = margin_h/2
         # top rect
         rect_top = QRect(0, 0, self.width(), size_sides_rect)
@@ -479,32 +559,35 @@ class RankLeaderboard(QWidget):
         paint.begin(self)
         paint.setRenderHint(QPainter.Antialiasing)  # remove pixelated edges
         paint.setFont(QFont(self.font_family, font_size))
-        
+
         pen = QPen()
         pen.setWidth(self.line_width)
         pen.setCapStyle(Qt.RoundCap)
-        
-        paint.setPen(Qt.NoPen)     
+
+        paint.setPen(Qt.NoPen)
         paint.drawRect(rect_center)
         paint.drawRect(rect_top)
-        
+
         # name
         pen.setColor(QColor(self.text_color))
         paint.setPen(pen)
         paint.drawText(rect_top, Qt.AlignCenter, f'{self.name}')
-        
-        # arc    
+
+        # arc
         pen.setColor(QColor(self.color))
         pen.setWidth(self.line_width)
         paint.setPen(pen)
-        paint.drawEllipse(rect_center) 
-        
+        paint.drawEllipse(rect_center)
+
         paint.end()
-        self.already_painted = True        
-        
+        self.already_painted = True
+
     def save_picture(self):
         self.tempdir_image = tempfile.mkdtemp(prefix='axie-manager')
-        r = requests.get(self.image_url, allow_redirects=True)
-        self.tempdir_image = os.path.join(self.tempdir_image, 'image.png')
-        open(f'{self.tempdir_image}', 'wb').write(r.content)
-        
+        if self.image_url != None:
+            r = requests.get(self.image_url, allow_redirects=True)
+            self.tempdir_image = os.path.join(self.tempdir_image, 'image.png')
+            open(f'{self.tempdir_image}', 'wb').write(r.content)
+    
+    def _close_widget(self):
+        self.deleteLater()

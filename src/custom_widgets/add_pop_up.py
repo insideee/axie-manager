@@ -79,14 +79,15 @@ class AddPopUp(QWidget):
         self.close_signal.emit(True)
 
     def confirm_btn(self) -> None:
-        self.btn_animation()
-
         self.ui.log_label.setGeometry(QRect(187, 0, 25, 25))
         gif_dir = ':/images/img/loading.gif'
+        self.ui.log_label.setText('')
 
         self.movie = QMovie(gif_dir)
-        self.ui.log_label.setMovie(self.movie)
-        self.movie.start()
+        
+        #self.movie.start()
+
+        self.btn_animation(self.movie)
 
         # thread config    
         arg_list = [x.text() for x in self.entry_list]
@@ -120,7 +121,7 @@ class AddPopUp(QWidget):
             if self.commit_complete:
                 QTimer.singleShot(1500, lambda: self.close())
 
-    def btn_animation(self):
+    def btn_animation(self, qwidget):
         s_rect = QPoint(158, 12)
         e_rect = QPoint(158, 28)
 
@@ -130,6 +131,13 @@ class AddPopUp(QWidget):
         self.ui.btn_add.animation.setEasingCurve(QEasingCurve.OutBounce)
         self.ui.btn_add.animation.start()
 
+        self.ui.btn_add.animation.finished.connect(self.init_movie)
+
+    def init_movie(self):
+        self.ui.log_label.setMovie(self.movie)
+        self.movie.start()
+
+    
     def log_receive(self, value) -> None:
         self.log = value
 
@@ -223,29 +231,34 @@ class ValidatorThread(QThread):
 
             acc_api = AccAxie(self.ronin_value)
             user_api = FullData(self.ronin_value)
-            mmr = user_api.get_mmr()
-            rank = user_api.get_rank()
-            average_slp = user_api.get_average_slp()
-            total_account_slp = user_api.get_account_slp()
-            axie_data = acc_api.get_axie_data_str()
-            daily_profit = user_api.get_daily_slp()
-            last_time = formated_datetime
-            actual_month_profit = daily_profit
-            last_month = 0
-            next_to_last_month = 0
-            new_account = Account(ronin_address=self.ronin_value, data=axie_data,
+            data = {'mmr': user_api.get_mmr(),
+             'rank': user_api.get_rank(),
+             'average_slp': user_api.get_average_slp(),
+             'total_account_slp': user_api.get_account_slp(),
+             'axie_data': acc_api.get_axie_data_str(),
+             'daily_profit': user_api.get_daily_slp(),
+             'last_time': formated_datetime,
+             'daily_goal': daily_goal,
+             'last_month': 0,
+             'next_to_last_month': 0}
+
+            for k, v in data.items():
+                if v == 'null':
+                    data[k] = 0
+
+            new_account = Account(ronin_address=self.ronin_value, data=data['axie_data'],
                                   scholar=[Scholar(name=self.name_value,
                                                    email=self.email_value,
-                                                   mmr=mmr,
-                                                   rank=rank,
-                                                   total_acc_slp=total_account_slp,
-                                                   total_average_slp=average_slp,
-                                                   daily_goal=daily_goal,
-                                                   last_time_checked=last_time,
-                                                   daily_profit=daily_profit,
-                                                   actual_month_profit=actual_month_profit,
-                                                   last_month_profit=last_month,
-                                                   next_to_last_month_profit=next_to_last_month)]
+                                                   mmr=data['mmr'],
+                                                   rank=data['rank'],
+                                                   total_acc_slp=data['total_account_slp'],
+                                                   total_average_slp=data['average_slp'],
+                                                   daily_goal=data['daily_goal'],
+                                                   last_time_checked=data['last_time'],
+                                                   daily_profit=data['daily_profit'],
+                                                   actual_month_profit=data['daily_profit'],
+                                                   last_month_profit=data['last_month'],
+                                                   next_to_last_month_profit=data['next_to_last_month'])]
                                   )
 
             DefaultTools.session_handle.add(new_account)

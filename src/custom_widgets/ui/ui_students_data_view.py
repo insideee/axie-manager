@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_students_data_viewHHbxwl.ui'
+## Form generated from reading UI file 'ui_students_data_viewKImTvX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.3
 ##
@@ -173,6 +173,9 @@ class Ui_dataViewWidget(object):
         self.verticalLayout_10.setContentsMargins(20, -1, 20, -1)
         self.addBtn = QPushButton(self.btnFrame)
         self.addBtn.setObjectName(u"addBtn")
+        self.addBtn.setStyleSheet(u"QPushButton{background-color: #47525E;\n"
+"border-radius: 5px;\n"
+"color:#FFFFFF}")
 
         self.verticalLayout_10.addWidget(self.addBtn)
 
