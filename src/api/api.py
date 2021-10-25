@@ -51,6 +51,9 @@ class FullData:
     def get_yesterday_slp(self) -> int:
         for k, v in self.data.items():
             if k == 'slp':
+                if self.data['slp']['yesterdaySLP'] == 'null':
+                    return 0
+
                 return self.data['slp']['yesterdaySLP']
 
     def get_account_slp(self) -> int:
@@ -61,6 +64,9 @@ class FullData:
     def get_average_slp(self) -> int:
         for k, v in self.data.items():
             if k == 'slp':
+                if self.data['slp']['average'] == 'null':
+                    return 0
+
                 return self.data['slp']['average']
 
     def get_mmr(self):

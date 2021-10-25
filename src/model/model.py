@@ -112,22 +112,22 @@ class Scholar(DefaultTools.base):
     
     @classmethod
     def set_month_changed(cls, session):
-        students_list = cls.get_all_scholars(session)
+        scholars_list = cls.get_all_scholars(session)
          
         for i in range(0, cls.get_scholar_amount(session)):
-            actual_month_value = students_list[i].actual_month_profit
-            last_month_value = students_list[i].last_month_profit
+            actual_month_value = scholars_list[i].actual_month_profit
+            last_month_value = scholars_list[i].last_month_profit
             
-            session.query(cls).filter(cls.name.like(f'%{students_list[i].name}%')).update({cls.next_to_last_month_profit: last_month_value}, synchronize_session=False)
-            session.query(cls).filter(cls.name.like(f'%{students_list[i].name}%')).update({cls.last_month_profit: actual_month_value}, synchronize_session=False)
-            session.query(cls).filter(cls.name.like(f'%{students_list[i].name}%')).update({cls.actual_month_profit: 0}, synchronize_session=False)
+            session.query(cls).filter(cls.name.like(f'%{scholars_list[i].name}%')).update({cls.next_to_last_month_profit: last_month_value}, synchronize_session=False)
+            session.query(cls).filter(cls.name.like(f'%{scholars_list[i].name}%')).update({cls.last_month_profit: actual_month_value}, synchronize_session=False)
+            session.query(cls).filter(cls.name.like(f'%{scholars_list[i].name}%')).update({cls.actual_month_profit: 0}, synchronize_session=False)
             session.commit()
    
     @classmethod 
     def update_month_profit(cls, session, name_input: str, value: int):
-        student = cls.find_by_name(session, name_input)
+        scholar = cls.find_by_name(session, name_input)
         
-        value_update = value + student.actual_month_profit
+        value_update = value + scholar.actual_month_profit
         
         session.query(cls).filter(cls.name.like(f'%{name_input}%')).update({cls.actual_month_profit: value_update},  synchronize_session=False)
         session.commit()
@@ -170,9 +170,9 @@ class Scholar(DefaultTools.base):
     
     @classmethod
     def get_ronin_address(cls, session, name_input: str) -> list:
-        student = cls.find_by_name(session, name_input)
+        scholar = cls.find_by_name(session, name_input)
         
-        ronin_address = student.account.ronin_address
+        ronin_address = scholar.account.ronin_address
 
         return ronin_address
     

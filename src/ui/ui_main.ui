@@ -143,7 +143,7 @@ QToolButton:hover {
              <string>TOGGLE</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/images/img/menu.png</normaloff>:/images/img/menu.png</iconset>
             </property>
            </widget>
@@ -179,7 +179,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Home</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/images/img/home_menu.png</normaloff>:/images/img/home_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -208,7 +208,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Profit</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/images/img/profit_menu.png</normaloff>:/images/img/profit_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -217,7 +217,7 @@ border-left: 2px solid  #E64C3C;
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="btn_students">
+           <widget class="QToolButton" name="btn_scholars">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -231,10 +231,10 @@ border-left: 2px solid  #E64C3C;
              </size>
             </property>
             <property name="text">
-             <string>      Students</string>
+             <string>      Scholars</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/images/img/user_menu.png</normaloff>:/images/img/user_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -260,7 +260,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Inventory</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/images/img/inventory_menu.png</normaloff>:/images/img/inventory_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -289,7 +289,7 @@ border-left: 2px solid  #E64C3C;
              <string>      Mail</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/images/img/mail_menu.png</normaloff>:/images/img/mail_menu.png</iconset>
             </property>
             <property name="toolButtonStyle">
@@ -346,7 +346,7 @@ border-left: 2px solid  #E64C3C;
                 <string>     Settings</string>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="../resources/resources.qrc">
                  <normaloff>:/images/img/config_menu.png</normaloff>:/images/img/config_menu.png</iconset>
                </property>
                <property name="toolButtonStyle">
@@ -508,7 +508,7 @@ border-bottom-left-radius: 0px;</string>
                          <string/>
                         </property>
                         <property name="pixmap">
-                         <pixmap>:/images/img/mizer_logo.png</pixmap>
+                         <pixmap resource="../resources/resources.qrc">:/images/img/mizer_logo.png</pixmap>
                         </property>
                         <property name="scaledContents">
                          <bool>true</bool>
@@ -598,7 +598,7 @@ border-bottom-left-radius: 0px;</string>
                       <string>MINIMIZE</string>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="../resources/resources.qrc">
                        <normaloff>:/images/img/minimize_icon.png</normaloff>:/images/img/minimize_icon.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -627,7 +627,7 @@ border-bottom-left-radius: 0px;</string>
                       <string>EXPAND</string>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="../resources/resources.qrc">
                        <normaloff>:/images/img/maximize.png</normaloff>:/images/img/maximize.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -656,7 +656,7 @@ border-bottom-left-radius: 0px;</string>
                       <string>EXIT</string>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="../resources/resources.qrc">
                        <normaloff>:/images/img/close_icon.png</normaloff>:/images/img/close_icon.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -759,7 +759,7 @@ border-bottom-left-radius: 0px;</string>
                         <number>25</number>
                        </property>
                        <item>
-                        <widget class="QWidget" name="students_widget" native="true">
+                        <widget class="QWidget" name="scholars_widget" native="true">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -790,7 +790,7 @@ border-bottom-left-radius: 0px;</string>
                            <number>2</number>
                           </property>
                           <item>
-                           <widget class="QWidget" name="top_bar_students" native="true">
+                           <widget class="QWidget" name="top_bar_scholars" native="true">
                             <layout class="QHBoxLayout" name="horizontalLayout_7">
                              <property name="spacing">
                               <number>2</number>
@@ -805,7 +805,7 @@ border-bottom-left-radius: 0px;</string>
                               <number>0</number>
                              </property>
                              <item alignment="Qt::AlignVCenter">
-                              <widget class="QWidget" name="icon_students_container" native="true">
+                              <widget class="QWidget" name="icon_scholars_container" native="true">
                                <property name="maximumSize">
                                 <size>
                                  <width>15</width>
@@ -829,12 +829,12 @@ border-bottom-left-radius: 0px;</string>
                                  <number>0</number>
                                 </property>
                                 <item alignment="Qt::AlignVCenter">
-                                 <widget class="QLabel" name="icon_students">
+                                 <widget class="QLabel" name="icon_scholars">
                                   <property name="text">
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap>:/images/img/user_icon.png</pixmap>
+                                   <pixmap resource="../resources/resources.qrc">:/images/img/user_icon.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -845,7 +845,7 @@ border-bottom-left-radius: 0px;</string>
                               </widget>
                              </item>
                              <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-                              <widget class="QWidget" name="title_students_container" native="true">
+                              <widget class="QWidget" name="title_scholars_container" native="true">
                                <layout class="QVBoxLayout" name="verticalLayout_14">
                                 <property name="leftMargin">
                                  <number>0</number>
@@ -860,9 +860,9 @@ border-bottom-left-radius: 0px;</string>
                                  <number>0</number>
                                 </property>
                                 <item>
-                                 <widget class="QLabel" name="title_students">
+                                 <widget class="QLabel" name="title_scholars">
                                   <property name="text">
-                                   <string>STUDENTS</string>
+                                   <string>SCHOLARS</string>
                                   </property>
                                  </widget>
                                 </item>
@@ -873,7 +873,7 @@ border-bottom-left-radius: 0px;</string>
                            </widget>
                           </item>
                           <item>
-                           <widget class="QWidget" name="data_students" native="true">
+                           <widget class="QWidget" name="data_scholars" native="true">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                               <horstretch>0</horstretch>
@@ -915,7 +915,7 @@ color:#FFFFFF}</string>
                               </widget>
                              </item>
                              <item>
-                              <widget class="QLabel" name="data_label_students">
+                              <widget class="QLabel" name="data_label_scholars">
                                <property name="layoutDirection">
                                 <enum>Qt::LeftToRight</enum>
                                </property>
@@ -952,7 +952,7 @@ color:#FFFFFF}</string>
                               <number>0</number>
                              </property>
                              <item>
-                              <widget class="QToolButton" name="goto_students_btn">
+                              <widget class="QToolButton" name="goto_scholars_btn">
                                <property name="minimumSize">
                                 <size>
                                  <width>15</width>
@@ -969,7 +969,7 @@ color:#FFFFFF}</string>
                                 <string/>
                                </property>
                                <property name="icon">
-                                <iconset>
+                                <iconset resource="../resources/resources.qrc">
                                  <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
                                </property>
                                <property name="iconSize">
@@ -1062,7 +1062,7 @@ border-bottom-left-radius: 0px;</string>
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap>:/images/img/profit_icon2.png</pixmap>
+                                   <pixmap resource="../resources/resources.qrc">:/images/img/profit_icon2.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -1185,7 +1185,7 @@ border-bottom-left-radius: 0px;</string>
                                 <string/>
                                </property>
                                <property name="icon">
-                                <iconset>
+                                <iconset resource="../resources/resources.qrc">
                                  <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
                                </property>
                                <property name="iconSize">
@@ -1278,7 +1278,7 @@ border-bottom-left-radius: 0px;</string>
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap>:/images/img/inventory_icon.png</pixmap>
+                                   <pixmap resource="../resources/resources.qrc">:/images/img/inventory_icon.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -1401,7 +1401,7 @@ border-bottom-left-radius: 0px;</string>
                                 <string>...</string>
                                </property>
                                <property name="icon">
-                                <iconset>
+                                <iconset resource="../resources/resources.qrc">
                                  <normaloff>:/images/img/goto-icon.png</normaloff>:/images/img/goto-icon.png</iconset>
                                </property>
                                <property name="iconSize">
@@ -1480,7 +1480,7 @@ border-bottom-left-radius: 0px;</string>
                  </item>
                 </layout>
                </widget>
-               <widget class="QWidget" name="students_page">
+               <widget class="QWidget" name="scholars_page">
                 <layout class="QVBoxLayout" name="verticalLayout_27">
                  <item>
                   <widget class="QWidget" name="data_view_container" native="true">

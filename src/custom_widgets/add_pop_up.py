@@ -1,7 +1,7 @@
 from PySide2.QtGui import QMovie, QPaintEvent, QPainter, QColor, QPen, QFont
 from PySide2.QtWidgets import QLabel, QMessageBox, QWidget, QGraphicsDropShadowEffect
 from PySide2.QtCore import QAbstractAnimation, QPoint, QRect, QThread, QTimer, Qt, QSize, QPropertyAnimation, Signal, \
-    QEasingCurve
+    QEasingCurve, QEvent, QObject
 from datetime import datetime, timezone
 import os
 
@@ -56,8 +56,9 @@ class AddPopUp(QWidget):
                                 resizable=self.resizable,
                                 minimum_size=self.minimum_size)
         self.setWindowFlag(Qt.FramelessWindowHint)
-        self.setWindowFlag(Qt.Popup)
         self.setAttribute(Qt.WA_TranslucentBackground)
+
+        self.installEventFilter(self)
 
         # fonts variables
         self.label_list = [self.ui.label, self.ui.label_2, self.ui.label_3, self.ui.label_4]
@@ -67,6 +68,8 @@ class AddPopUp(QWidget):
         self.ui.btn_add.clicked.connect(self.confirm_btn)
 
     def showEvent(self, event) -> None:
+        self.activateWindow()
+
         for label in self.label_list:
             self.func.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', True, True)
 
@@ -75,6 +78,15 @@ class AddPopUp(QWidget):
 
         self.func.set_font(self.ui.btn_add, 10, ':/font/fonts/Saira-Bold.ttf', '#E64C3C', False, False)
 
+    def eventFilter(self, watched: QObject, event: QEvent) -> bool:
+        if watched == self and event.type() == QEvent.Type.WindowDeactivate:
+            for value in self.entry_list:
+                value.setText('')
+                
+            self.close()
+        
+        return super().eventFilter(watched, event)
+    
     def closeEvent(self, event) -> None:
         self.close_signal.emit(True)
 
@@ -82,12 +94,11 @@ class AddPopUp(QWidget):
         self.ui.log_label.setGeometry(QRect(187, 0, 25, 25))
         gif_dir = ':/images/img/loading.gif'
         self.ui.log_label.setText('')
-
         self.movie = QMovie(gif_dir)
-        
-        #self.movie.start()
+        self.ui.log_label.setMovie(self.movie)
+        self.movie.start()
 
-        self.btn_animation(self.movie)
+        self.btn_animation()
 
         # thread config    
         arg_list = [x.text() for x in self.entry_list]
@@ -121,17 +132,15 @@ class AddPopUp(QWidget):
             if self.commit_complete:
                 QTimer.singleShot(1500, lambda: self.close())
 
-    def btn_animation(self, qwidget):
+    def btn_animation(self):
         s_rect = QPoint(158, 12)
         e_rect = QPoint(158, 28)
 
         self.ui.btn_add.animation = QPropertyAnimation(self.ui.btn_add, b'pos')
-        self.ui.btn_add.animation.setDuration(400)
+        self.ui.btn_add.animation.setDuration(200)
         self.ui.btn_add.animation.setEndValue(e_rect)
         self.ui.btn_add.animation.setEasingCurve(QEasingCurve.OutBounce)
-        self.ui.btn_add.animation.start()
-
-        self.ui.btn_add.animation.finished.connect(self.init_movie)
+        self.ui.btn_add.animation.start()#self.ui.btn_add.animation.finished.connect(self.init_movie)
 
     def init_movie(self):
         self.ui.log_label.setMovie(self.movie)

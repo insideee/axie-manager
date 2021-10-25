@@ -1,3 +1,3 @@
 from .ui_add_pop_up import Ui_addWidget
-from .ui_students_data_view import Ui_dataViewWidget
-from .ui_students_data_entry import Ui_dataEntryCreator
+from .ui_scholars_data_view import Ui_dataViewWidget
+from .ui_scholars_data_entry import Ui_dataEntryCreator
