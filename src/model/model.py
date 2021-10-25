@@ -167,14 +167,46 @@ class Scholar(DefaultTools.base):
         
         session.query(cls).update({cls.last_time_checked: value}, synchronize_session=False)
         session.commit()
+        
+    @classmethod
+    def update_name(cls, session, ronin_input: str, name_update: str):
+        
+        r = session.query(Account).filter(Account.ronin_address.like(f'%{ronin_input}%')).first()        
+        
+        session.query(cls).filter(cls.account_id == r.id).update({cls.name: name_update},  synchronize_session=False)
+        session.commit()
+        
+    @classmethod
+    def update_slp_goal(cls, session, ronin_input: str, goal_update: str):
+        
+        r = session.query(Account).filter(Account.ronin_address.like(f'%{ronin_input}%')).first()        
+        
+        session.query(cls).filter(cls.account_id == r.id).update({cls.daily_goal: goal_update},  synchronize_session=False)
+        session.commit()
     
     @classmethod
-    def get_ronin_address(cls, session, name_input: str) -> list:
+    def get_ronin_address(cls, session, name_input: str) -> str:
         scholar = cls.find_by_name(session, name_input)
         
         ronin_address = scholar.account.ronin_address
 
         return ronin_address
+
+    @classmethod
+    def get_name(cls, session, mmr_input: int) -> str:
+        scholar = session.query(cls).filter(cls.mmr == mmr_input).first()
+        
+        name = scholar.name
+
+        return name
+
+    @classmethod
+    def get_rank(cls, session, name_input: str) -> str:
+        scholar = cls.find_by_name(session, name_input)
+        
+        rank = scholar.rank
+
+        return rank
     
     @classmethod
     def get_all_scholars(cls, session) -> list:
@@ -252,6 +284,19 @@ class Scholar(DefaultTools.base):
                     dict_return['acc_ronin'].append(r.ronin_address)
         
         return dict_return
+    
+    @classmethod
+    def delete(cls, session, ronin_input: str):
+        
+        r = session.query(Account).filter(Account.ronin_address.like(f'%{ronin_input}%')).first()
+        s = session.query(cls).filter(cls.account_id == r.id).first()
+        
+        for obj in [s, r]:
+            session.delete(obj)
+        
+        session.commit()
+        
+        
 
 
 

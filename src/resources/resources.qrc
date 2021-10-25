@@ -22,6 +22,10 @@
     <file>img/1st.png</file>
     <file>img/2st.png</file>
     <file>img/3st.png</file>
+    <file>img/copy.png</file>
+    <file>img/del.png</file>
+    <file>img/edit.png</file>
+    <file>img/save.svg</file>
 	<file>img/left.png</file>
 	<file>img/right.png</file>
   </qresource>

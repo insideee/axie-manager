@@ -1,8 +1,8 @@
-from PySide2.QtWidgets import QDesktopWidget, QLabel, QWidget
+from PySide2.QtWidgets import QDesktopWidget, QLabel, QLineEdit, QWidget
 from PySide2 import QtCore, QtGui
 from PySide2.QtCore import QMargins, QRect, Qt, QPoint, QSize, Signal
 from PySide2.QtWidgets import QGraphicsDropShadowEffect
-from PySide2.QtGui import QColor, QImage, QPaintEvent, QPainter, QFont, QPen, QPixmap
+from PySide2.QtGui import QColor, QGuiApplication, QImage, QPaintEvent, QPainter, QFont, QPen, QPixmap, QIcon
 
 import tempfile
 import requests
@@ -82,6 +82,10 @@ class scholarsDataView(QWidget):
         self.set_new_data()
 
         self.need_update_home.emit(True)
+        
+    def need_update_data_view(self, value):
+        if value:
+            self.set_new_data()
 
     def set_new_data(self):
         if len(self.data_entry_widgets) > 0:
@@ -291,6 +295,9 @@ class scholarsDataView(QWidget):
         max_widgets = self.get_max_widgets(height)
         number_pages = self.get_number_pages(max_widgets)
         total_widget = len(self.data_entry_widgets)
+        
+        # pos text correctly
+        self.min_max_text()
 
         start_list = []
 
@@ -318,7 +325,7 @@ class scholarsDataView(QWidget):
 
             for widget in visible_widgets:
                 widget.close()
-
+                
             for widget in new_widgets:
                 if not widget.isVisible():
                     self.ui.layoutDataWidgets.addWidget(widget)
@@ -353,17 +360,9 @@ class scholarsDataView(QWidget):
 
         elif direction == None:
 
-            height = self.get_app_height()
-
             for widget in self.data_entry_widgets:
                 widget.close()
-                ronin = self.scholars_db_handle.get_ronin_address(
-                    DefaultTools.session_handle, widget.ui.nameData.text())
-
-                if height > 1000:
-                    widget.ui.roninData.setText(ronin)
-                else:
-                    widget.ui.roninData.setText(ronin[:10]+'...')
+                widget.need_update_signal.connect(self.need_update_data_view)
 
             for i in range(0, number_pages):
                 start_list.append(max_widgets * i)
@@ -382,6 +381,30 @@ class scholarsDataView(QWidget):
 
         self.ui.indiceLabel.setText(f'{goto_page}')
         self.current_page = goto_page
+
+    def min_max_text(self):
+        
+        height = self.get_app_height()
+        
+        if len(self.data_entry_widgets) > 0:
+
+            for widget in self.data_entry_widgets:
+                name = self.scholars_db_handle.get_name(DefaultTools.session_handle, int(widget.ui.mmrData.text()))
+                ronin = self.scholars_db_handle.get_ronin_address(DefaultTools.session_handle, name)
+                rank =  str(self.scholars_db_handle.get_rank(DefaultTools.session_handle, name))
+
+                if height > 1000:
+                    widget.ui.roninData.setText(ronin)
+                    widget.ui.nameData.setText(name)
+                    widget.ui.nameEdit.setMaximumWidth(250)
+                else:
+                    widget.ui.roninData.setText(ronin[:9]+'...')
+                    name_list = name.split()
+                    widget.ui.nameData.setText(name_list[0])
+                    widget.ui.nameEdit.setMaximumWidth(100)
+
+                if len(rank) > 7:
+                    widget.ui.rankData.setText(rank[:7]+'...')
 
     def font_configuration(self):
 
@@ -417,25 +440,139 @@ class scholarsDataView(QWidget):
 
 
 class dataEntryCreator(QWidget):
+    
+    need_update_signal = Signal(bool)
 
     def __init__(self, dict_info: dict) -> None:
         super(dataEntryCreator, self).__init__()
         self.ui = Ui_dataEntryCreator()
         self.ui.setupUi(self)
         self.func = UIFunctions()
+        
+        self.scholars_db_handle = Scholar()
+        self.enable_mouse_changing = True
 
         # set info
         self.ui.nameData.setText(dict_info['name'])
-        self.ui.roninData.setText(dict_info['ronin'][:10]+'...')
+        self.ui.roninData.setText(dict_info['ronin'])
         self.ui.mmrData.setText(dict_info['mmr'])
         self.ui.rankData.setText(dict_info['rank'])
         self.ui.averageData.setText(dict_info['total_average_slp'])
         self.ui.totalSlpData.setText(dict_info['total_acc_slp'])
         self.ui.slpGoalData.setText(dict_info['daily_goal'])
         self.ui.slpTodayData.setText(dict_info['today_profit'])
+        
+        # default
+        self.ui.editBtn.hide()
+        self.ui.delBtn.hide()
+        self.ui.nameEdit.hide()
+        self.ui.slpGoalEdit.hide()
+        
+        self.ui.copyBtn.clicked.connect(self.copy_to_clipboard)
+        self.ui.editBtn.clicked.connect(self.edit)
+        self.ui.delBtn.clicked.connect(self.delete)
 
-        # font config
-        self.font_configuration()
+        # configs
+        self.font_configuration() 
+        self.installEventFilter(self)
+        
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        
+        if self.enable_mouse_changing:
+            if watched == self and event.type() == QtCore.QEvent.Type.Enter:
+                self.ui.editBtn.show()
+                self.ui.delBtn.show()
+            
+            elif watched == self and event.type() == QtCore.QEvent.Type.Leave:
+                self.ui.editBtn.hide()
+                self.ui.delBtn.hide()
+        
+        return super().eventFilter(watched, event)  
+    
+    def delete(self):
+        
+        name = self.scholars_db_handle.get_name(DefaultTools.session_handle, int(self.ui.mmrData.text()))
+        ronin = self.scholars_db_handle.get_ronin_address(DefaultTools.session_handle, name)
+        
+        self.scholars_db_handle.delete(DefaultTools.session_handle, ronin)
+        
+        self.need_update_signal.emit(True)
+    
+    def edit(self):
+        # change icon
+        self.edit_to_save()
+        
+        name = self.scholars_db_handle.get_name(DefaultTools.session_handle, int(self.ui.mmrData.text()))
+        self.ui.nameData.hide()
+        self.ui.nameEdit.show()
+        self.ui.nameEdit.setPlaceholderText(name)
+        
+        daily = self.ui.slpGoalData.text()
+        self.ui.slpGoalData.hide()
+        self.ui.slpGoalEdit.show()
+        self.ui.slpGoalEdit.setPlaceholderText(daily)
+        
+        for label in [self.ui.nameEdit, self.ui.slpGoalEdit]:
+            self.func.set_font(label, 10, ':/font/fonts/Saira-Bold.ttf', '#F9F9F9', True, False)
+            
+        self.ui.editBtn.show()
+        self.ui.delBtn.show()
+        self.enable_mouse_changing = False
+    
+    def edit_to_save(self):
+        icon = QIcon()
+        icon.addFile(u":/images/img/save.svg", QSize(), QIcon.Normal, QIcon.Off)        
+        self.ui.editBtn.setIcon(icon)
+        self.ui.editBtn.setIconSize(QSize(18, 18))
+        
+        self.ui.editBtn.clicked.connect(self.save)
+    
+    def save_to_edit(self):
+        icon = QIcon()
+        icon.addFile(u":/images/img/edit.png", QSize(), QIcon.Normal, QIcon.Off)        
+        self.ui.editBtn.setIcon(icon)
+        self.ui.editBtn.setIconSize(QSize(18, 18))
+        
+        self.ui.editBtn.clicked.connect(self.edit)
+    
+    def save(self):
+        # change icon
+        self.save_to_edit()
+        
+        name = self.ui.nameEdit.text()
+        daily_goal = self.ui.slpGoalEdit.text()
+        old_name = self.scholars_db_handle.get_name(DefaultTools.session_handle, int(self.ui.mmrData.text()))
+        ronin = self.scholars_db_handle.get_ronin_address(DefaultTools.session_handle, old_name)
+        
+        if name == '':
+            name = self.ui.nameData.text()
+            
+        if daily_goal == '':
+            daily_goal = self.ui.slpGoalData.text()
+        
+        self.scholars_db_handle.update_name(DefaultTools.session_handle, ronin, name)
+        self.scholars_db_handle.update_slp_goal(DefaultTools.session_handle, ronin, int(daily_goal))
+        
+        self.ui.nameData.show()
+        self.ui.nameEdit.hide()
+        self.ui.nameData.setText(name)
+        
+        self.ui.slpGoalData.show()
+        self.ui.slpGoalEdit.hide()
+        self.ui.slpGoalData.setText(daily_goal)
+        
+        self.ui.editBtn.hide()
+        self.ui.delBtn.hide()
+        self.enable_mouse_changing = True
+    
+    def copy_to_clipboard(self):
+        clipboard = QGuiApplication.clipboard()
+        originalText = clipboard.text()
+        
+        name = self.scholars_db_handle.get_name(DefaultTools.session_handle, int(self.ui.mmrData.text()))
+        ronin = self.scholars_db_handle.get_ronin_address(DefaultTools.session_handle, name)
+        
+        clipboard.setText(ronin)
 
     def _close_widget(self):
         self.deleteLater()
