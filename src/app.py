@@ -1,6 +1,6 @@
-from PySide2.QtGui import QMovie
-from PySide2.QtWidgets import *
-from PySide2.QtCore import QThread, QTimer, Signal, QPoint, QRect, Qt, QEvent, QAbstractAnimation, QObject
+from PySide6.QtGui import QMovie
+from PySide6.QtWidgets import *
+from PySide6.QtCore import QThread, QTimer, Signal, QPoint, QRect, Qt, QEvent, QAbstractAnimation, QObject
 from datetime import datetime, timezone
 import sys
 
@@ -66,10 +66,11 @@ class MainWindow(QMainWindow, UIFunctions):
         self.graph_configurations()
         self.scholars_page_configuration()
         self.set_work_in_progress_pages()
+        self.inventory_page_configuration()
 
         # show gui
         self.show()
-        self.active_screen_geometry = QDesktopWidget().screenGeometry(self)
+        self.active_screen_geometry = self.screen().geometry()
 
     def window_gui_configuration(self):
         # center and config window
@@ -188,6 +189,13 @@ class MainWindow(QMainWindow, UIFunctions):
         self.scholars_widget.need_update_home.connect(lambda: self.load_home_info_thread_handle(after_add_popup=True))
 
         self.ui.verticalLayout_5.addWidget(self.scholars_widget)
+
+    def inventory_page_configuration(self):
+        
+        self.inventory_widget = InventoryPage()
+        self.ui.verticalLayout_28.addWidget(self.inventory_widget)
+        self.ui.label_4.hide()
+        self.inventory_widget.show()
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         # black screen on initilization because \
@@ -356,7 +364,7 @@ class MainWindow(QMainWindow, UIFunctions):
     def check_window_changed(self):
 
         actual_screen_value = self.active_screen_geometry
-        screen_geometry = QDesktopWidget().screenGeometry(self)
+        screen_geometry = self.screen().geometry()
 
         if self.isVisible() and screen_geometry.width() != actual_screen_value.width():
             state = self.isMaximized()
@@ -678,7 +686,7 @@ class LoadHomeInfoWorker(QThread):
 def main():
     app = QApplication(sys.argv)
     window = MainWindow()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':

@@ -1,16 +1,15 @@
 import sys
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect,
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import (QCoreApplication, QPointF, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect,
                             QSize, QTime, QUrl, Qt, QEvent, QAbstractAnimation)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence,
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence,
                            QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 
 from functools import partial
 
 
 class UIFunctions(QWidget):
-
     # for draggable window reasons
     def __init__(self) -> None:
         super(UIFunctions, self).__init__()
@@ -18,7 +17,7 @@ class UIFunctions(QWidget):
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
-            self.__press_pos = event.pos()  # remember starting position
+            self.__press_pos = QPoint(event.position().x(), event.position().y())  # remember starting position
 
     def mouseReleaseEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -26,7 +25,7 @@ class UIFunctions(QWidget):
 
     def mouseMoveEvent(self, event):
         if self.__press_pos:  # follow the mouse
-            self.move(self.pos() + (event.pos() - self.__press_pos))
+            self.move(self.pos() + QPoint(event.position().x(), event.position().y()) - self.__press_pos)
 
     @staticmethod
     def config_window(**kwargs) -> None:
