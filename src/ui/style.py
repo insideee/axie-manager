@@ -1,0 +1,53 @@
+class Style:
+
+   bg = """QWidget{background-color: #F4F4F4;}
+      """
+
+   nav_frame = """QWidget{background-color: qlineargradient(spread:pad, x1:1, y1:1, 
+                  x2:0.0047619, y2:0.898, stop:0 
+                  rgb(56, 160, 255), stop:1 
+                  rgb(0, 199, 255))}
+               """
+
+   user_frame = """QWidget{border-bottom: 2px solid #F4F4F4;
+                  border-right: 8px solid #F4F4F4;}
+                """
+
+   menu_frame = """QWidget{border-bottom: 2px solid #F4F4F4;
+                  border-right: 8px solid #F4F4F4;}
+                """
+
+   version_frame = """QWidget{border-right: 8px solid #F4F4F4;}
+                   """
+
+   btn_clicked =  """QToolButton{border-radius: 0px;
+                  border: 0px;
+                  border-top-left-radius: 12px;
+                  border-bottom-left-radius: 12px;
+                  padding-left: 15px;
+                  color: #F4F4F4;
+                  background-color: qlineargradient(spread:pad, x1:1, y1:1, 
+                     x2:0.0047619, y2:0.898, stop:0 
+                     rgb(239, 116, 255), stop:1 
+                     rgb(250, 177, 248));}
+                  """
+
+   btn_default =  """ QToolButton{border-radius: 0px;
+                      border-top-left-radius: 12px;
+                      border-bottom-left-radius: 12px;
+                      border: 0px;
+                      padding-left: 15px;
+                      color: #F4F4F4;
+                      background-color: rgba(0, 0, 0, 0)}
+
+                      QToolButton:hover{border-radius: 0px;
+                      border: 0px;
+                      border-top-left-radius: 12px;
+                      border-bottom-left-radius: 12px;
+                      padding-left: 15px;
+                      color: #F4F4F4;
+                      background-color: qlineargradient(spread:pad, x1:1, y1:1, 
+                        x2:0.0047619, y2:0.898, stop:0 
+                        rgb(239, 116, 255), stop:1 
+                        rgb(250, 177, 248));}
+                  """
