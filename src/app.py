@@ -27,7 +27,6 @@ def main():
     app = QApplication(sys.argv)
     window = App()
     window.show()
-    print(window.ui.stack_pages.width(), window.ui.stack_pages.height())
     sys.exit(app.exec())
 
 

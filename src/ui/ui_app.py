@@ -390,31 +390,40 @@ class Ui_App(object):
         self.dash_page.analytics_title_label.setForegroundRole(QPalette.Text)
 
         # scholars
-        self.dash_page.scholars_item.setStyleSheet(Style.scholar_item)
-        self.func.set_drop_shadow(self.dash_page.scholars_item, blur=15, opacity=70)
-        self.func.set_font(self.dash_page.scholars_item.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
+        self.dash_page.scholars_widget.setStyleSheet(Style.scholar_widget)
+        self.func.set_drop_shadow(self.dash_page.scholars_widget, blur=15, opacity=70)
+        self.func.set_font(self.dash_page.scholars_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
                                  bold=True)
-        self.func.set_font(self.dash_page.scholars_item.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
+        self.func.set_font(self.dash_page.scholars_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
                                  bold=False, index=1)
-        self.dash_page.scholars_item.data_label.setText('429')
+        self.dash_page.scholars_widget.data_label.setText('429')
 
         # monthly profit
-        self.dash_page.m_profit_item.setStyleSheet(Style.m_profit_item)
-        self.func.set_drop_shadow(self.dash_page.m_profit_item, blur=15, opacity=70)
-        self.func.set_font(self.dash_page.m_profit_item.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
+        self.dash_page.m_profit_widget.setStyleSheet(Style.m_profit_widget)
+        self.func.set_drop_shadow(self.dash_page.m_profit_widget, blur=15, opacity=70)
+        self.func.set_font(self.dash_page.m_profit_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
                                  bold=True)
-        self.func.set_font(self.dash_page.m_profit_item.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
+        self.func.set_font(self.dash_page.m_profit_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
                                  bold=False, index=1)
-        self.dash_page.m_profit_item.data_label.setText('1.234.567')
+        self.dash_page.m_profit_widget.data_label.setText('1.234.567')
 
         # axies
-        self.dash_page.axies_item.setStyleSheet(Style.axies_item)
-        self.func.set_drop_shadow(self.dash_page.axies_item, blur=15, opacity=70)
-        self.func.set_font(self.dash_page.axies_item.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
+        self.dash_page.axies_widget.setStyleSheet(Style.axies_widget)
+        self.func.set_drop_shadow(self.dash_page.axies_widget, blur=15, opacity=70)
+        self.func.set_font(self.dash_page.axies_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
                                  bold=True)
-        self.func.set_font(self.dash_page.axies_item.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
+        self.func.set_font(self.dash_page.axies_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
                                  bold=False, index=1)
-        self.dash_page.axies_item.data_label.setText('2.114')
+        self.dash_page.axies_widget.data_label.setText('2.114')
+        
+        self.func.set_font(self.dash_page.graph_title,
+                           16, ':/fonts/fonts/Montserrat-Light.ttf',
+                           bold=True, index=1)        
+        
+        # graph
+        self.dash_page.graph_title.setPalette(label_pal)
+        self.dash_page.graph_title.setForegroundRole(QPalette.Text)
+        self.func.set_drop_shadow(self.dash_page.graph, blur=15, opacity=40)
 
         self.stack_pages.addWidget(self.dash_page)
 

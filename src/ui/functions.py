@@ -18,8 +18,9 @@ class UIFunctions(QWidget):
         font.setPointSize(size)
         font.setBold(bold)
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-
+        
         qwidget.setFont(font)
+            
 
     def btn_style_applyer(self):
         default_style = Style.btn_default

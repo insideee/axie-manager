@@ -3,10 +3,10 @@ from PySide6.QtGui import QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QDialog, QFrame, QGridLayout, QLabel, QSizePolicy, QToolButton
 
 
-class CustomItem(QFrame):
+class CustomWidgets(QFrame):
 
     def __init__(self, info: str, icon_path: str, btn_icon: str, width: int) -> None:
-        super(CustomItem, self).__init__()
+        super(CustomWidgets, self).__init__()
 
         # properties
         self.img = self.paint_image(image=icon_path)

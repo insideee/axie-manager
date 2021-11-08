@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QApplication, QFrame, QGridLayout, QHBoxLayout, QLabel, QVBoxLayout, QWidget
-from .dash_items_analytics import CustomItem
+from .dash_widgets_analytics import CustomWidgets
+from .dash_graph_analytics import GraphReports
 import resource
 import sys
 
@@ -27,12 +28,12 @@ class DashPage(QWidget):
         self.analytics_layout.setContentsMargins(0, 0, 0, 0)
         self.analytics_layout.setSpacing(0)
 
-        self.items_frame = None
-        self.items_layout = None
+        self.widgets_frame = None
+        self.widgets_layout = None
         self.analytics_title_label = None
-        self.scholars_item = None
-        self.m_profit_item = None
-        self.axies_item = None
+        self.scholars_widget = None
+        self.m_profit_widget = None
+        self.axies_widget = None
         self.graph_frame = None
 
         self.analytics_config()
@@ -40,46 +41,61 @@ class DashPage(QWidget):
         self.daily_frame = QFrame(self)
         self.daily_frame.setObjectName('daily_frame')
         self.daily_frame.setMaximumWidth(350)
+        self.daily_frame.setMinimumWidth(350)
         self.main_layout.addWidget(self.daily_frame)
 
     def analytics_config(self):
-        self.items_frame = QFrame()
-        self.items_frame.setObjectName('items_frame')
-        self.items_frame.setMaximumHeight(240)
-        self.analytics_layout.addWidget(self.items_frame)
+        self.widgets_frame = QFrame()
+        self.widgets_frame.setObjectName('widgets_frame')
+        self.widgets_frame.setMaximumHeight(240)
+        self.analytics_layout.addWidget(self.widgets_frame)
 
-        self.items_layout = QGridLayout(self.items_frame)   
-        self.items_layout.setObjectName('items_layout')
-        self.items_layout.setContentsMargins(0, 0, 0, 10)
-        self.items_layout.setSpacing(10)
+        self.widgets_layout = QGridLayout(self.widgets_frame)   
+        self.widgets_layout.setObjectName('widgets_layout')
+        self.widgets_layout.setContentsMargins(0, 0, 0, 10)
+        self.widgets_layout.setSpacing(10)
 
-        self.analytics_title_label = QLabel(self.items_frame)
+        self.analytics_title_label = QLabel(self.widgets_frame)
         self.analytics_title_label.setObjectName('analytics_t_label')
         self.analytics_title_label.setMaximumHeight(30)
         self.analytics_title_label.setText('Analytics')
-        self.items_layout.addWidget(self.analytics_title_label, 0, 0)
+        self.widgets_layout.addWidget(self.analytics_title_label, 0, 0)
 
-        self.scholars_item = CustomItem(info='SCHOLARS', icon_path=':/img/img/teste.png',
+        self.scholars_widget = CustomWidgets(info='SCHOLARS', icon_path=':/img/img/teste.png',
                         btn_icon=':/img/img/down_arrow.png',
-                        width= 145)
-        self.items_layout.addWidget(
-            self.scholars_item, 1, 0)
+                        width= 149)
+        self.widgets_layout.addWidget(
+            self.scholars_widget, 1, 0)
 
-        self.m_profit_item = CustomItem(info='MONTHLY PROFIT', icon_path=':/img/img/reports_icon.svg',
+        self.m_profit_widget = CustomWidgets(info='MONTHLY EARNINGS', icon_path=':/img/img/reports_icon.svg',
                         btn_icon=':/img/img/down_arrow.png',
-                        width= 145)
-        self.items_layout.addWidget(
-            self.m_profit_item, 1, 1)
+                        width= 149)
+        self.widgets_layout.addWidget(
+            self.m_profit_widget, 1, 1)
 
-        self.axies_item = CustomItem(info='AXIES', icon_path=':/img/img/inventory.svg',
+        self.axies_widget = CustomWidgets(info='AXIES', icon_path=':/img/img/inventory.svg',
                         btn_icon=':/img/img/down_arrow.png',
-                        width= 145)
-        self.items_layout.addWidget(
-            self.axies_item, 1, 2)
+                        width= 149)
+        self.widgets_layout.addWidget(
+            self.axies_widget, 1, 2)
 
-        self.graph_frame = QFrame(self.analytics_frame)
-        self.graph_frame.setObjectName('items_frame')
+        self.graph_frame = QFrame()
+        self.graph_frame.setObjectName('widgets_frame')
         self.analytics_layout.addWidget(self.graph_frame)
+        
+        self.graph_layout =QGridLayout(self.graph_frame)
+        self.graph_layout.setObjectName('graph_layout')
+        self.graph_layout.setContentsMargins(42, 30, 10, 10)
+        self.graph_layout.setSpacing(10)
+        
+        self.graph_title = QLabel(self.graph_frame)
+        self.graph_title.setObjectName('graph_title')
+        self.graph_title.setMaximumHeight(30)
+        self.graph_title.setText('Graph Reports')
+        self.graph_layout.addWidget(self.graph_title, 0, 0)
+        
+        self.graph = GraphReports()
+        self.graph_layout.addWidget(self.graph, 1, 0)
 
 
 if __name__ == '__main__':

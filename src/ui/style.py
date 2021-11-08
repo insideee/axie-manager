@@ -61,7 +61,7 @@ class Style:
    search_entry = """color: #ACAAAB
                   """
 
-   scholar_item = """background-color: qlineargradient(spread:paad, 
+   scholar_widget = """background-color: qlineargradient(spread:paad, 
                      x1:0.377, y1:0.33, 
                      x2:1, y2:1, stop:0 
                      rgb(0, 199, 255), stop:1 
@@ -69,14 +69,14 @@ class Style:
                      border-radius: 15px"""
 
 
-   m_profit_item = """background-color: qlineargradient(spread:paad, 
+   m_profit_widget = """background-color: qlineargradient(spread:paad, 
                      x1:0.377, y1:0.33, 
                      x2:1, y2:1, stop:0 
                      rgb(246,156,252), stop:1 
                      rgb(235, 107, 254));
                      border-radius: 15px"""
 
-   axies_item = """background-color: qlineargradient(spread:paad, 
+   axies_widget = """background-color: qlineargradient(spread:paad, 
                      x1:0.377, y1:0.33, 
                      x2:1, y2:1, stop:0 
                      rgb(193,160,203), stop:1 
