@@ -2,6 +2,17 @@
   <qresource prefix="img">
     <file>./img/logo.png</file>
     <file>./img/dash_icon.svg</file>
+    <file>./img/reports_icon.svg</file>
+    <file>./img/scholars_icon.svg</file>
+    <file>./img/circle_user.svg</file>
+    <file>./img/guest_user.svg</file>
+    <file>./img/search_arrow.svg</file>
+    <file>./img/search.svg</file>
+    <file>./img/notification.svg</file>
+    <file>./img/settings.svg</file>
+    <file>./img/inventory.svg</file>
+    <file>./img/teste.png</file>
+    <file>./img/down_arrow.png</file>
   </qresource>
   <qresource prefix="fonts">
     <file>fonts/Montserrat-Black.ttf</file>
