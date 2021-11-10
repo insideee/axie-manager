@@ -33,7 +33,7 @@ class GraphReports(QWidget):
         
         self.chart = QChart()
         self.chart.addSeries(self.series)
-        self.chart.setBackgroundBrush(QColor('#F4F4F4'))
+        self.chart.setBackgroundBrush(QColor('#FFFFFF'))
         self.chart.setAnimationOptions(QChart.SeriesAnimations)
         
         # x & y

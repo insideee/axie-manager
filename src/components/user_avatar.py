@@ -1,6 +1,7 @@
 from PySide6.QtCore import QPoint, QRect, QSize, Qt
 from PySide6.QtGui import QBrush, QColor, QPaintEvent, QPainter, QPen, QPixmap
 from PySide6.QtWidgets import QApplication, QLabel
+from PySide6.QtSvg import QSvgRenderer
 import sys
 
 
@@ -12,7 +13,7 @@ class UserAvatar(QLabel):
         # properties
         self.guest = guest
         self.size = QSize(80, 80)
-        self.image = QPixmap(img)
+        self.image = img
         
         # config
         self.setMinimumSize(self.size)
@@ -24,8 +25,7 @@ class UserAvatar(QLabel):
         
         if self.guest:
             self.image_painted = self.paint_image()
-            self.setPixmap(self.image_painted.scaled(QSize(self.width()*0.6, self.height()*0.6), 
-                                            Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.setPixmap(self.image_painted)
 
     def paintEvent(self, arg__1: QPaintEvent) -> None:
         if self.guest:
@@ -49,16 +49,22 @@ class UserAvatar(QLabel):
         return super().paintEvent(arg__1)
 
     def paint_image(self) -> QPixmap:
-        new_image = QPixmap(self.image)
+        svg_render = QSvgRenderer(self.image)   
+        new_image = QPixmap(QSize(self.width()*0.6, self.height()*0.6))
+        
+        painter = QPainter()
+        
+        new_image.fill(Qt.transparent)
+        
+        painter.begin(new_image)
+        svg_render.render(painter)
+        painter.end()
+        
         paint = QPainter(new_image)
+        paint.setRenderHint(QPainter.Antialiasing)
         paint.setCompositionMode(QPainter.CompositionMode_SourceIn)
-        paint.fillRect(new_image.rect(), '#DEDEDE')
+        paint.fillRect(new_image.rect(), 0xDEDEDE)
         paint.end()
-
+        
         return new_image
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = UserAvatar()
-    window.show()
-    sys.exit(app.exec())
+    

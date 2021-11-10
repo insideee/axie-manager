@@ -1,7 +1,5 @@
-
-from PySide6.QtCore import QEvent, QObject
-from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import QMainWindow, QApplication
+from PySide6.QtGui import QMouseEvent
 from ui import Ui_App
 import sys
 
@@ -27,7 +25,9 @@ def main():
     app = QApplication(sys.argv)
     window = App()
     window.show()
-    sys.exit(app.exec())
+    print(window.ui.dash_page.daily_frame.width())
+    app.exec()
+    sys.exit(130)
 
 
 if __name__ == '__main__':

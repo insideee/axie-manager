@@ -1,6 +1,7 @@
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QIcon, QPainter, QPixmap
+from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QDialog, QFrame, QGridLayout, QLabel, QSizePolicy, QToolButton
+from PySide6.QtSvg import QSvgRenderer
 
 
 class CustomWidgets(QFrame):
@@ -14,6 +15,7 @@ class CustomWidgets(QFrame):
         self.max_width = width
         self.info = info
         self.default_style = 'background-color: rgba(0, 0, 0, 0); \
+                            color: #FFFFFF;\
                             border: 0px'
 
         # configs
@@ -69,14 +71,22 @@ class CustomWidgets(QFrame):
         self.goto_btn.setCursor(Qt.PointingHandCursor)
         self.main_layout.addWidget(self.goto_btn, 3, 0, alignment=Qt.AlignCenter)
 
-    @staticmethod
-    def paint_image(image: str) -> QPixmap:
-        new_image = QPixmap(image)
+    def paint_image(self, image: str) -> QPixmap:
+        svg_render = QSvgRenderer(image)   
+        new_image = QPixmap(QSize(0.35 * self.width(), 0.35 * self.width()))
+        
+        painter = QPainter()
+        
+        new_image.fill(Qt.transparent)
+        
+        painter.begin(new_image)
+        svg_render.render(painter)
+        painter.end()
+        
         paint = QPainter(new_image)
         paint.setRenderHint(QPainter.Antialiasing)
         paint.setCompositionMode(QPainter.CompositionMode_SourceIn)
-        paint.fillRect(new_image.rect(), 0xFFFFFF)
+        paint.fillRect(new_image.rect(), QColor(0xFFFFFF))
         paint.end()
-
-        return new_image
         
+        return new_image

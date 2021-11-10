@@ -1,5 +1,6 @@
 from PySide6.QtCore import QEvent, QObject, QSize, Qt
 from PySide6.QtGui import QEnterEvent, QIcon, QMouseEvent, QPainter, QPixmap
+from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtWidgets import QSizePolicy, QToolButton
 
 
@@ -59,10 +60,23 @@ class BtnNav(QToolButton):
         return super().mousePressEvent(arg__1)
     
     def paint_image(self, image: str, color: str) -> QPixmap:
-        new_image = QPixmap(image)
+        svg_render = QSvgRenderer(image)   
+        new_image = QPixmap(QSize(25, 25))
+        
+        painter = QPainter()
+        
+        new_image.fill(Qt.transparent)
+        
+        painter.begin(new_image)
+        svg_render.render(painter)
+        painter.end()
+        
         paint = QPainter(new_image)
+        paint.setRenderHint(QPainter.Antialiasing)
         paint.setCompositionMode(QPainter.CompositionMode_SourceIn)
         paint.fillRect(new_image.rect(), color)
         paint.end()
+        
+        return new_image
 
         return new_image

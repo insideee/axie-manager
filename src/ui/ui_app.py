@@ -151,7 +151,7 @@ class Ui_App(object):
                                   clicked_style=Style.btn_clicked)
 
         self.btn_scholars = BtnNav(text='scholars',
-                                   image=':/img/img/teste.png',
+                                   image=':/img/img/user_test.svg',
                                    default_style=Style.btn_default,
                                    clicked_style=Style.btn_clicked)
 
@@ -184,6 +184,7 @@ class Ui_App(object):
         self.version_label = QLabel(self.version_frame)
         self.version_label.setObjectName('version_label')
         self.version_label.setText('VERSION 1.0.1')
+        self.version_label.setStyleSheet(Style.version_label)
         self.version_label.setAlignment(Qt.AlignCenter)
         self.func.set_font(self.version_label,
                              10, ':/fonts/fonts/Montserrat-Medium.ttf',
@@ -286,7 +287,7 @@ class Ui_App(object):
         self.search_icon.setMaximumSize(size)
         
         self.painted_img = self.func.paint_image(image=':/img/img/search_arrow.svg',
-                                                color=color_gradient)
+                                                color=color_gradient, size=size)
 
         self.search_icon.setPixmap(self.painted_img)
         self.search_icon.setScaledContents(True)
@@ -321,7 +322,7 @@ class Ui_App(object):
         size = QSize(30, 30)
         self.search_entry_btn.setMinimumSize(size)
         self.search_entry_btn.setMaximumSize(size)
-        self.entry_icon = self.func.paint_image(':/img/img/search.svg', color=0xACAAAB)
+        self.entry_icon = self.func.paint_image(':/img/img/search.svg', color=QColor(0xACAAAB), size=size)
         self.search_entry_btn.setIcon(self.entry_icon)
         self.search_entry_btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.search_entry_btn.setIconSize(size)
@@ -352,7 +353,7 @@ class Ui_App(object):
         size = QSize(25, 33)
         self.notification_icon.setMinimumSize(size)
         self.notification_icon.setMaximumSize(size)
-        icon = self.func.paint_image(':/img/img/notification.svg', color=color_gradient)
+        icon = self.func.paint_image(':/img/img/notification.svg', color=color_gradient, size=size)
         self.notification_icon.setPixmap(icon)
         self.notification_icon.setScaledContents(True)
         self.icons_frame_layout.addWidget(self.notification_icon)
@@ -363,7 +364,7 @@ class Ui_App(object):
         size = QSize(35, 35)
         self.settings_icon.setMinimumSize(size)
         self.settings_icon.setMaximumSize(size)
-        icon = self.func.paint_image(':/img/img/settings.svg', color=color_gradient)
+        icon = self.func.paint_image(':/img/img/settings.svg', color=color_gradient, size=size)
         self.settings_icon.setPixmap(icon)
         self.settings_icon.setScaledContents(True)
         self.icons_frame_layout.addWidget(self.settings_icon)
@@ -418,13 +419,36 @@ class Ui_App(object):
         
         self.func.set_font(self.dash_page.graph_title,
                            16, ':/fonts/fonts/Montserrat-Light.ttf',
-                           bold=True, index=1)        
+                           bold=True, index=1)
+        self.dash_page.daily_w_title.setPalette(label_pal)
+        self.dash_page.daily_w_title.setForegroundRole(QPalette.Text)
         
         # graph
         self.dash_page.graph_title.setPalette(label_pal)
         self.dash_page.graph_title.setForegroundRole(QPalette.Text)
-        self.func.set_drop_shadow(self.dash_page.graph, blur=15, opacity=40)
+        self.func.set_drop_shadow(self.dash_page.graph, blur=16, opacity=40)
+
+        # daily
+        self.dash_page.daily_graph_container.setStyleSheet(Style.daily_frame)
+        self.func.set_drop_shadow(self.dash_page.daily_graph_container, 
+                                    blur=16, opacity=40)
+
+        self.func.set_font(self.dash_page.daily_w_title,
+                           16, ':/fonts/fonts/Montserrat-Light.ttf',
+                           bold=True, index=1)        
+
+        self.func.set_font(self.dash_page.daily_title,
+                            13, ':/fonts/fonts/Montserrat-Light.ttf',
+                            bold=True, index=1)
+        self.dash_page.daily_title.setPalette(label_pal)
+        self.dash_page.daily_title.setForegroundRole(QPalette.Text)
+
+        self.dash_page.daily_label.setStyleSheet(Style.daily_label)
+        self.func.set_font(self.dash_page.daily_label,
+                             11, ':/fonts/fonts/Montserrat-Light.ttf',
+                             bold=True, index=1)
+        
+        #self.dash_page.daily_frame.setStyleSheet(Style.rec)
 
         self.stack_pages.addWidget(self.dash_page)
-
         

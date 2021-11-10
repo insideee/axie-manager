@@ -1,5 +1,6 @@
-
 from PySide6 import QtGui
+from PySide6.QtCore import QSize, Qt
+from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtWidgets import QGraphicsDropShadowEffect, QToolButton, QWidget
 from .style import Style
 
@@ -37,16 +38,25 @@ class UIFunctions(QWidget):
                 btn.setStyleSheet(clicked_style)
 
     @staticmethod
-    def paint_image(image: str, color) -> QtGui.QPixmap:
-
-
-        new_image = QtGui.QPixmap(image)
+    def paint_image(image: str, color: QtGui.QColor, size: QSize) -> QtGui.QPixmap:
+        
+        svg_render = QSvgRenderer(image)   
+        new_image = QtGui.QPixmap(QSize(size))
+        
+        painter = QtGui.QPainter()
+        
+        new_image.fill(Qt.transparent)
+        
+        painter.begin(new_image)
+        svg_render.render(painter)
+        painter.end()
+        
         paint = QtGui.QPainter(new_image)
         paint.setRenderHint(QtGui.QPainter.Antialiasing)
         paint.setCompositionMode(QtGui.QPainter.CompositionMode_SourceIn)
         paint.fillRect(new_image.rect(), color)
         paint.end()
-
+        
         return new_image
 
     @staticmethod
