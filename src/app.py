@@ -12,22 +12,22 @@ class App(QMainWindow):
         self.ui.init_gui(self)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
+        
+        # remove cursor when search lose focus
         focus_widget = QApplication.focusWidget()
 
         if hasattr(focus_widget, 'objectName'):
             if focus_widget.objectName() == 'search_entry':
                 focus_widget.clearFocus()
-
-        return super().mousePressEvent(event)
-
+                
+        return super().mousePressEvent(event)  
 
 def main():
     app = QApplication(sys.argv)
     window = App()
     window.show()
-    print(window.ui.dash_page.daily_frame.width())
     app.exec()
-    sys.exit(130)
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':

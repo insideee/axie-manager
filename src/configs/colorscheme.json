@@ -1,0 +1,21 @@
+{   
+    "main colors": {
+        "application_bg": "#F4F4F4",
+        "widget_bg": "#FFFFFF",
+        "main_color": "#033F63",
+        "main_color_gradient": "#1A5071",
+        "second_color": "#AC256F",
+        "second_color_gradient": "#B4397C",
+        "third_color": "#583269",
+        "third_color_gradient": "#674577",
+        "application_text": "#F4F4F4",
+        "info_text": "#B3B1B2",
+        "menu_icon": "#F4F4F4",
+        "menu_hover_icon": "#AC256F"
+        
+    },
+    "search_box": {
+        "text": "#B3B1B2",
+        "icon": "#B3B1B2"
+    }
+}

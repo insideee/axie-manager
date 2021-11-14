@@ -11,9 +11,14 @@
     <file>./img/notification.svg</file>
     <file>./img/settings.svg</file>
     <file>./img/inventory.svg</file>
-    <file>./img/teste.png</file>
     <file>./img/down_arrow.svg</file>
     <file>./img/user_test.svg</file>
+    <file>./img/minimize.svg</file>
+    <file>./img/expand.svg</file>
+    <file>./img/checked.svg</file>
+    <file>./img/more_menu.svg</file>
+    <file>./img/exit_popup.svg</file>
+    <file>./img/filter.svg</file>
   </qresource>
   <qresource prefix="fonts">
     <file>fonts/Montserrat-Black.ttf</file>
