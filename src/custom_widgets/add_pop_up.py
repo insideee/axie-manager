@@ -1,6 +1,6 @@
-from PySide2.QtGui import QMovie, QPaintEvent, QPainter, QColor, QPen, QFont
-from PySide2.QtWidgets import QLabel, QMessageBox, QWidget, QGraphicsDropShadowEffect
-from PySide2.QtCore import QAbstractAnimation, QPoint, QRect, QThread, QTimer, Qt, QSize, QPropertyAnimation, Signal, \
+from PySide6.QtGui import QMovie, QPaintEvent, QPainter, QColor, QPen, QFont
+from PySide6.QtWidgets import QLabel, QMessageBox, QWidget, QGraphicsDropShadowEffect
+from PySide6.QtCore import QAbstractAnimation, QPoint, QRect, QThread, QTimer, Qt, QSize, QPropertyAnimation, Signal, \
     QEasingCurve, QEvent, QObject
 from datetime import datetime, timezone
 import os

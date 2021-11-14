@@ -1,6 +1,6 @@
 import sys
-from PySide2 import QtCore
-from PySide2.QtWidgets import *
+from PySide6 import QtCore
+from PySide6.QtWidgets import *
 import importlib
 
 # import gui and functions

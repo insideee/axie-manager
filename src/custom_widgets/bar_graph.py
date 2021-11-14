@@ -1,6 +1,6 @@
-from PySide2.QtCore import QSize, Qt, QRectF
-from PySide2.QtWidgets import QWidget, QGraphicsDropShadowEffect
-from PySide2.QtGui import QPaintEvent, QPainter, QPen, QFont, QColor
+from PySide6.QtCore import QSize, Qt, QRectF
+from PySide6.QtWidgets import QWidget, QGraphicsDropShadowEffect
+from PySide6.QtGui import QPaintEvent, QPainter, QPen, QFont, QColor
 from datetime import datetime
 import calendar
 

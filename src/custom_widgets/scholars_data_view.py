@@ -1,8 +1,8 @@
-from PySide2.QtWidgets import QDesktopWidget, QLabel, QLineEdit, QWidget
-from PySide2 import QtCore, QtGui
-from PySide2.QtCore import QMargins, QRect, Qt, QPoint, QSize, Signal
-from PySide2.QtWidgets import QGraphicsDropShadowEffect
-from PySide2.QtGui import QColor, QGuiApplication, QImage, QPaintEvent, QPainter, QFont, QPen, QPixmap, QIcon
+from PySide6.QtWidgets import QLabel, QLineEdit, QWidget
+from PySide6 import QtCore, QtGui
+from PySide6.QtCore import QMargins, QRect, Qt, QPoint, QSize, Signal
+from PySide6.QtWidgets import QGraphicsDropShadowEffect
+from PySide6.QtGui import QColor, QGuiApplication, QImage, QPaintEvent, QPainter, QFont, QPen, QPixmap, QIcon
 
 import tempfile
 import requests

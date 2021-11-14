@@ -1,6 +1,6 @@
-from PySide2.QtGui import QPaintEvent, QPainter, QColor, QPen, QFont
-from PySide2.QtWidgets import QWidget, QGraphicsDropShadowEffect
-from PySide2.QtCore import QRect, Qt, QSize
+from PySide6.QtGui import QPaintEvent, QPainter, QColor, QPen, QFont
+from PySide6.QtWidgets import QWidget, QGraphicsDropShadowEffect
+from PySide6.QtCore import QRect, Qt, QSize
 
 
 class CircularProgress(QWidget):

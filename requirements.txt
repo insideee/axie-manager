@@ -1,5 +1,4 @@
 requests==2.26.0
 packaging==20.9
-PyQt5==5.15.4
-PySide2==5.15.2
+pyside6==6.2.1
 SQLAlchemy==1.4.23
