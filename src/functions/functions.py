@@ -1,5 +1,5 @@
 from PySide6.QtCore import QObject, QSize, Qt
-from PySide6.QtGui import QColor, QPainter, QPixmap
+from PySide6.QtGui import QColor, QFont, QFontDatabase, QPainter, QPixmap
 from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtWidgets import QGraphicsDropShadowEffect, QWidget
 import json
@@ -8,10 +8,24 @@ import ast
 class Functions(QWidget):   
 
     @staticmethod
+    def set_font(target: QObject, size: int, font_name: str, bold: bool, index: int=0) -> None:
+
+        # add font to app database
+        font_id = QFontDatabase.addApplicationFont(f'{font_name}')
+        font_name = QFontDatabase.applicationFontFamilies(font_id)
+
+        # get font name
+        font = QFont(font_name[index])
+        font.setPointSize(size)
+        font.setBold(bold)
+        font.setStyleStrategy(QFont.PreferAntialias)
+        
+        target.setFont(font)
+    
+    @staticmethod
     def paint_image(image: str, color: QColor, size: QSize) -> QPixmap:
         """Paint, resize and return a QPixmap image.
         """
-        
         
         svg_render = QSvgRenderer(image)   
         new_image = QPixmap(QSize(size))

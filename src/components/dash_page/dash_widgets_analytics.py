@@ -1,6 +1,6 @@
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
-from PySide6.QtWidgets import QDialog, QFrame, QGridLayout, QLabel, QSizePolicy, QToolButton
+from PySide6.QtWidgets import QFrame, QGridLayout, QLabel, QSizePolicy, QToolButton
 from PySide6.QtSvg import QSvgRenderer
 
 

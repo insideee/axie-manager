@@ -17,5 +17,12 @@
     "search_box": {
         "text": "#B3B1B2",
         "icon": "#B3B1B2"
+    },
+    "table_view": {
+        "main_color": "#033F63",
+        "hover_color": "#1A5071",
+        "popup_hover_color": "#E6E6F2",
+        "details_color": "#E6E6F2",
+        "header_bg": "#FFFFFF"
     }
 }

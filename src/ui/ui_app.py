@@ -26,7 +26,7 @@ class Ui_App(object):
         # configs do app
         app.setWindowTitle(' ')
         app.setMinimumSize(QSize(1200, 700))
-        app.setMaximumSize(QSize(1200, 700))
+        #app.setMaximumSize(QSize(1200, 700))
         app.setWindowIcon(QIcon(QPixmap(':/img/img/logo.png')))
         app.setGeometry(QStyle.alignedRect(
                         Qt.LeftToRight,
@@ -414,7 +414,7 @@ class Ui_App(object):
         self.dash_page_config()
         self.stack_pages.addWidget(self.dash_page)
 
-        self.scholars_page = ScholarPage()
+        self.scholars_page = ScholarPage(colorscheme=self.colorscheme)
         self.scholars_page_config()
         self.stack_pages.addWidget(self.scholars_page)
 
@@ -496,8 +496,7 @@ class Ui_App(object):
         
         self.func.setStyleSheet(stylesheet['daily_graph'])
 
-    def scholars_page_config(self):
-        
+    def scholars_page_config(self):  
         # bg
         self.scholars_page.setStyleSheet(stylesheet['scholars_page'])
         
@@ -518,3 +517,21 @@ class Ui_App(object):
         
         # table header frame
         self.scholars_page.header_title_frame.setStyleSheet(stylesheet['table_header'])
+        
+        # titles
+        for label in [self.scholars_page.name_title_label, self.scholars_page.today_title_label,self.scholars_page.yesterday_title_label,
+                      self.scholars_page.total_title_label, self.scholars_page.next_claim_title_label]:
+            func.set_font(label,
+                          10, ':/fonts/fonts/Montserrat-Medium.ttf',
+                           bold=True, index=1)
+            label.setText(label.text().upper())
+            label.setStyleSheet(stylesheet['title_table'])
+            
+        # bottom
+        func.set_font(self.scholars_page.bottom_info_label,
+                          10, ':/fonts/fonts/Montserrat-Medium.ttf',
+                           bold=True, index=1)
+        
+        self.scholars_page.bottom_info_label.setStyleSheet(stylesheet['bottom_info'])
+        
+        

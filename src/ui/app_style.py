@@ -115,25 +115,29 @@ stylesheet = {  'bg':f"""background-color:  {colorscheme['main colors']['applica
                                 border-radius: 10px;
                                 """,
 
-                'filter_btn': """QToolButton{background-color: #FFFFFF;
-                                color: #8B83BA;
+                'filter_btn': f"""QToolButton{{background-color: {colorscheme['main colors']['widget_bg']};
+                                color: {colorscheme['table_view']['main_color']};
                                 padding-left: 5px;
-                                border-radius: 5px}
+                                border-radius: 5px}}
                                 """,
 
-                'table_header': """background-color: #F4F2FF ;
-                                border-bottom: 1px solid #D9D5EC;
-                                border-top: 1px solid #D9D5EC;
+                'table_header': f"""background-color: {colorscheme['table_view']['header_bg']};
+                                border-bottom: 1px solid {colorscheme['table_view']['details_color']};
                                 """,
 
-                'add_btn': """background-color: qlineargradient(spread:paad, 
+                'add_btn': f"""background-color: qlineargradient(spread:paad, 
                                 x1:0.377, y1:0.33, 
                                 x2:1, y2:1, stop:0 
-                                rgb(193,160,203), stop:1 
-                                rgb(166,118,178));
-                                        color: #FFFFFF;
-                                        border-radius: 5px;
-                                """
+                                {colorscheme['main colors']['second_color']}, stop:1
+                                {colorscheme['main colors']['second_color_gradient']});
+                                color: #FFFFFF;
+                                border-radius: 5px;
+                                """,
+                                
+                'title_table': f"""color: {colorscheme['main colors']['second_color']}""",
+                
+                'bottom_info': f"""color: {colorscheme['main colors']['main_color']}
+                                """,
 
 
                              }

@@ -1,14 +1,15 @@
-from PySide6 import QtGui
-from PySide6.QtCore import QAbstractAnimation, QEasingCurve, QEvent, QObject, QPoint, QPropertyAnimation, QRect, QSize, Qt, Signal
-from PySide6.QtGui import QColor, QEnterEvent, QMouseEvent, QPainter, QPixmap
-from PySide6.QtSvg import QSvgRenderer
-from PySide6.QtWidgets import QCheckBox, QFrame, QGraphicsDropShadowEffect, QGridLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QToolButton, QVBoxLayout
+from PySide6.QtCore import QAbstractAnimation, QEasingCurve, QPoint, QPropertyAnimation, QRect, QSize, Qt, Signal
+from PySide6.QtGui import QColor, QMouseEvent,  QPixmap
+from PySide6.QtWidgets import QCheckBox, QFrame, QGridLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QToolButton
+from .view_more_popup import MoreMenuPopup
+from .view_more_btn import MoreMenuBtn
 from resources import resource
+from functions import Functions as func
 
 
 class DataWidget(QFrame):
 
-    def __init__(self, obj_name: str) -> None:
+    def __init__(self, obj_name: str, colorscheme: dict) -> None:
         """Initialize with custom properties, style and the wrapper layout.
         
         Args:
@@ -16,33 +17,46 @@ class DataWidget(QFrame):
         """
 
         super(DataWidget, self).__init__()
+        self.colorscheme = colorscheme
+        self.main_color = self.colorscheme['table_view']['main_color']
+        self.hover_color = self.colorscheme['table_view']['hover_color']
+        self.popup_hover_color = self.colorscheme['table_view']['popup_hover_color']
+        self.widget_color = self.colorscheme['main colors']['widget_bg']
+        self.style_reset = """border: none;
+                            background-color: none"""
 
         # configs
         self.setObjectName(f'entry_{obj_name}')
 
         # properties
-        self.default_stylesheet = """QFrame { background-color: #FFFFFF;
-                                    border-bottom: 1px solid #D9D5EC;
-                                    border-radius: 0px }"""
-        self.selected_stylesheet = """QFrame { background-color: #F4F2FF;
-                                    border-bottom: 1px solid #D9D5EC;
-                                    border-radius: 0px }"""
-
-        self.expand_image = self.paint_image(image=':/img/img/expand.svg',
-                                             color=QColor('#8B83BA'),
+        self.default_stylesheet = f"""QFrame {{ background-color: {self.widget_color};
+                                    border-bottom: 1px solid {self.colorscheme['table_view']['details_color']};
+                                    border-left: 5px solid rgba(0, 0, 0,0);
+                                    border-radius: 0px }}"""
+        self.selected_stylesheet = f"""QFrame {{ background-color: {self.widget_color};
+                                    border-left: 5px solid {self.colorscheme['table_view']['main_color']};
+                                    border-bottom: 1px solid {self.colorscheme['table_view']['main_color']};
+                                    border-radius: 0px }}"""
+        
+        self.expand_image = func.paint_image(image=':/img/img/expand.svg',
+                                             color=QColor(self.main_color),
                                              size=QSize(20, 20))
-        self.minimize_image = self.paint_image(image=':/img/img/minimize.svg',
-                                               color=QColor('#8B83BA'),
+        self.minimize_image = func.paint_image(image=':/img/img/minimize.svg',
+                                               color=QColor(self.main_color),
                                                size=QSize(20, 20))
-
+        
+        self.checked_image = func.paint_image(image=':/img/img/checked.svg',
+                                               color=QColor(self.main_color),
+                                               size=QSize(20, 20))
+        
         self.setStyleSheet(self.default_stylesheet)
-
+        
         self.wrap_layout = QHBoxLayout(self)
         self.wrap_layout.setObjectName('wrap_layout')
         self.wrap_layout.setAlignment(Qt.AlignLeft)
         self.wrap_layout.setContentsMargins(0, 0, 0, 1)
         self.wrap_layout.setSpacing(0)
-
+        
         # select expand variables
         self.select_expand_container = None
         self.select_expand_layout = None
@@ -50,26 +64,27 @@ class DataWidget(QFrame):
         self.check_select_container_layout = None
         self.check_box_select = None
         self.expand = None
+        
         self.select_expand_config()
 
         # data variables
         self.data_config()
-
+        
         # view more variables
         self.view_more_container = None
         self.view_more_layout = None
         self.view_more_btn = None
         self.view_more_menu_btn = None
-        self.view_more_menu_icon = self.paint_image(image=':/img/img/more_menu.svg',
-                                                    color=QColor('#8B83BA'),
+        self.view_more_menu_icon = func.paint_image(image=':/img/img/more_menu.svg',
+                                                    color=QColor(self.main_color),
                                                     size=QSize(25, 25))
-        self.view_more_menu_icon_painted = self.paint_image(image=':/img/img/more_menu.svg',
+        self.view_more_menu_icon_painted = func.paint_image(image=':/img/img/more_menu.svg',
                                                             color=QColor(
-                                                                '#6D5BD0'),
+                                                        self.hover_color),
                                                             size=QSize(25, 25))
-        self.view_more_menu_exit_icon = self.paint_image(image=':/img/img/exit_popup.svg',
+        self.view_more_menu_exit_icon = func.paint_image(image=':/img/img/exit_popup.svg',
                                                          color=QColor(
-                                                             '#8B83BA'),
+                                                        self.main_color),
                                                          size=QSize(18, 18))
         self.popup = None
 
@@ -85,9 +100,9 @@ class DataWidget(QFrame):
             QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.select_expand_container.setMaximumWidth(100)
         self.select_expand_container.setMinimumWidth(100)
-        self.select_expand_container.setStyleSheet('border: none;\
-                                                    background-color: none')
+        self.select_expand_container.setStyleSheet(self.style_reset)
         self.wrap_layout.addWidget(self.select_expand_container)
+        
 
         self.select_expand_layout = QHBoxLayout(self.select_expand_container)
         self.select_expand_layout.setObjectName('select_expand_layout')
@@ -97,12 +112,13 @@ class DataWidget(QFrame):
         # checkbox
         self.check_select_container = QFrame()
         self.check_select_container.setObjectName('check_container')
+        self.check_select_container.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.check_select_container.setMinimumSize(QSize(22, 22))
         self.check_select_container.setMaximumSize(QSize(22, 22))
         self.check_select_container.setStyleSheet('border-radius: 4px;\
-                                    border: none;')
+                                                    border: none;')
         self.select_expand_layout.addWidget(self.check_select_container)
-        self.set_shadow_effect(self.check_select_container)
+        func.set_drop_shadow(self.check_select_container)
 
         self.check_select_container_layout = QHBoxLayout(
             self.check_select_container)
@@ -113,22 +129,21 @@ class DataWidget(QFrame):
 
         self.check_box_select = QCheckBox()
         self.check_box_select.setCursor(Qt.PointingHandCursor)
-        self.check_select_container_layout.addWidget(self.check_box_select)
-        self.check_box_select.setStyleSheet("""QCheckBox{ background-color: none;
+        self.check_box_select.setStyleSheet(f"""QCheckBox{{ background-color: none;
                                                     border: none;
                                                     border-radius: 5px;
-                                        }
-                                        QCheckBox::indicator{
+                                        }}
+                                        QCheckBox::indicator{{
                                                         background-color: none;
-                                                        border: 2px solid #8B83BA;
+                                                        border: 2px solid {self.main_color};
                                                         width: 18;
                                                         height: 18;
-                                                        border-radius: 4px;}
-                                        QCheckBox::indicator::checked{
-                                                            background-color: #8B83BA;
-                                                            image: url(:/img/img/checked.svg)}""")
-        self.check_box_select.stateChanged.connect(
-            self.checkbox_select_pressed)
+                                                        border-radius: 4px;}}
+                                        QCheckBox::indicator::checked{{
+                                                            background-color: {self.main_color};
+                                                            image: url(:/img/img/checked.svg)}}""")
+        self.check_box_select.stateChanged.connect(self.checkbox_select_pressed)
+        self.check_select_container_layout.addWidget(self.check_box_select)
 
         self.expand = CustomExpBtn(image=self.expand_image)
         self.expand.clicked.connect(self.expand_pressed)
@@ -137,8 +152,8 @@ class DataWidget(QFrame):
     def data_config(self):
         self.data_container = QFrame(self)
         self.data_container.setObjectName('data_container')
-        self.data_container.setStyleSheet('background-color: none;\
-                                            border: none')
+        self.data_container.setStyleSheet(self.style_reset)
+        self.data_container.setMinimumWidth(720)
         self.data_container.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.wrap_layout.addWidget(self.data_container)
@@ -165,7 +180,7 @@ class DataWidget(QFrame):
         self.data_today.setMinimumSize(size)
         self.data_today.setMaximumSize(size)
         self.data_today.setText('today')
-        self.data_today.move(144, 0)
+        self.data_today.move(0.2*self.data_container.width(), 0)
 
         self.data_yesterday = QLabel(self.data_container)
         self.data_yesterday.setObjectName('data_yesterday')
@@ -173,7 +188,7 @@ class DataWidget(QFrame):
         self.data_yesterday.setMinimumSize(size)
         self.data_yesterday.setMaximumSize(size)
         self.data_yesterday.setText('yesterday')
-        self.data_yesterday.move(288, 0)
+        self.data_yesterday.move(0.4*self.data_container.width(), 0)
 
         self.data_total = QLabel(self.data_container)
         self.data_total.setObjectName('data_total')
@@ -181,7 +196,7 @@ class DataWidget(QFrame):
         self.data_total.setMinimumSize(size)
         self.data_total.setMaximumSize(size)
         self.data_total.setText('total')
-        self.data_total.move(432, 0)
+        self.data_total.move(0.6*self.data_container.width(), 0)
 
         self.data_next_claim = QLabel(self.data_container)
         self.data_next_claim.setObjectName('data_next_claim')
@@ -189,7 +204,7 @@ class DataWidget(QFrame):
         self.data_next_claim.setMinimumSize(size)
         self.data_next_claim.setMaximumSize(size)
         self.data_next_claim.setText('next_claim')
-        self.data_next_claim.move(576, 0)
+        self.data_next_claim.move(0.8*self.data_container.width(), 0)
 
         self.data_winrate = QLabel(self.data_container)
         self.data_winrate.setObjectName('data_winrate')
@@ -205,7 +220,7 @@ class DataWidget(QFrame):
         self.data_average.setMinimumSize(size)
         self.data_average.setMaximumSize(size)
         self.data_average.setText('average')
-        self.data_average.move(144, 50)
+        self.data_average.move(0.2*self.data_container.width(), 50)
 
         self.data_elo = QLabel(self.data_container)
         self.data_elo.setObjectName('data_elo')
@@ -213,7 +228,7 @@ class DataWidget(QFrame):
         self.data_elo.setMinimumSize(size)
         self.data_elo.setMaximumSize(size)
         self.data_elo.setText('elo')
-        self.data_elo.move(288, 50)
+        self.data_elo.move(0.4*self.data_container.width(), 50)
 
         self.data_scholar_slp = QLabel(self.data_container)
         self.data_scholar_slp.setObjectName('data_scholar_slp')
@@ -221,7 +236,7 @@ class DataWidget(QFrame):
         self.data_scholar_slp.setMinimumSize(size)
         self.data_scholar_slp.setMaximumSize(size)
         self.data_scholar_slp.setText('scholar_slp')
-        self.data_scholar_slp.move(432, 50)
+        self.data_scholar_slp.move(0.6*self.data_container.width(), 50)
 
         self.data_manager_slp = QLabel(self.data_container)
         self.data_manager_slp.setObjectName('data_manager_slp')
@@ -229,7 +244,7 @@ class DataWidget(QFrame):
         self.data_manager_slp.setMinimumSize(size)
         self.data_manager_slp.setMaximumSize(size)
         self.data_manager_slp.setText('manager_slp')
-        self.data_manager_slp.move(576, 50)
+        self.data_manager_slp.move(0.8*self.data_container.width(), 50)
 
     def view_more_config(self):
         self.view_more_container = QFrame(self)
@@ -251,17 +266,18 @@ class DataWidget(QFrame):
         self.view_more_btn.setObjectName('view_more_btn')
         self.view_more_btn.setCursor(Qt.PointingHandCursor)
         self.view_more_btn.setText('View More')
-        self.view_more_btn.setStyleSheet("""QPushButton{ background-color: none;
-                                                        color: #8B83BA;
-                                                        border: none;}
-                                          QPushButton::hover{ color: #6D5BD0
-                                              }""")
-        self.set_font(target=self.view_more_btn,
+        self.view_more_btn.setStyleSheet(f"""QPushButton{{ background-color: none;
+                                                        color: {self.main_color};
+                                                        border: none;}}
+                                          QPushButton::hover{{ color: {self.hover_color}
+                                              }}""")
+        func.set_font(target=self.view_more_btn,
                       size=9, font_name=':/fonts/fonts/Montserrat-Medium.ttf',
                       bold=False, index=1)
         self.view_more_layout.addWidget(self.view_more_btn)
 
-        self.view_more_menu_btn = CustomMenuBtn(default_image=self.view_more_menu_icon,
+        self.view_more_menu_btn = MoreMenuBtn(parent=self.view_more_container,
+                                                default_image=self.view_more_menu_icon,
                                                 painted_image=self.view_more_menu_icon_painted)
 
         self.view_more_menu_btn.clicked.connect(
@@ -274,13 +290,15 @@ class DataWidget(QFrame):
         move_to = global_pos - QPoint(15, 10)
 
         if self.popup == None:
-            self.popup = MoreMenuPopup(image=self.view_more_menu_exit_icon,
-                                       pos_spawn=move_to)
+            self.popup = CustomPopup(pos_spawn=move_to,
+                                       main_color=self.main_color,
+                                       hover_color=self.popup_hover_color,
+                                       widget_color=self.widget_color)
             for frame in [self.popup.bg_container, self.popup.exit_btn]:
-                self.set_shadow_effect(frame, blur=10, opacity=40)
+                func.set_drop_shadow(frame, blur=10, opacity=40)
 
             for btn in [self.popup.edit_btn, self.popup.delete_btn]:
-                self.set_font(target=btn,
+                func.set_font(target=btn,
                               size=9, font_name=':/fonts/fonts/Montserrat-Medium.ttf',
                               bold=False, index=1)
 
@@ -384,74 +402,6 @@ class DataWidget(QFrame):
             main_widget.expand.setPixmap(self.expand_image)
             self.animation_expand(next_animation)
 
-    def set_shadow_effect(self, element, blur=1, opacity=30):
-        """The shadow effect method.
-
-        Args:
-            element (QObject): Target for the shadow effect.
-            blur (int, optional): Blur for effect. Defaults to 1.
-            opacity (int, optional): Opacity for the effect. Defaults to 30.
-        """
-
-        drop_shadow = QGraphicsDropShadowEffect(element)
-        drop_shadow.setBlurRadius(blur)
-        drop_shadow.setOffset(0)
-        drop_shadow.setColor(QtGui.QColor(0, 0, 0, opacity))
-        element.setGraphicsEffect(drop_shadow)
-        drop_shadow.setEnabled(True)
-
-    def paint_image(self, image: str, color: QColor, size: QSize) -> QtGui.QPixmap:
-        """Paint image method.
-
-        Args:
-            image (str): Path of the image
-            color (QColor): Color to be painted
-            size (QSize): Size for the image resize.
-
-        Returns:
-            QtGui.QPixmap: The image already painted
-        """
-
-        svg_render = QSvgRenderer(image)
-        new_image = QPixmap(QSize(size))
-
-        painter = QPainter()
-
-        new_image.fill(Qt.transparent)
-
-        painter.begin(new_image)
-        svg_render.render(painter)
-        painter.end()
-
-        paint = QPainter(new_image)
-        paint.setRenderHint(QPainter.Antialiasing)
-        paint.setCompositionMode(QPainter.CompositionMode_SourceIn)
-        paint.fillRect(new_image.rect(), color)
-        paint.end()
-
-        return new_image
-
-    def set_font(self, target: QObject, size: int, font_name: str, bold: bool, index: int = 0) -> None:
-        """Set font for the target object.
-
-        Args:
-            target (QObject): Target for the font applier
-            size (int): Size of the font
-            font_name (str): Font name
-            bold (bool): Bold or not
-            index (int, optional): Index of the font family. Defaults to 0.
-        """
-
-        # temp
-        font_id = QtGui.QFontDatabase.addApplicationFont(f'{font_name}')
-        font_nam = QtGui.QFontDatabase.applicationFontFamilies(font_id)
-        font = QtGui.QFont(font_nam[index])
-        font.setPointSize(size)
-        font.setBold(bold)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-
-        target.setFont(font)
-
 
 class CustomExpBtn(QLabel):
     """Custom button for better image resolution and custom event
@@ -485,126 +435,44 @@ class CustomExpBtn(QLabel):
 
         return super().mousePressEvent(ev)
 
-
-class CustomMenuBtn(QToolButton):
-    """Custom button for the view more menu.
-    """
-
-    def __init__(self, default_image: QPixmap, painted_image: QPixmap):
-        super(CustomMenuBtn, self).__init__()
-
-        # properties
-        self.default_image = default_image
-        self.painted_image = painted_image
-
-        # config
-        self.setObjectName('view_more_menu')
-        self.setCursor(Qt.PointingHandCursor)
-        self.setToolButtonStyle(Qt.ToolButtonIconOnly)
-        self.setStyleSheet('background-color: none;\
-                                          border: none')
-        self.setIcon(self.default_image)
-        self.setIconSize(QSize(25, 25))
-
-    def enterEvent(self, arg__1: QEnterEvent) -> None:
-        self.setIcon(self.painted_image)
-
-        return super().enterEvent(arg__1)
-
-    def leaveEvent(self, arg__1: QEvent) -> None:
-        self.setIcon(self.default_image)
-
-        return super().leaveEvent(arg__1)
-
-
-class MoreMenuPopup(QFrame):
+class CustomPopup(MoreMenuPopup):
     """Custom popup for the more menu button.
     """
 
-    def __init__(self, image, pos_spawn):
-        super(MoreMenuPopup, self).__init__()
+    def __init__(self, pos_spawn, main_color: str, hover_color: str, widget_color: str):
+        super().__init__(pos_spawn=pos_spawn, main_color=main_color, hover_color=hover_color, widget_color=widget_color)
 
         # properties
-        self.exit_icon = image
+        self.edit_icon = func.paint_image(image=':/img/img/Edit.svg', color=main_color,
+                                          size=QSize(12, 12))
 
         # config
         self.setGeometry(QRect(pos_spawn, QSize(120, 105)))
         self.setMinimumSize(QSize(120, 105))
         self.setMaximumSize(QSize(120, 105))
 
-        self.main_layout = QVBoxLayout(self)
-        self.main_layout.setObjectName('main_layout')
-        self.main_layout.setContentsMargins(5, 15, 15, 5)
-        self.main_layout.setSpacing(0)
-
-        self.setWindowFlags(Qt.FramelessWindowHint |
-                            Qt.WindowStaysOnTopHint | Qt.NoDropShadowWindowHint | Qt.Popup)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-
-        self.bg_container = QFrame(self)
-        self.bg_container.setObjectName('bg_container')
-        self.bg_container.setStyleSheet("""background-color: #FFFFFF;
-                        border: none;
-                        border-radius: 10px""")
-        self.main_layout.addWidget(self.bg_container)
-
-        self.bg_layout = QVBoxLayout(self.bg_container)
-        self.bg_layout.setObjectName('bg_layout')
-        self.bg_layout.setContentsMargins(5, 5, 5, 5)
-        self.bg_layout.setSpacing(5)
-        self.bg_layout.setAlignment(Qt.AlignTop)
-
-        self.exit_btn = QToolButton(self)
-        self.exit_btn.setGeometry(90, 4, 20, 20)
-        self.exit_btn.setStyleSheet("""background-color: #FFFFFF;
-                                        border: none;
-                                        border-radius: 10px
-                                    """)
-        self.exit_btn.setIcon(self.exit_icon)
-        self.exit_btn.setIconSize(QSize(18, 18))
-        self.exit_btn.setCursor(Qt.PointingHandCursor)
-        self.exit_btn.setMouseTracking(True)
-
-        self.exit_btn.clicked.connect(self.exit_btn_clicked_handle)
-
-        self.edit_btn = QPushButton(self.bg_container)
+        self.edit_btn = QToolButton(self.bg_container)
+        self.edit_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self.edit_btn.setObjectName('edit_btn')
+        self.edit_btn.setIcon(self.edit_icon)
+        self.edit_btn.setMinimumSize(QSize(90, 35))
+        self.edit_btn.setIconSize(QSize(12, 12))
         self.edit_btn.setCursor(Qt.PointingHandCursor)
         self.edit_btn.setText('Edit')
-        self.edit_btn.setStyleSheet("""QPushButton{background-color: none;
+        self.edit_btn.setStyleSheet(f"""QToolButton{{background-color: none;
                                             border: none;
                                             border-radius: 10px;
-                                            padding: 10px;
+                                            padding-left: 15px;
                                             text-align: left;
-                                            color: #8B83BA
-                                        }
-                                        QPushButton::hover{ 
-                                            background-color: #D9D5EC
-                                        }
+                                            color: {main_color}
+                                        }}
+                                        QToolButton::hover{{
+                                            background-color: {hover_color}
+                                        }}
                                     """)
         self.edit_btn.clicked.connect(self.edit_btn_clicked_handle)
         self.bg_layout.addWidget(self.edit_btn)
-
-        self.delete_btn = QPushButton(self.bg_container)
-        self.delete_btn.setObjectName('delete_btn')
-        self.delete_btn.setCursor(Qt.PointingHandCursor)
-        self.delete_btn.setText('Delete')
-        self.delete_btn.setStyleSheet("""QPushButton{background-color: none;
-                                            border: none;
-                                            border-radius: 10px;
-                                            padding: 10px;
-                                            text-align: left;
-                                            color: #D30000
-                                        }
-                                        QPushButton::hover{ 
-                                            background-color: #D9D5EC
-                                        }
-                                    """)
-        self.delete_btn.clicked.connect(self.delete_btn_clicked_handle)
         self.bg_layout.addWidget(self.delete_btn)
-
-    def exit_btn_clicked_handle(self):
-        self.close()
 
     def edit_btn_clicked_handle(self):
         pass
