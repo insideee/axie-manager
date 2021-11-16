@@ -4,9 +4,9 @@ This project is primarily a Python graphic interface implementation. That said, 
 
 ## Screenshots
 
-![1](https://i.imgur.com/AUR8Pmb.png)
+![1](https://i.imgur.com/h4HL9hT.png)
 
-![2](https://i.imgur.com/CoIdB81.png)
+![2](https://i.imgur.com/ptLSH15.png)
 
 ## Installation
 
