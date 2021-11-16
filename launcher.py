@@ -1,3 +1,5 @@
+import os
+import subprocess
 import sys
 from PySide6 import QtCore
 from PySide6.QtWidgets import *
@@ -122,14 +124,27 @@ class LoadingScreen(QMainWindow):
 
         if self.counter == 100:
             self.ui.info_label.setText('Initializing...')
-            self.timer.setInterval(2000)
 
         self.ui.progress.setValue(self.counter)
 
         if self.counter == 101:
             self.timer.stop()
-            new_window = getattr(importlib.import_module('src'), 'MainWindow')
-            show = new_window()
+            try:
+                new_window = getattr(importlib.import_module('src'), 'MainWindow')
+                show = new_window()
+            except:
+                if getattr(sys, 'frozen', False):
+                    application_path = os.path.dirname(sys.executable)
+                elif __file__:
+                    application_path = os.path.dirname(__file__)
+                    
+                    os_name = os.uname().sysname
+                    
+                    if os_name == 'Linux':
+                        subprocess.run(os.path.join(application_path, 'src/app'))
+                    elif os_name == 'Windows':
+                        subprocess.run(os.path.join(application_path, 'src/app.exe'))                
+            
             self.close()
 
         self.counter += 1

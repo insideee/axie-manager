@@ -11,6 +11,15 @@ import warnings
 
 from updater.config import UPDATE_DIRNAME, URL_CHECK_VERSION, URL_UPDATED_FILES
 
+exec_file = ''
+
+# determine if application is a script file or frozen exe
+if getattr(sys, 'frozen', False):
+    application_path = os.path.dirname(sys.executable)
+elif __file__:
+    application_path = os.path.dirname(__file__)
+
+exec_file = os.path.join(application_path, 'updater')
 
 class Updater:
 
@@ -157,8 +166,12 @@ class Updater:
         formatted_time = time_now.strftime('%H:%M:%S')
         self.log_header = f'Starting log at {formatted_datetime}'
 
-        # check if log exist:
-        log_path = os.path.dirname(__file__) + '/update.log'
+        # check if path exist:
+        if not os.path.isdir(exec_file):
+            os.mkdir(exec_file)
+        
+        # check if file exist    
+        log_path = exec_file + '/update.log'
         if not os.path.isfile(log_path):
             open(log_path, 'x')
             if self.log_counter == 0:
@@ -183,7 +196,7 @@ class Updater:
         """Get the current log, format and return it
         """
 
-        log_path = os.path.dirname(__file__) + '/update.log'
+        log_path = exec_file + '/update.log'
 
         if not os.path.isfile(log_path):
             warnings.warn('Log file missing')
