@@ -1,9 +1,9 @@
-from functions import Functions as func
+import tools
 import os
 import configs
 
 dir_color = os.path.join(os.path.dirname(configs.__file__), 'colorscheme.json')
-colorscheme = func.read_json(dir_color)
+colorscheme = tools.read_json(dir_color)
 
 stylesheet = {  'bg':f"""background-color:  {colorscheme['main colors']['application_bg']};
                         """,
@@ -138,6 +138,30 @@ stylesheet = {  'bg':f"""background-color:  {colorscheme['main colors']['applica
                 
                 'bottom_info': f"""color: {colorscheme['main colors']['main_color']}
                                 """,
+                                
+                'login_bg': f"""background-color: {colorscheme['main colors']['application_bg']}
+                                """,
+
+                'logo_login_frame': f"""background-color: {colorscheme['main colors']['main_color']}
+                                        """,
+                                        
+                'login_title_text': f"""color: {colorscheme['login']['main_color']}
+                                        """,
+
+                'login_info_entry': f"""color: {colorscheme['login']['info_text']}
+                                        """,
+                                        
+                'login_entry': f"""color: {colorscheme['search_box']['text']};
+                                background-color: {colorscheme['main colors']['application_bg']};
+                                border: 1px solid {colorscheme['login']['info_text']};
+                                border-radius: 7px
+                                """,
+                                
+                'login_btn': f"""QPushButton{{color: {colorscheme['main colors']['application_bg']};
+                                background-color: {colorscheme['login']['main_color']};
+                                border: 1px solid {colorscheme['login']['info_text']};
+                                border-radius: 7px}}
+                                QPushButton::pressed{{background-color: {colorscheme['login']['click_btn']};}}"""
 
 
                              }

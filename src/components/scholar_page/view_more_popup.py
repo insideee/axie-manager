@@ -1,6 +1,6 @@
 from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtWidgets import QFrame, QToolButton, QVBoxLayout
-from functions import Functions as func
+import tools
 
 
 class MoreMenuPopup(QFrame):
@@ -11,9 +11,9 @@ class MoreMenuPopup(QFrame):
         super(MoreMenuPopup, self).__init__()
 
         # properties
-        self.exit_icon = func.paint_image(image=':/img/img/exit_popup.svg', color=main_color,
+        self.exit_icon = tools.paint_image(image=':/img/img/exit_popup.svg', color=main_color,
                                           size=QSize(18, 18))
-        self.delete_icon = func.paint_image(image=':/img/img/Delete.svg', color='#D30000',
+        self.delete_icon = tools.paint_image(image=':/img/img/Delete.svg', color='#D30000',
                                           size=QSize(12, 12))
 
         # config

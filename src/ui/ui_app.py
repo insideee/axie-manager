@@ -6,39 +6,34 @@ import os
 from .app_style import stylesheet
 from components import BtnNav, UserAvatar, DashPage, ScholarPage
 from resources import resource
+import tools
 from .functions import UIFunctions
-from functions import Functions as func
 import configs
 
-
-class Ui_App(object):
-    def init_gui(self, app):
-        app.setObjectName('app')
-        self.func = UIFunctions()
+class App(QFrame):
+    
+    def __init__(self) -> None:
+        super().__init__()
         
-        # color schema
+        self.ui_func = UIFunctions()
+        
+        # color scheme
         dir_color = os.path.join(os.path.dirname(configs.__file__), 'colorscheme.json')
-        self.colorscheme = func.read_json(dir_color)
+        self.colorscheme = tools.read_json(dir_color)
         
         self.color_gradient_value_1 = self.colorscheme['main colors']['main_color_gradient']
         self.color_gradient_value_2 = self.colorscheme['main colors']['main_color']
-
-        # configs do app
-        app.setWindowTitle(' ')
-        app.setMinimumSize(QSize(1200, 700))
-        #app.setMaximumSize(QSize(1200, 700))
-        app.setWindowIcon(QIcon(QPixmap(':/img/img/logo.png')))
-        app.setGeometry(QStyle.alignedRect(
-                        Qt.LeftToRight,
-                        Qt.AlignCenter,
-                        app.size(),
-                        QGuiApplication.primaryScreen().availableGeometry(),
-                        ))
-
+        
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.setObjectName('app_main_layout')
+        self.main_layout.setSpacing(0)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        
         # bg
-        self.bg_frame = QFrame(app)
+        self.bg_frame = QFrame(self)
         self.bg_frame.setObjectName('bg_frame')
         self.bg_frame.setStyleSheet(stylesheet['bg'])
+        self.main_layout.addWidget(self.bg_frame)
 
         self.bg_layout = QHBoxLayout(self.bg_frame)
         self.bg_layout.setObjectName('bg_layout')
@@ -99,8 +94,6 @@ class Ui_App(object):
         self.info_bar_frame.setMinimumHeight(40)
         self.info_bar_frame.setMaximumHeight(40)
         self.content_layout.addWidget(self.info_bar_frame)
-
-        app.setCentralWidget(self.bg_frame)
         
         # link btns
         self.btn_dash.clicked.connect(lambda: self.stack_pages.setCurrentWidget(self.dash_page))
@@ -175,11 +168,11 @@ class Ui_App(object):
                     self.btn_scholars, self.btn_inventory]
 
         for btn in list_btn:
-            self.func.set_font(btn,
+            tools.set_font(btn,
                                10, ':/fonts/fonts/Montserrat-Medium.ttf',
                                bold=True)
             self.menu_layout.addWidget(btn)
-            btn.clicked.connect(self.func.btn_style_applyer)
+            btn.clicked.connect(self.ui_func.btn_style_applyer)
 
     def version_nav_config(self) -> None:
         self.version_frame = QFrame(self.nav_frame)
@@ -198,7 +191,7 @@ class Ui_App(object):
         self.version_label.setText('VERSION 1.0.1')
         self.version_label.setStyleSheet(stylesheet['version_label'])
         self.version_label.setAlignment(Qt.AlignCenter)
-        self.func.set_font(self.version_label,
+        tools.set_font(self.version_label,
                            10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True)
         self.version_layout.addWidget(self.version_label)
@@ -236,7 +229,7 @@ class Ui_App(object):
         self.title_label.setObjectName('title_label')
         self.title_label.setAlignment(Qt.AlignCenter)
         self.title_label.setText('AXIE ACADEMY')
-        self.func.set_font(self.title_label,
+        tools.set_font(self.title_label,
                            20, ':/fonts/fonts/Montserrat-SemiBold.ttf',
                            bold=True)
 
@@ -279,7 +272,7 @@ class Ui_App(object):
         self.search_label_frame.setMaximumHeight(45)
         self.search_label_frame.setStyleSheet(stylesheet['search_label_frame'])
         self.search_layout.addWidget(self.search_label_frame)
-        self.func.set_drop_shadow(self.search_label_frame, blur=20)
+        tools.set_drop_shadow(self.search_label_frame, blur=20)
 
         self.search_label_layout = QHBoxLayout(self.search_label_frame)
         self.search_label_layout.setObjectName('search_label_layout')
@@ -293,7 +286,7 @@ class Ui_App(object):
         self.search_label.setCursor(Qt.PointingHandCursor)
         self.search_label.setAlignment(Qt.AlignCenter)
         self.search_label.setStyleSheet('background-color: none')
-        self.func.set_font(self.search_label,
+        tools.set_font(self.search_label,
                            13, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True)
         self.search_label_layout.addWidget(self.search_label)
@@ -317,7 +310,7 @@ class Ui_App(object):
         self.search_icon.setMinimumSize(size)
         self.search_icon.setMaximumSize(size)
 
-        self.painted_img = self.func.paint_image(image=':/img/img/search_arrow.svg',
+        self.painted_img = tools.paint_image(image=':/img/img/search_arrow.svg',
                                                  color=color_gradient, size=size)
 
         self.search_icon.setPixmap(self.painted_img)
@@ -330,7 +323,7 @@ class Ui_App(object):
         self.search_entry_frame.setStyleSheet(stylesheet['search_entry_frame'])
         self.search_entry_frame.setMaximumHeight(45)
         self.search_layout.addWidget(self.search_entry_frame)
-        self.func.set_drop_shadow(self.search_entry_frame, blur=20)
+        tools.set_drop_shadow(self.search_entry_frame, blur=20)
 
         self.search_entry_layout = QHBoxLayout(self.search_entry_frame)
         self.search_entry_layout.setObjectName('search_entry_layout')
@@ -343,7 +336,7 @@ class Ui_App(object):
         self.search_entry.setPlaceholderText('Find here...')
         self.search_entry.setObjectName('search_entry')
         self.search_entry.setStyleSheet(stylesheet['search_entry'])
-        self.func.set_font(self.search_entry,
+        tools.set_font(self.search_entry,
                            10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True, index=1)
         self.search_entry_layout.addWidget(self.search_entry)
@@ -353,7 +346,7 @@ class Ui_App(object):
         size = QSize(30, 30)
         self.search_entry_btn.setMinimumSize(size)
         self.search_entry_btn.setMaximumSize(size)
-        self.entry_icon = self.func.paint_image(
+        self.entry_icon = tools.paint_image(
             ':/img/img/search.svg', color=QColor(self.colorscheme['search_box']['icon']), size=size)
         self.search_entry_btn.setIcon(self.entry_icon)
         self.search_entry_btn.setSizePolicy(
@@ -386,7 +379,7 @@ class Ui_App(object):
         size = QSize(25, 33)
         self.notification_icon.setMinimumSize(size)
         self.notification_icon.setMaximumSize(size)
-        icon = self.func.paint_image(
+        icon = tools.paint_image(
             ':/img/img/notification.svg', color=color_gradient, size=size)
         self.notification_icon.setPixmap(icon)
         self.notification_icon.setScaledContents(True)
@@ -398,7 +391,7 @@ class Ui_App(object):
         size = QSize(35, 35)
         self.settings_icon.setMinimumSize(size)
         self.settings_icon.setMaximumSize(size)
-        icon = self.func.paint_image(
+        icon = tools.paint_image(
             ':/img/img/settings.svg', color=color_gradient, size=size)
         self.settings_icon.setPixmap(icon)
         self.settings_icon.setScaledContents(True)
@@ -427,7 +420,7 @@ class Ui_App(object):
         brush = QBrush(color_gradient)
         label_pal.setBrush(QPalette.ColorRole.Text, brush)
 
-        self.func.set_font(self.dash_page.analytics_title_label,
+        tools.set_font(self.dash_page.analytics_title_label,
                            16, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=1)
         self.dash_page.analytics_title_label.setPalette(label_pal)
@@ -435,35 +428,35 @@ class Ui_App(object):
 
         # scholars
         self.dash_page.scholars_widget.setStyleSheet(stylesheet['scholar_widget'])
-        self.func.set_drop_shadow(
+        tools.set_drop_shadow(
             self.dash_page.scholars_widget, blur=15, opacity=70)
-        self.func.set_font(self.dash_page.scholars_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
+        tools.set_font(self.dash_page.scholars_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True)
-        self.func.set_font(self.dash_page.scholars_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
+        tools.set_font(self.dash_page.scholars_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=False, index=1)
         self.dash_page.scholars_widget.data_label.setText('429')
 
         # monthly profit
         self.dash_page.m_profit_widget.setStyleSheet(stylesheet['m_profit_widget'])
-        self.func.set_drop_shadow(
+        tools.set_drop_shadow(
             self.dash_page.m_profit_widget, blur=15, opacity=70)
-        self.func.set_font(self.dash_page.m_profit_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
+        tools.set_font(self.dash_page.m_profit_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True)
-        self.func.set_font(self.dash_page.m_profit_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
+        tools.set_font(self.dash_page.m_profit_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=False, index=1)
         self.dash_page.m_profit_widget.data_label.setText('1.234.567')
 
         # axies
         self.dash_page.axies_widget.setStyleSheet(stylesheet['axies_widget'])
-        self.func.set_drop_shadow(
+        tools.set_drop_shadow(
             self.dash_page.axies_widget, blur=15, opacity=70)
-        self.func.set_font(self.dash_page.axies_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
+        tools.set_font(self.dash_page.axies_widget.info_label, 10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True)
-        self.func.set_font(self.dash_page.axies_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
+        tools.set_font(self.dash_page.axies_widget.data_label, 24, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=False, index=1)
         self.dash_page.axies_widget.data_label.setText('2.114')
 
-        self.func.set_font(self.dash_page.graph_title,
+        tools.set_font(self.dash_page.graph_title,
                            16, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=1)
         self.dash_page.daily_w_title.setPalette(label_pal)
@@ -472,46 +465,46 @@ class Ui_App(object):
         # graph
         self.dash_page.graph_title.setPalette(label_pal)
         self.dash_page.graph_title.setForegroundRole(QPalette.Text)
-        self.func.set_drop_shadow(self.dash_page.graph, blur=16, opacity=40)
+        tools.set_drop_shadow(self.dash_page.graph, blur=16, opacity=40)
 
         # daily
         self.dash_page.daily_graph_container.setStyleSheet(stylesheet['daily_frame'])
-        self.func.set_drop_shadow(self.dash_page.daily_graph_container,
+        tools.set_drop_shadow(self.dash_page.daily_graph_container,
                                   blur=16, opacity=40)
 
-        self.func.set_font(self.dash_page.daily_w_title,
+        tools.set_font(self.dash_page.daily_w_title,
                            16, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=1)
 
-        self.func.set_font(self.dash_page.daily_title,
+        tools.set_font(self.dash_page.daily_title,
                            11, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=1)
         self.dash_page.daily_title.setPalette(label_pal)
         self.dash_page.daily_title.setForegroundRole(QPalette.Text)
 
         self.dash_page.daily_label.setStyleSheet(stylesheet['daily_label'])
-        self.func.set_font(self.dash_page.daily_label,
+        tools.set_font(self.dash_page.daily_label,
                            11, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=1)
         
-        self.func.setStyleSheet(stylesheet['daily_graph'])
+        #tools.setStyleSheet(stylesheet['daily_graph'])
 
     def scholars_page_config(self):  
         # bg
         self.scholars_page.setStyleSheet(stylesheet['scholars_page'])
         
         # filter btn
-        self.func.set_font(self.scholars_page.filter_btn,
+        tools.set_font(self.scholars_page.filter_btn,
                            9, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=1)
         self.scholars_page.filter_btn.setStyleSheet(stylesheet['filter_btn'])
-        self.func.set_drop_shadow(self.scholars_page.filter_btn, blur=10, opacity=100)
+        tools.set_drop_shadow(self.scholars_page.filter_btn, blur=10, opacity=100)
         
         # add btn
-        self.func.set_font(self.scholars_page.add_btn,
+        tools.set_font(self.scholars_page.add_btn,
                            10, ':/fonts/fonts/Montserrat-Light.ttf',
                            bold=True, index=0)
-        self.func.set_drop_shadow(self.scholars_page.add_btn, blur=10, opacity=100)
+        tools.set_drop_shadow(self.scholars_page.add_btn, blur=10, opacity=100)
         
         self.scholars_page.add_btn.setStyleSheet(stylesheet['add_btn'])
         
@@ -521,14 +514,14 @@ class Ui_App(object):
         # titles
         for label in [self.scholars_page.name_title_label, self.scholars_page.today_title_label,self.scholars_page.yesterday_title_label,
                       self.scholars_page.total_title_label, self.scholars_page.next_claim_title_label]:
-            func.set_font(label,
+            tools.set_font(label,
                           10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True, index=1)
             label.setText(label.text().upper())
             label.setStyleSheet(stylesheet['title_table'])
             
         # bottom
-        func.set_font(self.scholars_page.bottom_info_label,
+        tools.set_font(self.scholars_page.bottom_info_label,
                           10, ':/fonts/fonts/Montserrat-Medium.ttf',
                            bold=True, index=1)
         

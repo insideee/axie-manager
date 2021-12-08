@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QCheckBox, QFrame, QGridLayout, QHBoxLayout, QLabe
 from .view_more_popup import MoreMenuPopup
 from .view_more_btn import MoreMenuBtn
 from resources import resource
-from functions import Functions as func
+import tools
 
 
 class DataWidget(QFrame):
@@ -38,14 +38,14 @@ class DataWidget(QFrame):
                                     border-bottom: 1px solid {self.colorscheme['table_view']['main_color']};
                                     border-radius: 0px }}"""
         
-        self.expand_image = func.paint_image(image=':/img/img/expand.svg',
+        self.expand_image = tools.paint_image(image=':/img/img/expand.svg',
                                              color=QColor(self.main_color),
                                              size=QSize(20, 20))
-        self.minimize_image = func.paint_image(image=':/img/img/minimize.svg',
+        self.minimize_image = tools.paint_image(image=':/img/img/minimize.svg',
                                                color=QColor(self.main_color),
                                                size=QSize(20, 20))
         
-        self.checked_image = func.paint_image(image=':/img/img/checked.svg',
+        self.checked_image = tools.paint_image(image=':/img/img/checked.svg',
                                                color=QColor(self.main_color),
                                                size=QSize(20, 20))
         
@@ -75,14 +75,14 @@ class DataWidget(QFrame):
         self.view_more_layout = None
         self.view_more_btn = None
         self.view_more_menu_btn = None
-        self.view_more_menu_icon = func.paint_image(image=':/img/img/more_menu.svg',
+        self.view_more_menu_icon = tools.paint_image(image=':/img/img/more_menu.svg',
                                                     color=QColor(self.main_color),
                                                     size=QSize(25, 25))
-        self.view_more_menu_icon_painted = func.paint_image(image=':/img/img/more_menu.svg',
+        self.view_more_menu_icon_painted = tools.paint_image(image=':/img/img/more_menu.svg',
                                                             color=QColor(
                                                         self.hover_color),
                                                             size=QSize(25, 25))
-        self.view_more_menu_exit_icon = func.paint_image(image=':/img/img/exit_popup.svg',
+        self.view_more_menu_exit_icon = tools.paint_image(image=':/img/img/exit_popup.svg',
                                                          color=QColor(
                                                         self.main_color),
                                                          size=QSize(18, 18))
@@ -118,7 +118,7 @@ class DataWidget(QFrame):
         self.check_select_container.setStyleSheet('border-radius: 4px;\
                                                     border: none;')
         self.select_expand_layout.addWidget(self.check_select_container)
-        func.set_drop_shadow(self.check_select_container)
+        tools.set_drop_shadow(self.check_select_container)
 
         self.check_select_container_layout = QHBoxLayout(
             self.check_select_container)
@@ -271,7 +271,7 @@ class DataWidget(QFrame):
                                                         border: none;}}
                                           QPushButton::hover{{ color: {self.hover_color}
                                               }}""")
-        func.set_font(target=self.view_more_btn,
+        tools.set_font(target=self.view_more_btn,
                       size=9, font_name=':/fonts/fonts/Montserrat-Medium.ttf',
                       bold=False, index=1)
         self.view_more_layout.addWidget(self.view_more_btn)
@@ -295,10 +295,10 @@ class DataWidget(QFrame):
                                        hover_color=self.popup_hover_color,
                                        widget_color=self.widget_color)
             for frame in [self.popup.bg_container, self.popup.exit_btn]:
-                func.set_drop_shadow(frame, blur=10, opacity=40)
+                tools.set_drop_shadow(frame, blur=10, opacity=40)
 
             for btn in [self.popup.edit_btn, self.popup.delete_btn]:
-                func.set_font(target=btn,
+                tools.set_font(target=btn,
                               size=9, font_name=':/fonts/fonts/Montserrat-Medium.ttf',
                               bold=False, index=1)
 
@@ -308,7 +308,7 @@ class DataWidget(QFrame):
         self.popup.show()
 
     def checkbox_select_pressed(self):
-        """Change the style and handle with selected functionality.
+        """Change the style and handle with selected toolstionality.
         """
         if self.check_box_select.isChecked():
             self.setStyleSheet(self.selected_stylesheet)
@@ -443,7 +443,7 @@ class CustomPopup(MoreMenuPopup):
         super().__init__(pos_spawn=pos_spawn, main_color=main_color, hover_color=hover_color, widget_color=widget_color)
 
         # properties
-        self.edit_icon = func.paint_image(image=':/img/img/Edit.svg', color=main_color,
+        self.edit_icon = tools.paint_image(image=':/img/img/Edit.svg', color=main_color,
                                           size=QSize(12, 12))
 
         # config

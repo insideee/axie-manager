@@ -1,1 +1,1 @@
-from .ui_app import Ui_App
+from .ui_main import Ui_App

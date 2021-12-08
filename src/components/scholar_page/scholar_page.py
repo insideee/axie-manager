@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QCheckBox, QFrame, QHBoxLayout, QLabel, QToolButto
 from .data_widget import DataWidget
 from .view_more_popup import MoreMenuPopup
 from .view_more_btn import MoreMenuBtn
-from functions import Functions as func
+import tools
 import resource
 
 # primeiro saber o total de widgets para saber o 
@@ -12,7 +12,7 @@ import resource
 # se for menos que o minimo dar resize na janela para sempre cada um ter 50 px
 # evitar bug da animação
 #
-# para o max resize, criar uma func para posicionar e no caso do resize
+# para o max resize, criar uma tools para posicionar e no caso do resize
 # reload no posicionar
 #
 # need to be 920, 540
@@ -37,18 +37,18 @@ class ScholarPage(QFrame):
         self.popup_hover_color = self.colorscheme['table_view']['popup_hover_color']
         self.widget_color = self.colorscheme['main colors']['widget_bg']
         self.popup = None
-        self.view_more_menu_icon = func.paint_image(image=':/img/img/more_menu.svg',
+        self.view_more_menu_icon = tools.paint_image(image=':/img/img/more_menu.svg',
                                                     color=QColor(self.main_color),
                                                     size=QSize(25, 25))
-        self.view_more_menu_icon_painted = func.paint_image(image=':/img/img/more_menu.svg',
+        self.view_more_menu_icon_painted = tools.paint_image(image=':/img/img/more_menu.svg',
                                                             color=QColor(
                                                         self.hover_color),
                                                             size=QSize(25, 25))
-        self.view_more_menu_exit_icon = func.paint_image(image=':/img/img/exit_popup.svg',
+        self.view_more_menu_exit_icon = tools.paint_image(image=':/img/img/exit_popup.svg',
                                                          color=QColor(
                                                         self.main_color),
                                                          size=QSize(18, 18))
-        self.filter_btn_icon = func.paint_image(':img/img/filter.svg', 
+        self.filter_btn_icon = tools.paint_image(':img/img/filter.svg', 
                                                        color=QColor(self.main_color), 
                                                        size=QSize(17, 17) )       
         
@@ -56,10 +56,10 @@ class ScholarPage(QFrame):
         self.first_item_showing = 1 
         self.last_item_showing = 8
         self.total_items = 8
-        self.left_icon = func.paint_image(':img/img/left.svg', 
+        self.left_icon = tools.paint_image(':img/img/left.svg', 
                                                        color=QColor(self.main_color), 
                                                        size=QSize(7, 12) )  
-        self.right_icon = func.paint_image(':img/img/right.svg', 
+        self.right_icon = tools.paint_image(':img/img/right.svg', 
                                                        color=QColor(self.main_color), 
                                                        size=QSize(7, 12) )  
         
@@ -270,9 +270,9 @@ class ScholarPage(QFrame):
                                        hover_color=self.popup_hover_color,
                                        widget_color=self.widget_color)
             for frame in [self.popup.bg_container, self.popup.exit_btn]:
-                func.set_drop_shadow(frame, blur=10, opacity=40)
+                tools.set_drop_shadow(frame, blur=10, opacity=40)
             
-            func.set_font(target=self.popup.delete_btn,
+            tools.set_font(target=self.popup.delete_btn,
                             size=9, font_name=':/fonts/fonts/Montserrat-Medium.ttf',
                             bold=False, index=1)
             

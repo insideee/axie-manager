@@ -1,7 +1,7 @@
 from PySide6.QtCore import QEvent, QSize, Qt
 from PySide6.QtGui import QEnterEvent, QMouseEvent
 from PySide6.QtWidgets import QSizePolicy, QToolButton
-from functions import Functions as func
+import tools
 
 class BtnNav(QToolButton):
     
@@ -24,8 +24,8 @@ class BtnNav(QToolButton):
         # properties
         self.image = image
         self.text = text
-        self.icon_default = func.paint_image(self.image, color=colorscheme['main colors']['menu_icon'], size=QSize(25, 25))
-        self.icon_hover = func.paint_image(self.image, color=colorscheme['main colors']['menu_hover_icon'], size=QSize(25, 25))
+        self.icon_default = tools.paint_image(self.image, color=colorscheme['main colors']['menu_icon'], size=QSize(25, 25))
+        self.icon_hover = tools.paint_image(self.image, color=colorscheme['main colors']['menu_hover_icon'], size=QSize(25, 25))
         self.change_color = True
         self.default_style = default_style
         self.clicked_style = clicked_style

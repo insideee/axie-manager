@@ -24,5 +24,13 @@
         "popup_hover_color": "#E6E6F2",
         "details_color": "#E6E6F2",
         "header_bg": "#FFFFFF"
+    },
+
+    "login": {
+        "main_color": "#033F63",
+        "info_text": "#C4C4C4",
+        "click_btn": "#094467"
     }
+
+
 }
