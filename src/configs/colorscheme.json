@@ -28,6 +28,7 @@
 
     "login": {
         "main_color": "#033F63",
+        "second_color": "#AC256F",
         "info_text": "#C4C4C4",
         "click_btn": "#094467"
     }

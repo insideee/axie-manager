@@ -151,17 +151,42 @@ stylesheet = {  'bg':f"""background-color:  {colorscheme['main colors']['applica
                 'login_info_entry': f"""color: {colorscheme['login']['info_text']}
                                         """,
                                         
-                'login_entry': f"""color: {colorscheme['search_box']['text']};
+                'login_entry': f"""QLineEdit{{color: {colorscheme['login']['main_color']};
                                 background-color: {colorscheme['main colors']['application_bg']};
                                 border: 1px solid {colorscheme['login']['info_text']};
-                                border-radius: 7px
+                                border-radius: 7px}}
+                                QLineEdit::focus{{border-bottom: 1px solid {colorscheme['login']['main_color']}}}
                                 """,
                                 
                 'login_btn': f"""QPushButton{{color: {colorscheme['main colors']['application_bg']};
                                 background-color: {colorscheme['login']['main_color']};
                                 border: 1px solid {colorscheme['login']['info_text']};
                                 border-radius: 7px}}
-                                QPushButton::pressed{{background-color: {colorscheme['login']['click_btn']};}}"""
+                                QPushButton::pressed{{background-color: {colorscheme['login']['click_btn']};}}
+                                """,
+                                
+                'login_question_label': f"""color: {colorscheme['login']['main_color']};
+                                        """,
+                                        
+                'login_question_btn': f"""QPushButton{{color: {colorscheme['login']['second_color']};
+                                        background-color: {colorscheme['main colors']['application_bg']};
+                                        border: none}},
+                                        QPushButton::focus{{border: none}}
+                                        """,
+                                        
+                'rememberme_btn': f"""QRadioButton{{color: {colorscheme['login']['info_text']}
+                                        }}
+                                        QRadioButton::indicator{{border:1px solid {colorscheme['login']['info_text']};
+                                        border-radius: 7px}}
+                                        QRadioButton::indicator::checked{{background-color: {colorscheme['login']['info_text']}}}
+                                        """,
+                
+                'forgot_btn': f"""QPushButton{{color: {colorscheme['login']['main_color']};
+                                        background-color: {colorscheme['main colors']['application_bg']};
+                                        border: none}},
+                                        QPushButton::focus{{border: none}}
+                                        """,
+                                        
 
 
                              }
