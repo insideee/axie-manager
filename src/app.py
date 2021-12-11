@@ -1,6 +1,6 @@
 from PySide6.QtCore import QEvent
 from PySide6.QtWidgets import QFrame, QMainWindow, QApplication
-from PySide6.QtGui import QMouseEvent
+from PySide6.QtGui import QFocusEvent, QMouseEvent
 from ui import Ui_App
 import sys
 

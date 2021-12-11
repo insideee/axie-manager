@@ -48,7 +48,7 @@ class Login(QFrame):
         self.ask_create_acc_btn.clicked.connect(lambda: self.form_frame.setCurrentWidget(self.create_form))
         self.ask_have_acc_btn.clicked.connect(lambda: self.form_frame.setCurrentWidget(self.login_form))
         
-        self.form_frame.setCurrentWidget(self.create_form)
+        self.form_frame.setCurrentWidget(self.login_form)
         
     def form_login_gui(self):
         self.login_form = QFrame(self.form_frame)
