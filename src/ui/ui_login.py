@@ -45,9 +45,6 @@ class Login(QFrame):
         self.form_frame.addWidget(self.login_form)
         self.form_frame.addWidget(self.create_form)
         
-        self.ask_create_acc_btn.clicked.connect(lambda: self.form_frame.setCurrentWidget(self.create_form))
-        self.ask_have_acc_btn.clicked.connect(lambda: self.form_frame.setCurrentWidget(self.login_form))
-        
         self.form_frame.setCurrentWidget(self.login_form)
         
     def form_login_gui(self):
@@ -162,7 +159,7 @@ class Login(QFrame):
         self.btns_container_layout = QGridLayout(self.btns_container)
         self.btns_container_layout.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         self.btns_container_layout.setSpacing(5)
-        self.btns_container_layout.setRowMinimumHeight(0, 40)
+        #self.btns_container_layout.setRowMinimumHeight(0, 0)
         self.btns_container_layout.setContentsMargins(0, 0, 0, 0)
         
         # rememberme / forget password        
@@ -177,6 +174,24 @@ class Login(QFrame):
         self.forgot_pass.setStyleSheet(stylesheet['forgot_btn'])
         self.btns_container_layout.addWidget(self.forgot_pass, 0, 0, alignment=Qt.AlignRight | Qt.AlignTop)
         
+        # info container
+        self.info_container = QWidget()
+        self.info_container.setMinimumSize(300, 30)
+        
+        self.info_layout = QVBoxLayout(self.info_container)
+        self.info_layout.setAlignment(Qt.AlignCenter)
+        self.info_layout.setContentsMargins(0, 0, 0, 0)
+        self.info_layout.setSpacing(0)
+        
+        self.info_label = QLabel()
+        self.info_label.setMinimumSize(QSize(25, 25))
+        self.info_label.setAlignment(Qt.AlignCenter)
+        self.info_layout.addWidget(self.info_label)
+        
+        tools.set_font(self.info_label, 8, ':/fonts/fonts/Montserrat-Medium.ttf',
+                        bold=True)
+        self.btns_container_layout.addWidget(self.info_container, 1, 0)
+        
         # login btn
         self.login_btn = QPushButton(self.login_form_container)
         self.login_btn.setObjectName('login_btn')
@@ -186,7 +201,7 @@ class Login(QFrame):
         self.login_btn.setStyleSheet(stylesheet['login_btn'])
         self.login_btn.setCursor(Qt.PointingHandCursor)
         self.login_btn.setFocus()
-        self.btns_container_layout.addWidget(self.login_btn, 1, 0)
+        self.btns_container_layout.addWidget(self.login_btn, 2, 0)
         
         # create acc
         self.create_acc_container = QWidget()
@@ -212,7 +227,7 @@ class Login(QFrame):
         self.ask_create_acc_btn.setStyleSheet(stylesheet['login_question_btn'])
         self.create_acc_layout.addWidget(self.ask_create_acc_btn)
         
-        self.btns_container_layout.addWidget(self.create_acc_container, 2, 0)
+        self.btns_container_layout.addWidget(self.create_acc_container, 3, 0)
         
         for label in [self.remember_btn, self.forgot_pass, self.ask_create_acc_label, self.ask_create_acc_btn, self.login_btn]:
             tools.set_font(label,
@@ -245,8 +260,11 @@ class Login(QFrame):
         self.create_acc_entries()
         self.create_container_layout.addWidget(self.create_entries_container, 1, 0)
         
+        self.create_info_container()
+        self.create_container_layout.addWidget(self.create_info_container, 2, 0)
+        
         self.create_acc_btns()
-        self.create_container_layout.addWidget(self.create_btns_container, 2, 0)
+        self.create_container_layout.addWidget(self.create_btns_container, 3, 0)
         
     def create_acc_title(self):
         
@@ -351,6 +369,23 @@ class Login(QFrame):
                         10, ':/fonts/fonts/Montserrat-Medium.ttf',
                         bold=True)
     
+    def create_info_container(self):
+        self.create_info_container = QWidget()
+        self.create_info_container.setMinimumSize(300, 30)
+        
+        self.create_info_layout = QVBoxLayout(self.create_info_container)
+        self.create_info_layout.setAlignment(Qt.AlignCenter)
+        self.create_info_layout.setContentsMargins(0, 0, 0, 0)
+        self.create_info_layout.setSpacing(0)
+        
+        self.create_info_label = QLabel()
+        self.create_info_label.setMinimumSize(QSize(25, 25))
+        self.create_info_label.setAlignment(Qt.AlignCenter)
+        self.create_info_layout.addWidget(self.create_info_label)
+        
+        tools.set_font(self.create_info_label, 8, ':/fonts/fonts/Montserrat-Medium.ttf',
+                        bold=True)    
+           
     def create_acc_btns(self):
         
         self.create_btns_container = QWidget()
@@ -358,7 +393,7 @@ class Login(QFrame):
         self.create_btns_container_layout = QGridLayout(self.create_btns_container)
         self.create_btns_container_layout.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         self.create_btns_container_layout.setSpacing(5)
-        self.create_btns_container_layout.setRowMinimumHeight(0, 70)
+        self.create_btns_container_layout.setRowMinimumHeight(0, 40)
         self.create_btns_container_layout.setContentsMargins(0, 0, 0, 0)
         
         # create btn

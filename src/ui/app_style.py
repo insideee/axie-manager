@@ -151,12 +151,22 @@ stylesheet = {  'bg':f"""background-color:  {colorscheme['main colors']['applica
                 'login_info_entry': f"""color: {colorscheme['login']['info_text']}
                                         """,
                                         
+                'login_info_entry_invalid': f"""color: {colorscheme['login']['second_color']}
+                                                """,
+                                        
                 'login_entry': f"""QLineEdit{{color: {colorscheme['login']['main_color']};
                                 background-color: {colorscheme['main colors']['application_bg']};
                                 border: 1px solid {colorscheme['login']['info_text']};
                                 border-radius: 7px}}
                                 QLineEdit::focus{{border-bottom: 1px solid {colorscheme['login']['main_color']}}}
                                 """,
+                
+                'login_entry_invalid': f"""QLineEdit{{color: {colorscheme['login']['main_color']};
+                                                background-color: {colorscheme['main colors']['application_bg']};
+                                                border: 1px solid {colorscheme['login']['second_color']};
+                                                border-radius: 7px}}
+                                                QLineEdit::focus{{border-bottom: 1px solid {colorscheme['login']['second_color']}}}
+                                                """,
                                 
                 'login_btn': f"""QPushButton{{color: {colorscheme['main colors']['application_bg']};
                                 background-color: {colorscheme['login']['main_color']};
@@ -187,6 +197,9 @@ stylesheet = {  'bg':f"""background-color:  {colorscheme['main colors']['applica
                                         QPushButton::focus{{border: none}}
                                         """,
                                         
-
-
+                'info_message_positive': f"""color: {colorscheme['login']['main_color']}
+                                                """,
+                
+                'info_message_negative': f"""color: {colorscheme['login']['second_color']}
+                                                """,
                              }
