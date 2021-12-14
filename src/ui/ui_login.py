@@ -5,6 +5,7 @@ from PySide6.QtGui import *
 from .app_style import stylesheet
 import tools
 
+
 class Login(QFrame):
     
     def __init__(self) -> None:
@@ -260,7 +261,7 @@ class Login(QFrame):
         self.create_acc_entries()
         self.create_container_layout.addWidget(self.create_entries_container, 1, 0)
         
-        self.create_info_container()
+        self.create_acc_info_container()
         self.create_container_layout.addWidget(self.create_info_container, 2, 0)
         
         self.create_acc_btns()
@@ -369,7 +370,7 @@ class Login(QFrame):
                         10, ':/fonts/fonts/Montserrat-Medium.ttf',
                         bold=True)
     
-    def create_info_container(self):
+    def create_acc_info_container(self):
         self.create_info_container = QWidget()
         self.create_info_container.setMinimumSize(300, 30)
         

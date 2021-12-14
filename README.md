@@ -1,6 +1,6 @@
 # Axie Manager
 
-This project is primarily a Python graphic interface implementation. That said, blockchain-enabled games is the future and Axie is a good example of that, you can read more about Axie [here](https://www.rappler.com/technology/gaming/things-to-know-axie-infinity). The NFT requirement to play this game occasioned in a good feature and a life changing opportunity, popularly known as Axie Academys. A lot of online management tools are available, but we want them to be entirely free and open source with the benefits of a desktop application.
+This project is primarily a Python graphic interface implementation. That said, blockchain-enabled games is the future and Axie is a good example of that, you can read more about Axie [here](https://www.rappler.com/technology/gaming/things-to-know-axie-infinity). The NFT requirement to play this game occasioned in a good feature and a life-changing opportunity, popularly known as Axie Academy's. A lot of online management tools are available, but we want them to be entirely free and open source with the benefits of a desktop application.
 
 ## Screenshots
 
