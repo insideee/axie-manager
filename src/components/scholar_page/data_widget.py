@@ -287,6 +287,7 @@ class DataWidget(QFrame):
 
     def view_more_menu_btn_pressed(self):
         global_pos = self.view_more_container.mapToGlobal(QPoint(0, 0))
+        print(global_pos)
         move_to = global_pos - QPoint(15, 10)
 
         if self.popup == None:
@@ -308,7 +309,7 @@ class DataWidget(QFrame):
         self.popup.show()
 
     def checkbox_select_pressed(self):
-        """Change the style and handle with selected toolstionality.
+        """Change the style and handle with selected functionality.
         """
         if self.check_box_select.isChecked():
             self.setStyleSheet(self.selected_stylesheet)

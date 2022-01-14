@@ -24,6 +24,7 @@
     <file>./img/left.svg</file>
     <file>./img/right.svg</file>
     <file>./img/small_loading.gif</file>
+    <file>./img/widget_loading.gif</file>
   </qresource>
   <qresource prefix="fonts">
     <file>fonts/Montserrat-Black.ttf</file>

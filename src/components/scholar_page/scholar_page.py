@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QCheckBox, QFrame, QHBoxLayout, QLabel, QToolButto
 from .data_widget import DataWidget
 from .view_more_popup import MoreMenuPopup
 from .view_more_btn import MoreMenuBtn
+from .add_scholar_popup import AddPopup
 import tools
 import resource
 
@@ -74,7 +75,6 @@ class ScholarPage(QFrame):
         self.header_data_frame.setStyleSheet(self.reset_style)
         self.main_layout.addWidget(self.header_data_frame)   
         
-        self.header_data_config()
         
         self.data_view_frame = QFrame(self)
         self.data_view_frame.setObjectName('data_view_frame')
@@ -82,7 +82,6 @@ class ScholarPage(QFrame):
         self.data_view_frame.setStyleSheet(self.reset_style)
         self.main_layout.addWidget(self.data_view_frame)
         
-        self.data_view_config()
         
         self.bottom_data_frame = QFrame(self)
         self.bottom_data_frame.setObjectName('bottom_data_frame')
@@ -91,6 +90,8 @@ class ScholarPage(QFrame):
         self.bottom_data_frame.setStyleSheet(self.reset_style)
         self.main_layout.addWidget(self.bottom_data_frame)
         
+        self.header_data_config()
+        self.data_view_config()
         self.bottom_config()
         
     def header_data_config(self):
@@ -155,7 +156,7 @@ class ScholarPage(QFrame):
         self.filter_btn.setText('Filter')
         self.header_btn_filter_layout.addWidget(self.filter_btn)
         
-        # add
+        # add        
         self.add_btn = QToolButton(self.header_data_frame)    
         self.add_btn.setObjectName('add_btn')
         self.add_btn.setMinimumSize(70, 30)
@@ -163,6 +164,7 @@ class ScholarPage(QFrame):
         self.add_btn.setCursor(Qt.PointingHandCursor)
         self.add_btn.setToolButtonStyle(Qt.ToolButtonTextOnly)
         self.add_btn.setText('ADD')
+        self.add_btn.clicked.connect(self.add_scholar)
         self.header_btn_manage_layout.addWidget(self.add_btn)
         
     def table_header_config(self):
@@ -324,3 +326,12 @@ class ScholarPage(QFrame):
         self.go_right_btn.setCursor(Qt.PointingHandCursor)
         self.bottom_data_layout.addWidget(self.go_right_btn)
         
+    def add_scholar(self):
+        global_pos = self.data_view_frame.mapToGlobal(QPoint(0, 0))
+        move_to = global_pos + QPoint((self.data_view_frame.width() / 2) - 175, 0)
+        self.add_popup = AddPopup(parent=self, pos_spawn=move_to, colorscheme=self.colorscheme)
+        
+        #shadow
+        tools.set_drop_shadow(self.add_popup, blur=10, opacity=60)
+        
+        self.add_popup.show()

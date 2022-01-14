@@ -46,4 +46,18 @@ class RequestThread(QThread):
     def run(self):
         data =  asyncio.run(make_request(*self.request))
         self.data.emit(data)
-    
+        
+def get_token(obj):
+    parent = obj
+
+    for i in range(0, 101):
+        parent = parent.parent()
+        
+        if hasattr(parent, 'objectName'):
+
+            name = parent.objectName()
+
+            if name == 'app':
+                return parent.token
+        else:
+            return None

@@ -1,9 +1,8 @@
 from PySide6.QtCore import QObject, QSize, Qt
-from PySide6.QtGui import QColor, QFont, QFontDatabase, QPainter, QPixmap
+from PySide6.QtGui import QColor, QFont, QFontDatabase, QPainter, QPixmap, QMovie
 from PySide6.QtSvg import QSvgRenderer
-from PySide6.QtWidgets import QGraphicsDropShadowEffect, QWidget
+from PySide6.QtWidgets import QGraphicsDropShadowEffect, QLabel
 import json
-import ast
 
 
 def set_font(target: QObject, size: int, font_name: str, bold: bool, index: int=0) -> None:
@@ -63,3 +62,10 @@ def read_json(file_path: str) -> dict:
     with open(file_path, 'r') as json_file:
         
         return json.loads(json_file.read())
+    
+def init_loading_gif(qlabel: QLabel, path):
+        loading_gif = QMovie(
+            path)
+        loading_gif.start()
+        qlabel.setText('')
+        qlabel.setMovie(loading_gif)

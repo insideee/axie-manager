@@ -1,9 +1,9 @@
 import sys
-from PySide6.QtCore import QTimer
-from PySide6.QtGui import QMouseEvent, QMovie
+from PySide6.QtCore import QTimer, QPoint
+from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import QLabel, QLineEdit, QMainWindow, QApplication
 
-import api
+import api, tools
 from ui import Ui_App
 from ui.app_style import stylesheet
 
@@ -20,6 +20,20 @@ class App(QMainWindow):
         self.request_thread = None
 
         # login page config
+        self.login_page_config()
+
+    def mousePressEvent(self, event: QMouseEvent) -> None:
+
+        # remove cursor when search lose focus
+        focus_widget = QApplication.focusWidget()
+
+        if hasattr(focus_widget, 'objectName'):
+            if focus_widget.objectName() == 'search_entry':
+                focus_widget.clearFocus()
+
+        return super().mousePressEvent(event)
+
+    def login_page_config(self):
         # link create and login btns to pages
         self.ui.login_page.ask_create_acc_btn.clicked.connect(self.link_login_btns_pages)
         self.ui.login_page.ask_have_acc_btn.clicked.connect(self.link_login_btns_pages)
@@ -35,20 +49,9 @@ class App(QMainWindow):
         self.ui.login_page.create_repassword_entry.textChanged.connect(
             lambda: self.realtime_password_validator(entry=self.ui.login_page.create_repassword_entry,
                                                             info_entry=self.ui.login_page.create_repassword_entry_label))
-
-    def mousePressEvent(self, event: QMouseEvent) -> None:
-
-        # remove cursor when search lose focus
-        focus_widget = QApplication.focusWidget()
-
-        if hasattr(focus_widget, 'objectName'):
-            if focus_widget.objectName() == 'search_entry':
-                focus_widget.clearFocus()
-
-        return super().mousePressEvent(event)
-
+        
     def login(self):
-        self.init_loading(qlabel=self.ui.login_page.info_label)
+        tools.init_loading_gif(qlabel=self.ui.login_page.info_label, path=':/img/img/small_loading.gif')
         self.ui.login_page.info_label.setStyleSheet(stylesheet['info_message_negative'])
         
         if len(self.ui.login_page.email_entry.text()) == 0 or \
@@ -69,6 +72,7 @@ class App(QMainWindow):
     
     def login_handle(self):
         timer = QTimer()
+        self.ui.login_page.create_info_label.setStyleSheet(stylesheet['info_message_negative'])
         if type(self.response) == list and len(self.response) > 0:
             response = self.response[0]
             
@@ -77,23 +81,19 @@ class App(QMainWindow):
                 response['detail'] = 'Successfuly logged in'
                 timer.singleShot(2000, lambda: self.goto_dash_reset_entries())
                 self.token = response['access_token']
-            
-            elif response['status_code'] == 404:
-                self.ui.login_page.info_label.setStyleSheet(stylesheet['info_message_negative'])
                 
             self.ui.login_page.info_label.setText(response['detail'])
         
         else:
-            self.ui.login_page.info_label.setStyleSheet(stylesheet['info_message_negative'])
             self.ui.login_page.info_label.setText('Error, try again.')
 
     def create_user(self):
-        self.init_loading(qlabel=self.ui.login_page.create_info_label)
+        tools.init_loading_gif(qlabel=self.ui.login_page.create_info_label, path=':/img/img/small_loading.gif')
         self.ui.login_page.create_info_label.setStyleSheet(stylesheet['info_message_negative'])
 
         if len(self.ui.login_page.create_username_entry.text()) == 0 or \
-                self.ui.login_page.create_email_entry.text() == 0 or \
-                self.ui.login_page.create_password_entry.text() == 0:
+                len(self.ui.login_page.create_email_entry.text()) == 0 or \
+                len(self.ui.login_page.create_password_entry.text()) == 0:
             self.ui.login_page.create_info_label.setText('All fields are required')
             return
 
@@ -109,15 +109,10 @@ class App(QMainWindow):
         self.request_thread_creator(self.create_user_handle, *request)
               
     def create_user_handle(self):
-        
+        self.ui.login_page.create_info_label.setStyleSheet(stylesheet['info_message_negative'])
         if type(self.response) == list and len(self.response) > 0:
             timer = QTimer()
             response = self.response[0]
-            
-            if response['status_code'] == 422:
-                if type(response['detail']) == list:
-                    for item in response['detail']:
-                        response['detail'] = item['msg'].capitalize()
 
             if response['status_code'] == 201:
                 self.ui.login_page.create_info_label.setStyleSheet(stylesheet['info_message_positive'])
@@ -127,7 +122,6 @@ class App(QMainWindow):
             timer.singleShot(
                 1000, lambda: self.ui.login_page.create_info_label.setText(response['detail']))
         else:
-            self.ui.login_page.create_info_label.setStyleSheet(stylesheet['info_message_negative'])
             self.ui.login_page.create_info_label.setText('Error, try again.')
     
     def request_thread_creator(self, connect_to, *args):
@@ -163,13 +157,6 @@ class App(QMainWindow):
             else:
                 entry.setStyleSheet(stylesheet['login_entry'])
                 info_entry.setStyleSheet(stylesheet['login_info_entry'])
-
-    def init_loading(self, qlabel: QLabel):
-        self.loading_gif = QMovie(
-            ':/img/img/small_loading.gif')
-        self.loading_gif.start()
-        qlabel.setText('')
-        qlabel.setMovie(self.loading_gif)
 
     def link_login_btns_pages(self):
 
